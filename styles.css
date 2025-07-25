@@ -93,30 +93,30 @@
 }
 
     /* Mobile menu styles */
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        background: #111;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        z-index: 1000;
-      }
-      nav.open {
-        display: flex;
-      }
-      nav a {
-        margin: 1rem 0;
-        font-size: 1.2rem;
-      }
-      .menu-toggle {
-        display: block;
-      }
-    }
+  @media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    background: #111;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    z-index: 1000;
+  }
+  nav.open {
+    display: flex;
+  }
+  nav a {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
 
     .hero {
       background: url('Images/Jordan/2M2A5476-Enhanced-NR.jpg') center/cover no-repeat;
