@@ -1,0 +1,239 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+    header {
+      background: #111;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+.nav-root {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-root > li {
+  position: relative;
+}
+
+.folder-parent {
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.folder-child {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 140px;
+  z-index: 1000;
+}
+
+.folder-child li {
+  padding: 0;
+}
+
+.folder-child li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.folder-child li a:hover {
+  background-color: #eee;
+}
+
+/* Hide submenu by default */
+.folder-child[hidden] {
+  display: none;
+}
+
+    /* Mobile menu styles */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #111;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+        z-index: 1000;
+      }
+      nav.open {
+        display: flex;
+      }
+      nav a {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .hero {
+      background: url('images/Jordan/2M2A5476-Enhanced-NR.jpg') center/cover no-repeat;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      padding: 0 1rem;
+    }
+    .section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .contact {
+      background: #f9f9f9;
+    }
+    form {
+      max-width: 600px;
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    button {
+      padding: 1rem;
+      background: #111;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #333;
+    }
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Instagram embed max width */
+    #instagram blockquote.instagram-media {
+      margin: auto !important;
+      max-width: 540px !important;
+      width: 100% !important;
+    }
+
+  #map {
+  position: relative; /* needed for spinner positioning */
+  height: 400px;
+  max-width: 600px;
+  margin: 1rem auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border: 5px solid #ccc;
+  border-top-color: #111;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1001;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+ #instagram {
+  /* just basic styling or padding if you want */
+  text-align: center; /* to center the title */
+}
+
+#instagram .instagram-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* centers the posts horizontally */
+  gap: 20px; /* space between posts */
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+}
+
+#instagram blockquote.instagram-media {
+  flex: 1 1 300px;
+  max-width: 350px;
+  margin: 0;
+}
+
