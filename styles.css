@@ -1,44 +1,51 @@
+/* =========================
+   Global Styles
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  background: #fff;
+  color: #333;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      line-height: 1.6;
-      background: #fff;
-      color: #333;
-    }
-    header {
-      background: #111;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
-    }
-    /* Hamburger Button */
-    .menu-toggle {
-      display: none;
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-      z-index: 1001;
-    }
-    nav {
-      margin-top: 1rem;
-    }
-    nav a {
-      margin: 0 1rem;
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-    }
+/* =========================
+   Header & Navigation
+   ========================= */
+header {
+  background: #111;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+/* Hamburger Button for Mobile Nav */
+.menu-toggle {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+nav {
+  margin-top: 1rem;
+}
+nav a {
+  margin: 0 1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+/* Navigation List */
 .nav-root {
   list-style: none;
   padding: 0;
@@ -46,17 +53,16 @@
   display: flex;
   gap: 1.5rem;
 }
-
 .nav-root > li {
   position: relative;
 }
-
+/* Dropdown Parent */
 .folder-parent {
   cursor: pointer;
   font-weight: 600;
   user-select: none;
 }
-
+/* Dropdown Child */
 .folder-child {
   list-style: none;
   padding: 0.5rem 0;
@@ -70,11 +76,9 @@
   min-width: 140px;
   z-index: 1000;
 }
-
 .folder-child li {
   padding: 0;
 }
-
 .folder-child li a {
   display: block;
   padding: 0.5rem 1rem;
@@ -82,18 +86,18 @@
   text-decoration: none;
   white-space: nowrap;
 }
-
 .folder-child li a:hover {
   background-color: #eee;
 }
-
 /* Hide submenu by default */
 .folder-child[hidden] {
   display: none;
 }
 
-    /* Mobile menu styles */
-  @media (max-width: 768px) {
+/* =========================
+   Mobile Navigation Styles
+   ========================= */
+@media (max-width: 768px) {
   nav {
     display: none;
     flex-direction: column;
@@ -118,79 +122,82 @@
   }
 }
 
-    .hero {
-      background: url('Images/Jordan/2M2A5476-Enhanced-NR.jpg') center/cover no-repeat;
-      height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-    }
-    .hero h1 {
-      font-size: 3rem;
-      padding: 0 1rem;
-    }
-    .section {
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
-    }
-    .gallery img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .contact {
-      background: #f9f9f9;
-    }
-    form {
-      max-width: 600px;
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    input, textarea {
-      padding: 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: vertical;
-    }
-    button {
-      padding: 1rem;
-      background: #111;
-      color: white;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #333;
-    }
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
+/* =========================
+   Hero Section
+   ========================= */
+.hero {
+  background: url('Images/Jordan/2M2A5476-Enhanced-NR.jpg') center/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+.hero h1 {
+  font-size: 3rem;
+  padding: 0 1rem;
+}
 
-    /* Instagram embed max width */
-    #instagram blockquote.instagram-media {
-      margin: auto !important;
-      max-width: 540px !important;
-      width: 100% !important;
-    }
+/* =========================
+   Section, Gallery, Contact, Footer
+   ========================= */
+.section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.contact {
+  background: #f9f9f9;
+}
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+input, textarea {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+button {
+  padding: 1rem;
+  background: #111;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #333;
+}
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
 
-  #map {
+/* =========================
+   Map & Spinner
+   ========================= */
+#map {
   position: relative; /* needed for spinner positioning */
   height: 400px;
   max-width: 600px;
@@ -198,7 +205,6 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
 .spinner {
   position: absolute;
   top: 50%;
@@ -212,28 +218,235 @@
   animation: spin 1s linear infinite;
   z-index: 1001;
 }
-
 /* Spinner animation */
 @keyframes spin {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
- #instagram {
-  /* just basic styling or padding if you want */
-  text-align: center; /* to center the title */
+/* =========================
+   Instagram Slider (Desktop)
+   ========================= */
+.instagram-slider {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
 }
-
-#instagram .instagram-row {
+/* Row layout for desktop */
+.ig-row {
   display: flex;
-  flex-direction: row;
-  justify-content: center; /* centers the posts horizontally */
-  gap: 20px; /* space between posts */
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 0;
+}
+.ig-slider {
+  display: none;
+}
+.instagram-media {
+  width: 320px !important;
+  max-width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  overflow: hidden;
+  /* Crop the embed to only show the photo and username */
+  height: 420px;
 }
 
-#instagram blockquote.instagram-media {
-  flex: 1 1 300px;
-  max-width: 350px;
-  margin: 0;
+/* =========================
+   Instagram Slider (Mobile/Tablet)
+   ========================= */
+@media (max-width: 1024px) {
+  .ig-row { display: none; }
+  .ig-slider {
+    display: block;
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 0 32px 0;
+  }
+  .slider-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    width: 100%;
+    position: relative;
+    height: 420px;
+    pointer-events: none;
+  }
+  .slide {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 70%;
+    max-width: 320px;
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateX(-50%) scale(0.92);
+    /* Smooth slide transition */
+    transition: 
+      filter 0.6s cubic-bezier(.77,0,.18,1),
+      opacity 0.6s cubic-bezier(.77,0,.18,1),
+      transform 0.6s cubic-bezier(.77,0,.18,1),
+      z-index 0.6s cubic-bezier(.77,0,.18,1);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    filter: none;
+    transform: translateX(-50%) scale(1);
+    z-index: 3;
+    pointer-events: auto;
+  }
+  .slide.prev {
+    opacity: 1;
+    filter: blur(4px);
+    transform: translateX(-120%) scale(0.92);
+    z-index: 2;
+  }
+  .slide.next {
+    opacity: 1;
+    filter: blur(4px);
+    transform: translateX(20%) scale(0.92);
+    z-index: 2;
+  }
+  .slide:not(.active):not(.prev):not(.next) {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+
+  /* Navigation arrows (hollow circles) */
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;         /* Transparent center */
+    border: 2px solid #ccc;          /* Circle border */
+    border-radius: 50%;
+    font-size: 1.3rem;               /* Arrow size */
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    box-shadow: none;                /* Remove shadow for true hollow look */
+    transition: background 0.2s, border-color 0.2s;
+    opacity: 1;
+  }
+  .nav:hover {
+    border-color: #888;
+    background: rgba(255,255,255,0.15); /* Subtle hover effect */
+  }
+  .nav .arrow {
+    color: #222;
+    font-size: 1.3rem;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  /* Slider controls (dots and play button) */
+  .slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .dots {
+    display: flex;
+    gap: 10px;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    outline: none;
+  }
+  .dot.active { background: #222; }
+
+  /* Play/Pause button for slider */
+  .play {
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    padding: 7px 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    opacity: 1;
+    width: 36px;
+    height: 36px;
+    min-width: 36px; /* or whatever width fits your icons comfortably */
+    text-align: center;
+  }
+  .play .play-icon,
+  .play .pause-icon {
+    font-size: 1.1rem;
+    color: #222;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .play.active .play-icon { display: none; }
+  .play.active .pause-icon { display: inline-block; }
 }
 
+/* =========================
+   Navigation Arrow Positioning
+   ========================= */
+.nav {
+  z-index: 10;
+}
+.nav.prev {
+  left: 8px;
+  right: auto;
+}
+.nav.next {
+  right: 8px;
+  left: auto;
+}
+
+/* =========================
+   Mobile-specific scaling and centering
+   ========================= */
+@media (max-width: 600px) {
+  .ig-slider {
+    transform: scale(0.8);
+    transform-origin: top center;
+    /* Optional: keep it centered */
+    margin: 0 auto;
+  }
+  .slider-controls {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: relative;
+  }
+  .dots {
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  }
+  .play {
+    margin-left: 12px;
+    margin-right: 0;
+  }
+}

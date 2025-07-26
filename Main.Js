@@ -81,4 +81,95 @@ document.addEventListener('DOMContentLoaded', () => {
   }).addTo(map);
 });
 
- 
+document.addEventListener('DOMContentLoaded', () => {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const prevBtn = document.querySelector('.nav.prev');
+  const nextBtn = document.querySelector('.nav.next');
+  const playBtn = document.querySelector('.play');
+  let currentIndex = 0;
+  let autoplay = null;
+
+  function updateSlider(index) {
+    // Infinite loop: wrap index
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIndex = index;
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active', 'prev', 'next');
+    });
+    const total = slides.length;
+    slides[index].classList.add('active');
+    slides[(index - 1 + total) % total].classList.add('prev');
+    slides[(index + 1) % total].classList.add('next');
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+
+    // Play button icon
+    if (autoplay) {
+      playBtn.classList.add('active');
+      playBtn.querySelector('.play-icon').style.display = 'none';
+      playBtn.querySelector('.pause-icon').style.display = 'inline-block';
+    } else {
+      playBtn.classList.remove('active');
+      playBtn.querySelector('.play-icon').style.display = 'inline-block';
+      playBtn.querySelector('.pause-icon').style.display = 'none';
+    }
+  }
+
+  function nextSlide() {
+    updateSlider(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    updateSlider(currentIndex - 1);
+  }
+
+  function goToSlide(i) {
+    updateSlider(i);
+  }
+
+  function startAutoplay() {
+    if (autoplay) clearInterval(autoplay);
+    autoplay = setInterval(nextSlide, 4000);
+    updateSlider(currentIndex);
+  }
+
+  function stopAutoplay() {
+    if (autoplay) clearInterval(autoplay);
+    autoplay = null;
+    updateSlider(currentIndex);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (autoplay) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    stopAutoplay();
+  });
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    stopAutoplay();
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      goToSlide(i);
+      stopAutoplay();
+    });
+  });
+
+  // Initialize
+  updateSlider(currentIndex);
+  startAutoplay(); // <-- Add this line to start the slideshow automatically
+});
+
