@@ -172,4 +172,4 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSlider(currentIndex);
   startAutoplay(); // <-- Add this line to start the slideshow automatically
 });
-
+ 
