@@ -2,221 +2,311 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ben Fusco | Photographer</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-
-
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+  <link rel="manifest" href="/site.webmanifest" />
 </head>
 <body>
   <header>
-    <h1>Ben Fusco</h1>
-    <p>Photographer | Videographer | Creative</p>
-   <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-  <nav id="menu">
-  <ul class="nav-root">
-    <li class="folder">
-      <div class="folder-parent" tabindex="0" aria-haspopup="true" aria-expanded="false">
-        <span class="folder-toggle" role="button" aria-label="Toggle Portfolio submenu" tabindex="0">
-          Portfolio ▼
-        </span>
-      </div>
-      <ul class="folder-child" hidden>
-        <li><a href="Portfolio/portraits.html">Portraits</a></li>
-        <li><a href="Portfolio/weddings.html">Weddings</a></li>
-        <li><a href="real-estate.html">Real Estate</a></li>
+  <div class="header-flex">
+    <a href="index.html" class="logo-link" aria-label="Home">
+      <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+    </a>
+    <div class="header-title">
+      <a href="index.html" class="site-title-link">
+        <h1>Ben Fusco</h1>
+      </a>
+      <p>Photographer | Videographer | Creative</p>
+    </div>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+    <!-- Desktop nav -->
+    <nav class="desktop-nav">
+    <ul class="nav-root">
+      <li class="folder-parent">
+        <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+        <ul class="folder-child">
+          <li><a href="Portfolio/portraits.html">Portrait</a></li>
+          <li><a href="Portfolio/weddings.html">Wedding</a></li>
+          <li><a href="#other">Other</a></li>
+        </ul>
+      </li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#instagram" class="nav-link">Instagram</a></li>
+      <li><a href="#map-section" class="nav-link">Location</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+    <!-- Mobile nav -->
+    <nav id="menu" class="mobile-nav">
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
+          <ul class="folder-child">
+            <li><a href="Portfolio/portraits.html">Portrait</a></li>
+            <li><a href="Portfolio/weddings.html">Wedding</a></li>
+            <li><a href="#other">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#map-section">Location</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-    </li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#instagram">Instagram</a></li>
-    <li><a href="#map-section">Location</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+    </nav>
+    <div class="nav-overlay"></div>
   </header>
 
-  <section class="hero">
-    <h1>Capturing Moments That Matter</h1>
-  </section>
+    <section class="hero">
+      <h1>Capturing Moments That Matter</h1>
+    </section>
 
-  <section id="Portfolio" class="section">
-    <h2>Portfolio</h2>
-    <div class="gallery">
-      <img src="Images/Wedding/2M2A4878.jpg" alt="Horizontal Image">
-      <img src="Images/Jordan/2M2A5383-Enhanced-NR.jpg" alt="Gallery Image 2">
-      <img src="Images/Jordan/2M2A5585-Enhanced-NR.jpg" alt="Gallery Image 3">
-      <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="Gallery Image 4">
-    </div>
-  </section>
+    <section id="Portfolio" class="section">
+      <h2>Portfolio</h2>
+      <div class="gallery">
+        <img src="Images/Wedding/2M2A4878.jpg" alt="Horizontal Image">
+        <img src="Images/Jordan/2M2A5383-Enhanced-NR.jpg" alt="Gallery Image 2">
+        <img src="Images/Jordan/2M2A5585-Enhanced-NR.jpg" alt="Gallery Image 3">
+        <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="Gallery Image 4">
+      </div>
+    </section>
 
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <p>Hi, I'm Ben, a Gatineau-based photographer passionate about capturing real stories, raw emotion, and unforgettable moments. Whether it's a wedding, portrait session, or brand shoot, I aim to bring your vision to life.</p>
-  </section>
+    <section id="about" class="section">
+      <h2>About Me</h2>
+      <p>Hi, I'm Ben, a Gatineau-based photographer passionate about capturing real stories, raw emotion, and unforgettable moments. Whether it's a wedding, portrait session, or brand shoot, I aim to bring your vision to life.</p>
+    </section>
 
- <section id="instagram" class="section">
-  <h2>Latest on Instagram</h2>
-  <!-- Desktop: row layout -->
-  <div class="ig-row">
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ7lCY5hVHl/" data-instgrm-version="14"></blockquote>
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ2Epzlhbi7/" data-instgrm-version="14"></blockquote>
-  </div>
-  <!-- Mobile/tablet: slider layout -->
-  <div class="ig-slider">
-  <button class="nav prev" aria-label="Previous">&#10094;</button>
-  <div class="slider-track">
-    <div class="slide">
+   <section id="instagram" class="section">
+    <h2>Latest on Instagram</h2>
+    <!-- Desktop: row layout -->
+    <div class="ig-row">
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
-    </div>
-    <div class="slide">
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ7lCY5hVHl/" data-instgrm-version="14"></blockquote>
-    </div>
-    <div class="slide">
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ2Epzlhbi7/" data-instgrm-version="14"></blockquote>
     </div>
-  </div>
-  <button class="nav next" aria-label="Next">&#10095;</button>
-  <div class="slider-controls">
-    <div class="dots">
-      <span class="dot active" data-index="0"></span>
-      <span class="dot" data-index="1"></span>
-      <span class="dot" data-index="2"></span>
+    <!-- Mobile/tablet: slider layout -->
+    <div class="ig-slider">
+    <button class="nav prev" aria-label="Previous">&#10094;</button>
+    <div class="slider-track">
+      <div class="slide">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="slide">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ7lCY5hVHl/" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="slide">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ2Epzlhbi7/" data-instgrm-version="14"></blockquote>
+      </div>
     </div>
-    <button class="play" title="Play/Pause">
-      <span class="play-icon">&#9658;</span>
-      <span class="pause-icon" style="display:none;">&#10073;&#10073;</span>
-    </button>
+    <button class="nav next" aria-label="Next">&#10095;</button>
+    <div class="slider-controls">
+      <div class="dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+      <button class="play" title="Play/Pause">
+        <span class="play-icon">&#9658;</span>
+        <span class="pause-icon" style="display:none;">&#10073;&#10073;</span>
+      </button>
+    </div>
   </div>
-</div>
-</section>
-<script async src="//www.instagram.com/embed.js"></script>
-
-
   </section>
-
- <section id="map-section" class="section">
-  <h2>My Location</h2>
-  <p>Based in Gatineau, Quebec</p>
-  <div id="map">
-    <div id="spinner" class="spinner"></div>
-  </div>
-</section>
-
-  <!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  crossorigin=""
-/>
-
-<!-- Leaflet JS --> 
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  crossorigin=""
-></script>
-
-<script src="main.js"></script>
-<style>
-  #map {
-    height: 400px;
-    max-width: 600px;
-    margin: 1rem auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-</style>
-
-  <section id="contact" class="section contact">
-    <h2>Contact Me</h2>
-    <form action="mailto:youremail@example.com" method="POST" enctype="text/plain">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
-  </footer>
-
-
-  <!-- Instagram embed script -->
   <script async src="//www.instagram.com/embed.js"></script>
+
+
+    </section>
+
+   <section id="map-section" class="section">
+    <h2>My Location</h2>
+    <p>Based in Gatineau, Quebec</p>
+    <div id="map">
+      <div id="spinner" class="spinner"></div>
+    </div>
+  </section>
+
+    <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+
+  <!-- Leaflet JS --> 
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+
+  <script src="main.js"></script>
+  <style>
+    #map {
+      height: 400px;
+      max-width: 600px;
+      margin: 1rem auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+
+    <section id="contact" class="section contact">
+      <h2>Contact Me</h2>
+      <form action="mailto:youremail@example.com" method="POST" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
+    </footer>
+
+
+    <!-- Instagram embed script -->
+    <script async src="//www.instagram.com/embed.js"></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.nav.prev');
-  const nextBtn = document.querySelector('.nav.next');
-  const playBtn = document.querySelector('.play');
-  let currentIndex = 0;
-  let autoplay = null;
+  document.addEventListener('DOMContentLoaded', () => {
+    // Slider logic
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.nav.prev');
+    const nextBtn = document.querySelector('.nav.next');
+    const playBtn = document.querySelector('.play');
+    let currentIndex = 0;
+    let autoplay = null;
 
-  function updateSlider(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.remove('active', 'prev', 'next');
-    });
-    const total = slides.length;
-    slides[index].classList.add('active');
-    slides[(index - 1 + total) % total].classList.add('prev');
-    slides[(index + 1) % total].classList.add('next');
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-  }
+    function updateSlider(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev', 'next');
+      });
+      const total = slides.length;
+      slides[index].classList.add('active');
+      slides[(index - 1 + total) % total].classList.add('prev');
+      slides[(index + 1) % total].classList.add('next');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider(currentIndex);
-  }
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlider(currentIndex);
+    }
 
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider(currentIndex);
-  }
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateSlider(currentIndex);
+    }
 
-  function goToSlide(i) {
-    currentIndex = i;
-    updateSlider(currentIndex);
-  }
+    function goToSlide(i) {
+      currentIndex = i;
+      updateSlider(currentIndex);
+    }
 
-  function startAutoplay() {
-    if (autoplay) clearInterval(autoplay);
-    autoplay = setInterval(nextSlide, 4000);
-  }
+    function startAutoplay() {
+      if (autoplay) clearInterval(autoplay);
+      autoplay = setInterval(nextSlide, 4000);
+      playBtn.querySelector('.play-icon').style.display = 'none';
+      playBtn.querySelector('.pause-icon').style.display = 'inline-block';
+    }
 
-  function stopAutoplay() {
-    if (autoplay) clearInterval(autoplay);
-    autoplay = null;
-  }
+    function stopAutoplay() {
+      if (autoplay) clearInterval(autoplay);
+      autoplay = null;
+      playBtn.querySelector('.play-icon').style.display = 'inline-block';
+      playBtn.querySelector('.pause-icon').style.display = 'none';
+    }
 
-  nextBtn?.addEventListener('click', () => {
-    nextSlide();
-    stopAutoplay();
-  });
-  prevBtn?.addEventListener('click', () => {
-    prevSlide();
-    stopAutoplay();
-  });
-  playBtn?.addEventListener('click', () => {
-    startAutoplay();
-  });
-
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      goToSlide(i);
+    prevBtn?.addEventListener('click', () => {
+      prevSlide();
       stopAutoplay();
     });
+
+    nextBtn?.addEventListener('click', () => {
+      nextSlide();
+      stopAutoplay();
+    });
+
+    playBtn?.addEventListener('click', () => {
+      if (autoplay) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        goToSlide(i);
+        stopAutoplay();
+      });
+    });
+
+    // Initialize
+    updateSlider(currentIndex);
+
+    // Optionally start autoplay on load:
+    // startAutoplay();
+
+    // Hamburger menu logic
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileNav = document.getElementById('menu');
+    const navOverlay = document.querySelector('.nav-overlay');
+
+    function closeMenu() {
+      mobileNav.classList.remove('open');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
   });
-
-  // Initialize
-  updateSlider(currentIndex);
-});
   </script>
-
+  <style>
+  /* Desktop: Show dropdown on hover */
+  @media (min-width: 769px) {
+    .desktop-nav .folder-parent {
+      position: relative;
+    }
+    .desktop-nav .folder-child {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background: #fff;
+      border: 1px solid #ccc;
+      min-width: 140px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem 0;
+      list-style: none;
+    }
+    .desktop-nav .folder-parent:hover > .folder-child {
+      display: block;
+    }
+    .desktop-nav .dropdown-arrow {
+      transition: transform 0.2s;
+    }
+    .desktop-nav .folder-parent:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+  }
+  </style>
 </body>
 </html>
-

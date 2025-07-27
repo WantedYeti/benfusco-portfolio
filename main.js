@@ -172,4 +172,49 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSlider(currentIndex);
   startAutoplay(); // <-- Add this line to start the slideshow automatically
 });
- 
+
+const menuToggle = document.querySelector('.menu-toggle');
+const mobileNav = document.getElementById('menu');
+const navOverlay = document.querySelector('.nav-overlay');
+
+function closeMenu() {
+  mobileNav.classList.remove('open');
+}
+
+menuToggle.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+navOverlay.addEventListener('click', closeMenu);
+
+// Optional: close menu when a link is clicked
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+document.querySelectorAll('.folder-parent').forEach(parent => {
+  parent.addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('.folder-parent').forEach(p => {
+      if (p !== parent) p.classList.remove('open');
+    });
+    parent.classList.toggle('open');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.folder-parent').forEach(p => p.classList.remove('open'));
+});
+
+// Mobile dropdown toggle for Portfolio
+document.querySelectorAll('.mobile-nav .folder-parent > span').forEach(span => {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const parent = this.parentElement;
+    parent.classList.toggle('open');
+    // Optionally close other open dropdowns
+    document.querySelectorAll('.mobile-nav .folder-parent').forEach(p => {
+      if (p !== parent) p.classList.remove('open');
+    });
+  });
+});
+

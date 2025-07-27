@@ -3,35 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ben Fusco | Portrait Photography</title>
+  <title>Ben Fusco | Wedding Photography</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+  <link rel="manifest" href="/site.webmanifest" />
 </head>
 <body>
   <header>
-    <h1>Ben Fusco</h1>
-    <p>Photographer | Videographer | Creative</p>
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-    <nav id="menu">
+    <div class="header-flex">
+      <a href="../index.html" class="logo-link" aria-label="Home">
+        <img src="../Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+      </a>
+      <div class="header-title">
+        <a href="../index.html" class="site-title-link">
+          <h1>Ben Fusco</h1>
+        </a>
+        <p>Photographer | Videographer | Creative</p>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <nav class="desktop-nav">
       <ul class="nav-root">
-        <li class="folder">
-          <div class="folder-parent" tabindex="0" aria-haspopup="true" aria-expanded="false">
-            <span class="folder-toggle" role="button" aria-label="Toggle Portfolio submenu" tabindex="0">
-              Portfolio ▼
-            </span>
-          </div>
-          <ul class="folder-child" hidden>
-            <li><a href="portraits.html">Portraits</a></li>
-            <li><a href="weddings.html">Weddings</a></li>
-            <li><a href="real-estate.html">Real Estate</a></li>
+        <li class="folder-parent">
+          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+          <ul class="folder-child">
+            <li><a href="portraits.html" class="nav-link">Portrait</a></li>
+            <li><a href="weddings.html" class="nav-link active">Wedding</a></li>
+            <li><a href="#other" class="nav-link">Other</a></li>
           </ul>
         </li>
-        <li><a href="../#about">About</a></li>
-        <li><a href="../#instagram">Instagram</a></li>
-        <li><a href="../#map-section">Location</a></li>
-        <li><a href="../#contact">Contact</a></li>
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="../index.html#instagram" class="nav-link">Instagram</a></li>
+        <li><a href="../index.html#map-section" class="nav-link">Location</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
+    <nav id="menu" class="mobile-nav">
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
+          <ul class="folder-child">
+            <li><a href="portraits.html" class="nav-link">Portrait</a></li>
+            <li><a href="weddings.html" class="nav-link active">Wedding</a></li>
+            <li><a href="#other" class="nav-link">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="../index.html#instagram" class="nav-link">Instagram</a></li>
+        <li><a href="../index.html#map-section" class="nav-link">Location</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-overlay"></div>
   </header>
 
   <section class="hero">
@@ -39,16 +67,15 @@
   </section>
 
   <section id="portfolio" class="section">
-    <h2>Portrait Gallery</h2>
+    <h2>Wedding Gallery</h2>
     <div class="gallery">
-      <img src="../Images/Wedding/2M2A5022.jpg" alt="Portrait 1" />
-      <img src="../Images/Wedding/2M2A6197.jpg" alt="Portrait 2" />
-      <img src="../Images/Wedding/2M2A4800.jpg" alt="Portrait 3" />
-      <!-- Add more portrait images here -->
+      <img src="../Images/Wedding/2M2A5022.jpg" alt="Wedding 1" />
+      <img src="../Images/Wedding/2M2A6197.jpg" alt="Wedding 2" />
+      <img src="../Images/Wedding/2M2A4800.jpg" alt="Wedding 3" />
+      <!-- Add more wedding images here -->
     </div>
   </section>
 
-  <!-- You can keep About, Instagram, Map, Contact sections same as main page -->
   <section id="about" class="section">
     <h2>About Me</h2>
     <p>Hi, I'm Ben, a Gatineau-based photographer passionate about capturing real stories, raw emotion, and unforgettable moments. Whether it's a wedding, portrait session, or brand shoot, I aim to bring your vision to life.</p>
@@ -70,7 +97,6 @@
     <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
   </footer>
 
-  <!-- Include scripts (menu toggle, portfolio submenu toggle, Leaflet, etc.) -->
   <script src="../main.js"></script>
 </body>
 </html>
