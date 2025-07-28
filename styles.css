@@ -743,3 +743,9 @@ footer {
     display: none !important;
   }
 }
+body {
+  font-family: sans-serif;
+  margin: 40px;
+  background: #f8f8f8;
+  color: #333;
+}
