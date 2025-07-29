@@ -7,8 +7,8 @@
   box-sizing: border-box;
 }
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -35,24 +35,27 @@ img, video {
    Header & Navigation
    ========================= */
 header {
-  background: #111;
-  color: white;
-  padding: 2rem;
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding-left: 1rem;
-}
-/* Header Flex Layout */
-.header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+  position: static;
   width: 100%;
-  min-height: 90px;
+  z-index: 100;
+}
+.header-flex {
+  display: none;
+}
+
+/* Divider line between logo and nav */
+.header-divider {
+  flex: 1;
+  height: 1px;
+  background: #444;
+  margin: 0 2rem;
+  min-width: 40px;
+  max-width: 100%;
+  align-self: center;
 }
 /* Logo styles */
 .logo-link {
@@ -69,6 +72,13 @@ header {
   width: 48px;
   object-fit: contain;
   display: block;
+}
+.site-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
 }
 @media (max-width: 768px) {
   .logo-img {
@@ -192,7 +202,8 @@ nav a {
     top: 0; left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(20,20,20,0.98);
+    background: rgba(20,20,20,0.95);
+    backdrop-filter: blur(12px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -200,7 +211,7 @@ nav a {
     transform: translateY(-100%);
     opacity: 0;
     transition: transform 0.35s cubic-bezier(.77,0,.18,1), opacity 0.3s;
-    z-index: 2001;
+    z-index: 3000;
     pointer-events: none;
   }
   .mobile-nav.open {
@@ -215,9 +226,7 @@ nav a {
     padding: 0;
     margin: 0;
     list-style: none;
-  }
-  .mobile-nav .nav-root > li {
-    margin: 0;
+    display: flex;
   }
   .mobile-nav .nav-root a {
     color: #fff;
@@ -228,40 +237,6 @@ nav a {
   }
   .mobile-nav .nav-root a:hover {
     color: #aaa;
-  }
-  .nav-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2000;
-    transition: opacity 0.3s;
-  }
-  .mobile-nav.open ~ .nav-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .mobile-nav .folder-child {
-    display: none;
-    position: static;
-    border: none;
-    box-shadow: none;
-    min-width: 0;
-    padding: 0;
-  }
-  .mobile-nav .folder-parent.open > .folder-child {
-    display: block;
-  }
-  .mobile-nav .folder-child li a {
-    color: #fff;
-    padding-left: 2rem;
-  }
-  .mobile-nav .dropdown-arrow {
-    transition: transform 0.2s;
-  }
-  .mobile-nav .folder-parent.open .dropdown-arrow {
-    transform: rotate(180deg);
   }
 }
 @media (min-width: 769px) {
@@ -743,9 +718,103 @@ footer {
     display: none !important;
   }
 }
-body {
-  font-family: sans-serif;
-  margin: 40px;
-  background: #f8f8f8;
-  color: #333;
+.header-divider {
+  flex: 1;
+  height: 1px;
+  background: #444; /* or any color you want */
+  margin: 0 2rem;
+  min-width: 40px;
+  max-width: 100%;
+  align-self: center;
 }
+
+/* Always sticky, visible navbar */
+.navbar {
+  position: fixed;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100%;
+  z-index: 9999;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent;
+  transition: background 0.3s, backdrop-filter 0.3s;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.navbar.scrolled {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Ensure nav content stays on top of page */
+.navbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 70px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-divider {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 1px;
+  min-width: 40px;
+  margin: 0 2rem;
+}
+
+.nav-root {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 0.5rem;
+    height: 56px;
+    gap: 1rem;
+  }
+  .logo-img {
+    height: 32px;
+    width: 32px;
+  }
+  .site-title {
+    font-size: 1.1rem;
+  }
+  .nav-root {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: #fff;
+    z-index: 2002;
+    cursor: pointer;
+    margin-left: auto;
+  }
+}
+
+/* =========================
+   Remove margin from first section after navbar
+   ========================= */
+.hero, .section:first-of-type {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+

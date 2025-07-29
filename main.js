@@ -218,3 +218,19 @@ document.querySelectorAll('.mobile-nav .folder-parent > span').forEach(span => {
   });
 });
 
+// Select the navigation bar
+const navbar = document.querySelector('.navbar');
+
+// Function to toggle the 'scrolled' class
+function handleScroll() {
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (window.scrollY > heroHeight) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', handleScroll);
+

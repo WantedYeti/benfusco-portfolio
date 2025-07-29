@@ -18,38 +18,34 @@
   <link rel="manifest" href="favicon/site.webmanifest" />
 </head>
 <body>
-  <header>
-  <div class="header-flex">
-    <a href="index.html" class="logo-link" aria-label="Home">
-      <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
-    </a>
-    <div class="header-title">
-      <a href="index.html" class="site-title-link">
-        <h1>Ben Fusco</h1>
-      </a>
-      <p>Photographer | Videographer | Creative</p>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="index.html" class="logo-link" aria-label="Home">
+          <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+          <span class="site-title">Ben Fusco</span>
+        </a>
+      </div>
+      <div class="navbar-divider">
+        <svg height="1" width="100%" style="display:block;"><line x1="0" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:1;opacity:0.25;"></line></svg>
+      </div>
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+          <ul class="folder-child">
+            <li><a href="Portfolio/portraits.html">Portrait</a></li>
+            <li><a href="Portfolio/weddings.html">Wedding</a></li>
+            <li><a href="#other">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#instagram" class="nav-link">Instagram</a></li>
+        <li><a href="#map-section" class="nav-link">Location</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     </div>
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-  </div>
-    <!-- Desktop nav -->
-    <nav class="desktop-nav">
-    <ul class="nav-root">
-      <li class="folder-parent">
-        <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
-        <ul class="folder-child">
-          <li><a href="Portfolio/portraits.html">Portrait</a></li>
-          <li><a href="Portfolio/weddings.html">Wedding</a></li>
-          <li><a href="#other">Other</a></li>
-        </ul>
-      </li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#instagram" class="nav-link">Instagram</a></li>
-      <li><a href="#map-section" class="nav-link">Location</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-  </nav>
-    <!-- Mobile nav -->
-    <nav id="menu" class="mobile-nav">
+    <div id="menu" class="mobile-nav">
       <ul class="nav-root">
         <li class="folder-parent">
           <span>Portfolio <span class="dropdown-arrow">▼</span></span>
@@ -64,9 +60,10 @@
         <li><a href="#map-section">Location</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-    </nav>
+    </div>
     <div class="nav-overlay"></div>
-  </header>
+  </nav>
+  <div class="header-divider"></div>
 
     <section class="hero">
       <h1>Capturing Moments That Matter</h1>
