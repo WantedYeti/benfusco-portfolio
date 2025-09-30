@@ -89,19 +89,6 @@
 
 /* Responsive */
 @media (max-width: 900px){ .fx-slide { flex-basis: calc(100% / var(--fx-per-mobile, 1)); margin-left:0; } }
-
-/* Mobile performance tuning */
-@media (max-width: 600px){
-	.fx-viewport{ height: clamp(280px, 85vw, 420px); }
-	/* Lighter feather to reduce overdraw */
-	.fx-viewport::after{ background:
-		linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(0,0,0,0) 16%, rgba(0,0,0,0) 84%, rgba(0,0,0,0.12)); }
-	/* Remove blur on neighbors (expensive on mobile GPUs) */
-	.fx-slide:not(.active) .fx-img { filter: brightness(.96) contrast(.995) saturate(.99); }
-	/* Soften shadows and remove backdrop-filter on controls */
-	.fx-slide.active{ box-shadow: 0 10px 26px -14px rgba(0,0,0,.55), 0 4px 12px -8px rgba(0,0,0,.5); }
-	.fx-arrow{ backdrop-filter:none; -webkit-backdrop-filter:none; }
-}
 @media (prefers-reduced-motion: reduce){ .fx-track, .fx-img, .fx-slide { transition:none !important; } }
 /* Prevent background scroll when lightbox is open */
 body.fx-lightbox-open { overflow:hidden; }

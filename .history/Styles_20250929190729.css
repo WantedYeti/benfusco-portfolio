@@ -540,14 +540,13 @@ body.lightbox-open { overflow:hidden; }
 
 /* Non-active images mild tone dip */
 .slide:not(.active) .slide-image {
-  /* Keep very light tone adjustment only; avoid blur that causes grainy look */
-  filter: brightness(.97) contrast(1.01) saturate(1.02);
+  filter: brightness(.9) contrast(.97) saturate(.96);
 }
 
   /* Optional: visually switch ☰ to ✕ while open */
   .menu-toggle.is-open { transform: rotate(0.0001deg); }
 /* Transitional micro-blur class (JS may add for 140ms during movement if desired) */
-.slide.transitioning .slide-image { filter: brightness(.95) contrast(.99) saturate(.98); }
+.slide.transitioning .slide-image { filter: brightness(.9) contrast(.97) saturate(.95) blur(.35px); }
 
 /* Vertical images: allow more letterboxing instead of aggressive crop */
 .slide.is-vertical .slide-image {
@@ -700,8 +699,7 @@ body.lightbox-open { overflow:hidden; }
 .slide { transition: transform .75s cubic-bezier(.22,.68,.18,.99), opacity .75s cubic-bezier(.22,.68,.18,.99) !important; }
 .slide.active { transform: scale(1.032) !important; box-shadow: 0 8px 18px -6px rgba(0,0,0,.45), 0 4px 10px -4px rgba(0,0,0,.32) !important; }
 .slide.prev, .slide.next { opacity:.82 !important; transform: scale(.985) !important; }
-/* Remove blur on non-active images to avoid perceived grain */
-.slide:not(.active) .slide-image { filter: brightness(.98) contrast(1.01) saturate(1.02) !important; }
+.slide:not(.active) .slide-image { filter: blur(.8px) brightness(.95) contrast(.995) !important; }
 
 /* Lightbox (extended) */
 .lightbox { position:fixed; inset:0; background:rgba(0,0,0,0.92); display:none; align-items:center; justify-content:center; z-index:5000; }
@@ -749,7 +747,6 @@ img, video {
   max-width: 100%;
   height: auto;
   display: block;
-  image-rendering: auto; /* let browser choose best interpolation */
 }
 
 /* =========================

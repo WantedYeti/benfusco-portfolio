@@ -583,8 +583,7 @@
     // crossfade removed to prevent ghosting
 
     preloadAhead(){
-      const isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
-      const preloadAhead = isMobile ? Math.min(1, this.opts.preloadAhead) : this.opts.preloadAhead;
+      const { preloadAhead } = this.opts;
       const N = this.slideCount();
       for (let k=1; k<=preloadAhead; k++){
         const i1 = (this.state.idx + k) % N;

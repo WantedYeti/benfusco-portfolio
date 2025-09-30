@@ -5,13 +5,13 @@
 */
 (function(){
   const ease = 'ease-in-out';
-  const DUR = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) ? 640 : 800; // slightly shorter on mobile
+  const DUR = 800; // ms, consistent smooth duration per request
   const FADE = 660; // ms, matches .fx-img fade durations in CSS
   const PAUSE_SVG = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
   const PLAY_SVG  = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
 
   function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
-  function preload(src){ const img = new Image(); img.decoding='async'; img.loading='lazy'; img.src = src; return img; }
+  function preload(src){ const img = new Image(); img.decoding='async'; img.loading='eager'; img.fetchPriority = 'high'; img.src = src; return img; }
   async function decodeOnce(src){
     try {
       const img = new Image();
@@ -253,7 +253,7 @@
               io.unobserve(e.target);
             }
           }
-        }, { root: this.ui.viewport, rootMargin: (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) ? '0px 400px 0px 400px' : '0px 1200px 0px 1200px', threshold: 0.01 });
+        }, { root: this.ui.viewport, rootMargin: '0px 1200px 0px 1200px', threshold: 0.01 });
         imgs.forEach(img => { if (!isLoaded(img)) io.observe(img); });
         this._lazyIO = io;
       } else {
@@ -293,7 +293,7 @@
     renderSlides(){
       const { track } = this.ui;
       track.innerHTML = '';
-  const imgs = this.state.imgs;
+      const imgs = this.state.imgs;
       if (!imgs.length) return;
       const make = (src, i) => {
         const slide = document.createElement('div');
@@ -303,11 +303,10 @@
         img.className = 'fx-img';
         img.alt = '';
         img.decoding = 'async';
-  // True lazy-load: assign data-src; on mobile, keep eager to just the current and next
-  const isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
-  const eager = isMobile ? (i === 0 || i === 1) : (i === -1 || i === 0 || i === 1 || i === 2 || i === imgs.length);
+        // True lazy-load: assign data-src; eager for clones/initial neighbors only
+        const eager = (i === -1 || i === 0 || i === 1 || i === 2 || i === imgs.length);
         img.loading = eager ? 'eager' : 'lazy';
-  if (eager && !isMobile) { try { img.fetchPriority = 'high'; } catch(_){} }
+        if (eager) { try { img.fetchPriority = 'high'; } catch(_){} }
         const onLoad = () => {
           try {
             if (img.naturalHeight > img.naturalWidth * 1.05) {
@@ -583,8 +582,7 @@
     // crossfade removed to prevent ghosting
 
     preloadAhead(){
-      const isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
-      const preloadAhead = isMobile ? Math.min(1, this.opts.preloadAhead) : this.opts.preloadAhead;
+      const { preloadAhead } = this.opts;
       const N = this.slideCount();
       for (let k=1; k<=preloadAhead; k++){
         const i1 = (this.state.idx + k) % N;

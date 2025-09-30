@@ -253,7 +253,7 @@
               io.unobserve(e.target);
             }
           }
-        }, { root: this.ui.viewport, rootMargin: (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) ? '0px 400px 0px 400px' : '0px 1200px 0px 1200px', threshold: 0.01 });
+        }, { root: this.ui.viewport, rootMargin: '0px 1200px 0px 1200px', threshold: 0.01 });
         imgs.forEach(img => { if (!isLoaded(img)) io.observe(img); });
         this._lazyIO = io;
       } else {
@@ -583,8 +583,7 @@
     // crossfade removed to prevent ghosting
 
     preloadAhead(){
-      const isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
-      const preloadAhead = isMobile ? Math.min(1, this.opts.preloadAhead) : this.opts.preloadAhead;
+      const { preloadAhead } = this.opts;
       const N = this.slideCount();
       for (let k=1; k<=preloadAhead; k++){
         const i1 = (this.state.idx + k) % N;
