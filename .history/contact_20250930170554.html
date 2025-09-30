@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact | Ben Fusco</title>
+  <meta name="description" content="Get in touch with Ben Fusco for photography inquiries and bookings.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="index.html" class="logo-link" aria-label="Home">
+          <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+          <span class="site-title">Ben Fusco</span>
+        </a>
+      </div>
+      <div class="navbar-divider">
+        <svg height="1" width="100%" style="display:block;"><line x1="0" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:1;opacity:0.25;"></line></svg>
+      </div>
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+          <ul class="folder-child">
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
+            <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/weddings.html">Weddings</a></li>
+            <li><a href="Portfolio/other.html">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#instagram" class="nav-link">Instagram</a></li>
+        <li><a href="index.html#map-section" class="nav-link">Location</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div id="menu" class="mobile-nav">
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
+          <ul class="folder-child">
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
+            <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/weddings.html">Weddings</a></li>
+            <li><a href="Portfolio/other.html">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#instagram">Instagram</a></li>
+        <li><a href="index.html#map-section">Location</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay"></div>
+  </nav>
+
+  <!-- Banner strip of 4 vertical photos under the header -->
+  <section class="contact-banner-photos" aria-hidden="true">
+    <div class="banner-grid">
+      <img src="Images/Jordan/2M2A5383-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Wedding/2M2A4151.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Wedding/2M2A4800.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <main class="section contact contact-page" aria-labelledby="contact-heading">
+    <section class="contact-hero">
+      <p class="eyebrow">LET'S CONNECT</p>
+      <h1 id="contact-heading">Have a special moment to capture?</h1>
+      <p class="intro">Whether it’s a wedding, engagement, family session, or just because — fill out the form and I’ll get back to you soon.</p>
+    </section>
+    <section class="contact-card">
+      <form action="mailto:youremail@example.com" method="POST" enctype="text/plain">
+        <div class="row">
+          <div class="field">
+            <label for="firstName">First Name <span>*</span></label>
+            <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name <span>*</span></label>
+            <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label for="email">Email Address <span>*</span></label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label for="how">How did you hear about me? <span>*</span></label>
+            <input id="how" name="how" type="text" placeholder="Instagram, friend, Google…" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label for="message">Your Message <span>*</span></label>
+            <textarea id="message" name="message" rows="6" placeholder="Tell me about your vision" required></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-primary">SEND MESSAGE</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <style>
+    /* Page-specific styles */
+    .contact-page { padding-top: 120px; }
+    .contact-hero { text-align: center; max-width: 880px; margin: 0 auto 28px; padding: 0 16px; }
+    .contact-hero .eyebrow { letter-spacing: 3px; text-transform: uppercase; font-size: 12px; opacity: .6; margin: 0 0 10px; }
+    .contact-hero h1 { font-weight: 600; font-size: clamp(28px, 4.5vw, 44px); letter-spacing: .5px; margin: 0 0 10px; color: #2f3338; }
+    .contact-hero .intro { color: #5d6269; font-size: 16px; line-height: 1.55; margin: 0 0 12px; }
+
+    .contact-card { max-width: 860px; margin: 0 auto 60px; padding: 28px 20px 32px; background: #fafafa; border: 1px solid #ececec; border-radius: 10px; box-shadow: 0 8px 18px -12px rgba(0,0,0,.08); }
+    .contact-card form { max-width: 760px; margin: 0 auto; }
+    .contact-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+    .contact-card .row .full { grid-column: 1 / -1; }
+    .contact-card label { display: block; font-size: 12px; letter-spacing: .4px; color: #67707a; margin: 0 0 6px; }
+    .contact-card label span { color: #c24b4b; }
+    .contact-card input, .contact-card textarea { width: 100%; padding: 12px 14px; border: 1px solid #d8dde3; border-radius: 8px; font-size: 15px; color: #2d3136; background: #fff; transition: border-color .2s, box-shadow .2s; }
+    .contact-card input:focus, .contact-card textarea:focus { outline: none; border-color: #9fb3c7; box-shadow: 0 0 0 3px rgba(159,179,199,0.22); }
+    .contact-card textarea { resize: vertical; min-height: 140px; }
+    .contact-card .actions { text-align: center; margin-top: 8px; }
+    .btn-primary { display: inline-block; padding: 12px 22px; border-radius: 6px; background: #111; color: #fff; font-weight: 600; letter-spacing: 1px; font-size: 13px; border: 1px solid #111; cursor: pointer; }
+    .btn-primary:hover { background: #2a2a2a; border-color: #2a2a2a; }
+    @media (max-width: 720px) { .contact-card .row { grid-template-columns: 1fr; } }
+  </style>
+
+    .contact-page { padding-top: 40px; }
+    .contact-banner-photos { padding-top: 90px; padding-bottom: 20px; }
+    .contact-banner-photos .banner-grid {
+      display: flex; justify-content: center; align-items: center; gap: 12px;
+      max-width: 900px; margin: 0 auto; padding: 0 16px; flex-wrap: nowrap;
+    }
+    .contact-banner-photos img {
+      height: 140px; width: auto; object-fit: cover; border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    @media (max-width: 720px){ .contact-banner-photos img { height: 110px; } }
+    <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
+  </footer>
+
+  <script defer src="main.js"></script>
+</body>
+</html>

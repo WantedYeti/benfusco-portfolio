@@ -393,11 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
   if (thumbs.length === 0) return;
 
-  // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
-  document.querySelectorAll('.lightbox').forEach(el => {
-    try { el.remove(); } catch (_) {}
-  });
-
   // Build slider-style lightbox once
   let lb = document.querySelector('.slider-lightbox');
   if (!lb) {

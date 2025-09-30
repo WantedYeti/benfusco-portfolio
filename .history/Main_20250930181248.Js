@@ -393,11 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
   if (thumbs.length === 0) return;
 
-  // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
-  document.querySelectorAll('.lightbox').forEach(el => {
-    try { el.remove(); } catch (_) {}
-  });
-
   // Build slider-style lightbox once
   let lb = document.querySelector('.slider-lightbox');
   if (!lb) {
@@ -471,12 +466,12 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = index;
     setImage(currentIndex, false);
     lb.classList.add('open');
-    document.body.classList.add('fx-lightbox-open', 'lightbox-open');
+    document.body.classList.add('fx-lightbox-open');
   }
 
   function close(){
     lb.classList.remove('open');
-    document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
+    document.body.classList.remove('fx-lightbox-open');
   }
 
   function step(dir){
@@ -499,10 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
   if (nextBtn) nextBtn.addEventListener('click', () => step(1));
   lb.addEventListener('click', (e) => {
-    // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
-    const stage = lb.querySelector('.lb-stage');
-    if (e.target && e.target.hasAttribute('data-close')) return close();
-    if (stage && !stage.contains(e.target)) return close();
+    if (e.target && e.target.hasAttribute('data-close')) close();
   });
 
   // Keyboard navigation

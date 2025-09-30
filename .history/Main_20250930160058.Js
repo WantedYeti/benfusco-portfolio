@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =======================
-// Grid Lightbox (portraits grid on homepage) – slider-style fullscreen
+// Grid Lightbox (portraits grid on homepage)
 // =======================
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.portraits-grid');
@@ -393,99 +393,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
   if (thumbs.length === 0) return;
 
-  // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
-  document.querySelectorAll('.lightbox').forEach(el => {
-    try { el.remove(); } catch (_) {}
-  });
-
-  // Build slider-style lightbox once
-  let lb = document.querySelector('.slider-lightbox');
+  // Build lightbox once
+  let lb = document.querySelector('.lightbox');
   if (!lb) {
     lb = document.createElement('div');
-    lb.className = 'slider-lightbox';
+    lb.className = 'lightbox';
     lb.setAttribute('role', 'dialog');
     lb.setAttribute('aria-modal', 'true');
-    lb.setAttribute('aria-label', 'Image viewer');
     lb.innerHTML = `
-      <div class="lb-backdrop" data-close></div>
-      <div class="lb-inner">
-        <div class="lb-stage">
-          <img class="lb-image" alt="" />
-          <button class="lb-close" type="button" aria-label="Close">×</button>
-          <button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
-          <button class="lb-nav lb-next" type="button" aria-label="Next">›</button>
-        </div>
-        <div class="lb-caption" aria-live="polite"></div>
-        <div class="lb-counter" aria-live="polite"></div>
-      </div>`;
+      <div class="lightbox-img-wrapper">
+        <img class="lightbox-img" alt="" />
+      </div>
+      <div class="lightbox-controls">
+        <button class="close-btn" type="button" aria-label="Close">Close</button>
+      </div>
+    `;
     document.body.appendChild(lb);
   }
 
-  const imgEl = lb.querySelector('.lb-image');
-  const closeBtn = lb.querySelector('.lb-close');
-  const prevBtn = lb.querySelector('.lb-prev');
-  const nextBtn = lb.querySelector('.lb-next');
-  const caption = lb.querySelector('.lb-caption');
-  const counter = lb.querySelector('.lb-counter');
+  const imgEl = lb.querySelector('.lightbox-img');
+  const closeBtn = lb.querySelector('.close-btn');
   let currentIndex = 0;
-
-  function setImage(index, withFade = true){
-    const el = thumbs[index];
-    if (!el) return;
-    const src = el.getAttribute('data-fullsrc') || el.src;
-    const alt = el.alt || '';
-
-    if (withFade) {
-      // simple fade by toggling opacity via class
-      imgEl.classList.remove('loaded');
-      const tmp = new Image();
-      tmp.onload = () => {
-        imgEl.src = src;
-        imgEl.alt = alt;
-        requestAnimationFrame(() => imgEl.classList.add('loaded'));
-      };
-      tmp.src = src;
-    } else {
-      imgEl.src = src;
-      imgEl.alt = alt;
-      imgEl.classList.add('loaded');
-    }
-
-    // Caption and counter
-    if (caption) caption.textContent = alt || '';
-    if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
-
-    // Preload neighbors for snappy nav
-    const nextIdx = (index + 1) % thumbs.length;
-    const prevIdx = (index - 1 + thumbs.length) % thumbs.length;
-    [nextIdx, prevIdx].forEach(i => {
-      const n = thumbs[i];
-      if (!n) return;
-      const nsrc = n.getAttribute('data-fullsrc') || n.src;
-      const pre = new Image();
-      pre.src = nsrc;
-    });
-  }
 
   function openAt(index){
     currentIndex = index;
-    setImage(currentIndex, false);
+    const src = thumbs[currentIndex].getAttribute('data-fullsrc') || thumbs[currentIndex].src;
+    imgEl.src = src;
+    imgEl.alt = thumbs[currentIndex].alt || '';
     lb.classList.add('open');
-    document.body.classList.add('fx-lightbox-open', 'lightbox-open');
+    document.body.classList.add('lightbox-open');
   }
 
   function close(){
     lb.classList.remove('open');
-    document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
+    document.body.classList.remove('lightbox-open');
   }
 
   function step(dir){
     const len = thumbs.length;
     currentIndex = (currentIndex + dir + len) % len;
-    setImage(currentIndex, true);
+    const src = thumbs[currentIndex].getAttribute('data-fullsrc') || thumbs[currentIndex].src;
+    imgEl.src = src;
+    imgEl.alt = thumbs[currentIndex].alt || '';
   }
 
-  // Click to open from grid
+  // Click to open
   grid.addEventListener('click', (e) => {
     const t = e.target;
     if (!(t && t.classList && t.classList.contains('portrait-thumb'))) return;
@@ -494,15 +446,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx >= 0) openAt(idx);
   });
 
-  // Controls
+  // Close interactions
   if (closeBtn) closeBtn.addEventListener('click', close);
-  if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
-  if (nextBtn) nextBtn.addEventListener('click', () => step(1));
   lb.addEventListener('click', (e) => {
-    // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
-    const stage = lb.querySelector('.lb-stage');
-    if (e.target && e.target.hasAttribute('data-close')) return close();
-    if (stage && !stage.contains(e.target)) return close();
+    const wrapper = lb.querySelector('.lightbox-img-wrapper');
+    if (!wrapper.contains(e.target)) close();
   });
 
   // Keyboard navigation

@@ -1,0 +1,5 @@
+[build]
+  publish = "."
+
+# Optional: enable form submissions without JS. Netlify auto-detects forms in your HTML.
+# No build command needed for a static site.

@@ -70,6 +70,22 @@
   </script>
 </head>
 <body>
+
+  <!-- Hero Section -->
+  <section class="hero" style="background-image:none;">
+    <div class="hero-media">
+      <img
+        src="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg"
+        alt="Elegant wedding moment by Ben Fusco"
+        fetchpriority="high"
+        decoding="async"
+        width="1600" height="1000"
+        style="object-fit:cover; object-position:center 25%; width:100%; height:100%; transform:scale(1.08); transform-origin:center;"
+      />
+    </div>
+    <h1 class="hero-title">Capturing Moments That Matter</h1>
+  </section>
+
   <nav class="navbar">
     <div class="navbar-content">
       <div class="navbar-left">
@@ -120,20 +136,14 @@
     <div class="nav-overlay"></div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" style="background-image:none;">
-    <div class="hero-media">
-      <img
-        src="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg"
-        alt="Elegant wedding moment by Ben Fusco"
-        fetchpriority="high"
-        decoding="async"
-        width="1600" height="1000"
-        sizes="100vw"
-        style="object-fit:cover; object-position:center 25%; width:100%; height:100%; transform:scale(1.08); transform-origin:center;"
-      />
+  <!-- Small centered 4-photo strip under header -->
+  <section class="home-banner-photos" aria-hidden="true">
+    <div class="banner-grid">
+      <img src="Images/Jordan/2M2A5383-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Wedding/2M2A4151.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Wedding/2M2A4800.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
     </div>
-    <h1 class="hero-title">Capturing Moments That Matter</h1>
   </section>
 
   <!-- Removed duplicate header-divider, unnecessary inline styles, and ensured semantic structure -->
@@ -162,7 +172,7 @@
   <img src="Images/Gabriella/IMG_1821-Edit-Edit.jpg" alt="Portrait 15" class="portrait-thumb" loading="lazy" decoding="async">
   <!-- Additional images to fill the grid nicely -->
   <img src="Images/Concert/2M2A4605-Edit-Edit.jpg" alt="Concert portrait" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/J&amp;M/2M2A3323-Edit.jpg" alt="Wedding couple portrait" class="portrait-thumb" loading="lazy" decoding="async">
+  <img src="Images/J&M/2M2A3323-Edit.jpg" alt="Wedding couple portrait" class="portrait-thumb" loading="lazy" decoding="async">
       </div>
       <!-- Featured Carousel (moved below the photo grid per request) -->
       <div class="fx-carousel" aria-label="Featured photography" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"
@@ -192,15 +202,6 @@
         <button class="team-button">i TEAM</button>
       </div>
     </section>
-
-   <!-- Get in Touch CTA Section (moved near bottom) -->
-  <section class="section" aria-labelledby="cta-heading">
-    <div style="max-width:980px; margin:0 auto; padding:48px 16px; text-align:center; background:#f7f7f7; border-radius:8px;">
-      <p style="letter-spacing:3px; text-transform:uppercase; font-size:12px; opacity:.6; margin:0 0 12px;">Ready to connect?</p>
-      <h2 id="cta-heading" style="font-size:40px; letter-spacing:2px; font-weight:400; margin:0 0 18px; color:#50545a;">Get In Touch</h2>
-      <a href="contact.html" class="cta-button" style="display:inline-block; padding:12px 22px; border:1px solid #9aa0a6; border-radius:4px; text-decoration:none; color:#50545a; letter-spacing:2px; font-size:12px;">CONTACT ME</a>
-    </div>
-  </section>
 
    <section id="instagram" class="section">
     <h2>Latest on Instagram</h2>
@@ -257,6 +258,15 @@
   <!-- Leaflet CSS/JS will be loaded lazily by script below -->
   <!-- Removed duplicate main.js include (already deferred in head) -->
   <style>
+    /* Home 4-photo banner */
+    .home-banner-photos { padding: 22px 0 8px; }
+    .home-banner-photos .banner-grid {
+      display: flex; justify-content: center; align-items: center; gap: 12px;
+      max-width: 1160px; margin: 0 auto; padding: 0 32px; flex-wrap: nowrap;
+    }
+  .home-banner-photos img { height: 140px; width: auto !important; max-width: none; object-fit: cover; display:block; border-radius: 0; box-shadow: none; }
+    @media (max-width: 900px){ .home-banner-photos img { height: 110px; } }
+    @media (max-width: 600px){ .home-banner-photos img { height: 88px; } }
     #map {
       height: 400px;
       max-width: 600px;
@@ -265,12 +275,19 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     /* Ensure hero media covers the hero section without shifting layout */
-  .hero { position: relative; overflow: hidden; padding-top:70px; }
+    .hero { position: relative; overflow: hidden; }
     .hero .hero-media { position:absolute; inset:0; }
     .hero .hero-title { position:relative; z-index:1; }
   </style>
 
-  
+  <!-- Get in Touch CTA Section -->
+  <section class="section" aria-labelledby="cta-heading">
+    <div style="max-width:980px; margin:0 auto; padding:48px 16px; text-align:center; background:#f7f7f7; border-radius:8px;">
+      <p style="letter-spacing:3px; text-transform:uppercase; font-size:12px; opacity:.6; margin:0 0 12px;">Ready to connect?</p>
+      <h2 id="cta-heading" style="font-size:40px; letter-spacing:2px; font-weight:400; margin:0 0 18px; color:#50545a;">Get In Touch</h2>
+      <a href="contact.html" class="cta-button" style="display:inline-block; padding:12px 22px; border:1px solid #9aa0a6; border-radius:4px; text-decoration:none; color:#50545a; letter-spacing:2px; font-size:12px;">CONTACT ME</a>
+    </div>
+  </section>
 
       <!-- Contact section removed per request -->
 
