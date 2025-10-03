@@ -95,8 +95,7 @@
     </section>
     <section class="contact-card">
       <form name="contact" method="POST" action="/contact.html" accept-charset="UTF-8" data-netlify="true" netlify netlify-honeypot="bot-field">
-  <input type="hidden" name="form-name" value="contact">
-  <input type="hidden" name="subject" value="New contact from benfusco.com">
+        <input type="hidden" name="form-name" value="contact">
         <div class="hp-field" aria-hidden="true">
           <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
         </div>
@@ -312,14 +311,13 @@
           if (!formData.get('form-name')) formData.set('form-name', form.getAttribute('name') || 'contact');
           const bodyObj = {};
           formData.forEach((v,k)=>{ bodyObj[k]=v; });
-          const endpoint = form.getAttribute('action') || window.location.pathname || '/';
-          const resp = await fetch(endpoint, {
+          const resp = await fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode(bodyObj)
           });
           if (resp.ok) {
-            window.location.href = '/thank-you.html';
+            window.location.href = form.getAttribute('action') || '/thank-you.html';
           } else {
             // fallback to native submit if fetch fails
             form.submit();
