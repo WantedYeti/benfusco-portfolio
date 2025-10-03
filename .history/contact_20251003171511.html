@@ -293,41 +293,7 @@
   <footer>
     <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
   </footer>
-  <script>
-    // Netlify Forms JS fallback: submit to '/' via fetch for consistent handling
-    (function(){
-      const form = document.querySelector('form[name="contact"][data-netlify]');
-      if (!form) return;
-      function encode(data) {
-        return Object.keys(data)
-          .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-          .join('&');
-      }
-      form.addEventListener('submit', async function(e){
-        try {
-          e.preventDefault();
-          const formData = new FormData(form);
-          // Netlify requires form-name key in payload
-          if (!formData.get('form-name')) formData.set('form-name', form.getAttribute('name') || 'contact');
-          const bodyObj = {};
-          formData.forEach((v,k)=>{ bodyObj[k]=v; });
-          const resp = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: encode(bodyObj)
-          });
-          if (resp.ok) {
-            window.location.href = form.getAttribute('action') || '/thank-you.html';
-          } else {
-            // fallback to native submit if fetch fails
-            form.submit();
-          }
-        } catch(err){
-          form.submit();
-        }
-      });
-    })();
-  </script>
+
   <script defer src="main.js"></script>
 </body>
 </html>
