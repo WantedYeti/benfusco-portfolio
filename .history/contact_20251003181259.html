@@ -321,68 +321,61 @@
     <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
   </footer>
   <script>
-    // AJAX submit to PHP handler with inline success/error feedback
+    // Netlify Forms JS fallback: submit to '/' via fetch for consistent handling
     (function(){
-      const form = document.getElementById('secureContactForm');
+      const form = document.querySelector('form[name="contact"][data-netlify]');
       if (!form) return;
-      const okEl = document.getElementById('formConfirm');
-      const errEl = document.getElementById('formError');
-      // Always hide messages on load
-      if (okEl) okEl.hidden = true;
-      if (errEl) errEl.hidden = true;
-      // If redirected back with status param (non-JS submit fallback), show message
-      try {
-        const usp = new URLSearchParams(window.location.search);
-        const status = usp.get('status');
-        if (status === 'success' && okEl) {
-          okEl.hidden = false;
-          okEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Clean the URL
-          history.replaceState({}, document.title, window.location.pathname);
-        } else if (status === 'error' && errEl) {
-          errEl.hidden = false;
-          errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          history.replaceState({}, document.title, window.location.pathname);
-        }
-      } catch(_) {}
-      // Helper to serialize FormData to URL-encoded
-      function encodeFD(fd){
-        const pairs = [];
-        for (const [k,v] of fd.entries()) pairs.push(encodeURIComponent(k)+'='+encodeURIComponent(v));
-        return pairs.join('&');
+      // Always hide confirmation on load
+      const confirmOnLoad = document.getElementById('formConfirm');
+      if (confirmOnLoad) confirmOnLoad.hidden = true;
+      function encode(data) {
+        return Object.keys(data)
+          .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+          .join('&');
       }
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (okEl) okEl.hidden = true;
-        if (errEl) errEl.hidden = true;
+      form.addEventListener('submit', async function(e){
         try {
-          const fd = new FormData(form);
-          const resp = await fetch(form.action, {
+          e.preventDefault();
+          const formData = new FormData(form);
+          // Netlify requires form-name key in payload
+          if (!formData.get('form-name')) formData.set('form-name', form.getAttribute('name') || 'contact');
+          const bodyObj = {};
+          formData.forEach((v,k)=>{ bodyObj[k]=v; });
+          const endpoint = form.getAttribute('action') || window.location.pathname || '/';
+          const resp = await fetch(endpoint, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            body: encodeFD(fd)
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(bodyObj)
           });
-          const isJSON = (resp.headers.get('content-type')||'').includes('application/json');
-          let data = null;
-          if (isJSON) { data = await resp.json(); }
-          if (resp.ok && (!data || data.ok)){
-            form.reset();
+          if (resp.ok) {
+            // clear inputs and show inline confirmation
+            try { form.reset(); } catch(_){}
+            // reset reCAPTCHA widget if present
             if (window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
               try { window.grecaptcha.reset(); } catch(_){}
             }
-            if (okEl) { okEl.hidden = false; okEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            const confirmEl = document.getElementById('formConfirm');
+            if (confirmEl) {
+              confirmEl.hidden = false;
+              try { confirmEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(_){}
+            }
           } else {
-            if (errEl) { errEl.hidden = false; errEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            // fallback to native submit if fetch fails
+            form.submit();
           }
         } catch(err){
-          if (errEl) { errEl.hidden = false; errEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+          form.submit();
         }
       });
-      // Hide messages if page is restored from bfcache
-      window.addEventListener('pageshow', (e) => {
-        if (e.persisted) { if (okEl) okEl.hidden = true; if (errEl) errEl.hidden = true; }
-      });
     })();
+
+    // Hide confirmation if page is restored from bfcache (back/forward cache)
+    window.addEventListener('pageshow', function(e){
+      if (e.persisted) {
+        const el = document.getElementById('formConfirm');
+        if (el) el.hidden = true;
+      }
+    });
   </script>
   <script defer src="main.js"></script>
 </body>

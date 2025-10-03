@@ -11,11 +11,4 @@
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "no-referrer-when-downgrade"
 
-# Inline confirmation in contact page; no thank-you.html needed
-
-# Safety: redirect old thank-you URL back to contact page
-[[redirects]]
-  from = "/thank-you.html"
-  to = "/contact.html"
-  status = 301
-  force = false
+# (Inline confirmation in contact page; no thank-you.html needed)

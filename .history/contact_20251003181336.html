@@ -330,21 +330,6 @@
       // Always hide messages on load
       if (okEl) okEl.hidden = true;
       if (errEl) errEl.hidden = true;
-      // If redirected back with status param (non-JS submit fallback), show message
-      try {
-        const usp = new URLSearchParams(window.location.search);
-        const status = usp.get('status');
-        if (status === 'success' && okEl) {
-          okEl.hidden = false;
-          okEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Clean the URL
-          history.replaceState({}, document.title, window.location.pathname);
-        } else if (status === 'error' && errEl) {
-          errEl.hidden = false;
-          errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          history.replaceState({}, document.title, window.location.pathname);
-        }
-      } catch(_) {}
       // Helper to serialize FormData to URL-encoded
       function encodeFD(fd){
         const pairs = [];
