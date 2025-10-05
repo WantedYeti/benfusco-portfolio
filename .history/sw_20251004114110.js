@@ -52,8 +52,6 @@ async function limitCache(cacheName, max) {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const urlObj = new URL(req.url);
-  // Do not intercept POST requests (forms). Let them hit the network directly.
-  if (req.method === 'POST') return;
 
   // Only handle same-origin requests
   if (urlObj.origin !== scopeUrl.origin) return;
