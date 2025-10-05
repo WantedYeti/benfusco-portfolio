@@ -94,7 +94,7 @@
       <p class="connect-intro">Got a story to tell or a moment you want frozen in time? From weddings and couples’ shoots to families, portraits, real estate, gym sessions, or events — I’d love to be behind the lens. Drop your info below and I’ll reach out soon. Let’s make it happen!</p>
     </section>
     <section class="contact-card">
-  <form id="secureContactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8" autocomplete="off">
+  <form id="secureContactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8">
   <input type="hidden" name="form-name" value="contact">
   <input type="hidden" name="subject" value="New contact from benfusco.com">
         <div class="hp-field" aria-hidden="true">
@@ -334,7 +334,21 @@
       // Always hide messages on load
       if (okEl) okEl.hidden = true;
       if (errEl) errEl.hidden = true;
-      // Remove any legacy status param logic (no redirect, no status param handling)
+      // If redirected back with status param (non-JS submit fallback), show message
+      try {
+        const usp = new URLSearchParams(window.location.search);
+        const status = usp.get('status');
+        if (status === 'success' && okEl) {
+          okEl.hidden = false;
+          okEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Clean the URL
+          history.replaceState({}, document.title, window.location.pathname);
+        } else if (status === 'error' && errEl) {
+          errEl.hidden = false;
+          errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          history.replaceState({}, document.title, window.location.pathname);
+        }
+      } catch(_) {}
       // Helper to serialize FormData to URL-encoded
       function encodeFD(fd){
         const pairs = [];
