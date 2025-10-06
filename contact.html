@@ -320,12 +320,47 @@
       .contact-card { padding: 18px 6px 12px 6px; max-width: 98vw; }
     }
   </style>
+  </style>
+  <script>
+    // AJAX Formspree submission, spinner, and inline messages
+    (function() {
+      const form = document.querySelector('.contact-form');
+      if (!form) return;
+      const messages = form.querySelector('#form-messages') || document.getElementById('form-messages');
+      const loadingEl = document.getElementById('formLoading');
+      const submitBtn = document.getElementById('submitBtn') || form.querySelector('button[type="submit"]');
+
+      function showMsg(msg, ok) {
+        if (!messages) return;
+        messages.textContent = msg;
+        messages.style.color = ok ? 'green' : 'red';
+        messages.style.display = 'block';
+      }
+      function clearMsg() {
+        if (messages) { messages.textContent = ''; messages.style.display = 'none'; }
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        clearMsg();
+        if (loadingEl) loadingEl.hidden = false;
+        if (submitBtn) submitBtn.disabled = true;
+        const data = new FormData(form);
+        try {
+          const resp = await fetch('https://formspree.io/f/mqaylyqj', {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            showMsg('Message sent! Thank you.', true);
+            form.reset();
           } else {
             let err = 'Message failed. Please try again.';
-            try { const data = await resp.json(); if (data && data.errors && data.errors.length) err = data.errors[0].message; } catch(_){}
+            try { const d = await resp.json(); if (d && d.errors && d.errors.length) err = d.errors[0].message; } catch(_){}
             showMsg(err, false);
           }
-        } catch(err){
+        } catch(err) {
           showMsg('Message failed. Please try again.', false);
         } finally {
           if (loadingEl) loadingEl.hidden = true;
