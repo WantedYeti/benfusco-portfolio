@@ -333,7 +333,12 @@
       function showMsg(msg, ok) {
         if (!messages) return;
         messages.textContent = msg;
-        messages.style.color = ok ? 'green' : 'red';
+        // Keep existing site color for success; only set red for errors
+        if (ok) {
+          messages.style.color = '';
+        } else {
+          messages.style.color = 'red';
+        }
         messages.style.display = 'block';
       }
       function clearMsg() {
@@ -356,8 +361,7 @@
             headers: { 'Accept': 'application/json' }
           });
           if (resp.ok) {
-            showMsg('Message sent! Thank you.', true);
-            setTimeout(clearMsg, 5000);
+            showMsg('✓ Thank you for contacting me! I\'ll return your e-mail within 24 hours', true);
             form.reset();
           } else {
             let err = 'Message failed. Please try again.';
@@ -381,7 +385,7 @@
           if (submitBtn) submitBtn.disabled = false;
         }
       });
-      window.addEventListener('pageshow', (e) => { if (e.persisted) clearMsg(); });
+  // Keep success message persistent until full page refresh (no auto-clear)
     })();
   </script>
   <script defer src="main.js"></script>
