@@ -104,24 +104,28 @@
           <div class="field">
             <label class="field-label" for="firstName">First Name <span>*</span></label>
             <input id="firstName" name="firstName" type="text" placeholder="" required autocomplete="given-name">
+            <div class="field-hint" id="firstNameHint" style="display:none;color:red;font-size:0.95em;"></div>
           </div>
         </div>
         <div class="row">
           <div class="field">
             <label class="field-label" for="lastName">Last Name <span>*</span></label>
             <input id="lastName" name="lastName" type="text" placeholder="" required autocomplete="family-name">
+            <div class="field-hint" id="lastNameHint" style="display:none;color:red;font-size:0.95em;"></div>
           </div>
         </div>
         <div class="row">
           <div class="field full">
             <label class="field-label" for="email">Email Address <span>*</span></label>
             <input id="email" name="email" type="email" placeholder="" required autocomplete="email" inputmode="email">
+            <div class="field-hint" id="emailHint" style="display:none;color:red;font-size:0.95em;"></div>
           </div>
         </div>
         <div class="row">
           <div class="field full">
             <label class="field-label" for="how">How did you hear about me? <span>*</span></label>
             <select id="how" name="how" required>
+            <div class="field-hint" id="howHint" style="display:none;color:red;font-size:0.95em;"></div>
               <option value="" disabled selected>Select option</option>
               <option>Instagram</option>
               <option>Friend / Referral</option>
@@ -135,6 +139,9 @@
           <div class="field full">
             <label class="field-label" for="message">Your Message <span>*</span></label>
             <textarea id="message" name="message" rows="6" placeholder="" required></textarea>
+            <div class="field-hint" id="messageHint" style="display:none;color:red;font-size:0.95em;"></div>
+            <!-- reCAPTCHA placeholder: Replace SITE_KEY with your actual key to enable -->
+            <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" style="margin-top:18px;"></div>
           </div>
         </div>
         <div class="captcha-row">
@@ -156,6 +163,49 @@
   </main>
 
   <style>
+    /* Fade-in and padding for form messages */
+    #form-messages {
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+      padding: 10px 0 10px 0;
+      border-radius: 4px;
+      min-height: 1.5em;
+      box-sizing: border-box;
+    }
+    /* Subtle hover/focus for inputs and button */
+    .contact-card input:focus,
+    .contact-card select:focus,
+    .contact-card textarea:focus {
+      border-color: #8e929e;
+      box-shadow: 0 0 0 2px #e5e7eb;
+      outline: none;
+    }
+    .btn-primary:focus,
+    .btn-primary:hover {
+      background: #f5f7fa;
+      color: #222;
+      border-color: #8e929e;
+      outline: none;
+      box-shadow: 0 0 0 2px #e5e7eb;
+    }
+    /* Mobile touch-friendliness */
+    @media (max-width: 600px) {
+      .contact-card input,
+      .contact-card select,
+      .contact-card textarea {
+        font-size: 1em;
+        padding: 14px 10px;
+        width: 98vw;
+        min-width: 0;
+        max-width: 100vw;
+      }
+      .btn-primary {
+        font-size: 1em;
+        padding: 14px 18px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+      }
+    }
     /* LET’S CONNECT heading and intro styles for subtle, light gray look */
     .connect-title {
   font-family: 'Cormorant Garamond', serif;
@@ -322,13 +372,42 @@
   </style>
   </style>
   <script>
-    // AJAX Formspree submission, spinner, and inline messages
+    // AJAX Formspree submission, inline validation, spinner, and inline messages
     (function() {
       const form = document.querySelector('.contact-form');
       if (!form) return;
       const messages = form.querySelector('#form-messages') || document.getElementById('form-messages');
       const loadingEl = document.getElementById('formLoading');
       const submitBtn = document.getElementById('submitBtn') || form.querySelector('button[type="submit"]');
+
+      // Inline validation hints
+      const fields = [
+        {id: 'firstName', hint: 'First name is required.'},
+        {id: 'lastName', hint: 'Last name is required.'},
+        {id: 'email', hint: 'Email must include @ and a domain.'},
+        {id: 'how', hint: 'Please select an option.'},
+        {id: 'message', hint: 'Message cannot be empty.'}
+      ];
+      fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        const hint = document.getElementById(f.id + 'Hint');
+        if (!el || !hint) return;
+        el.addEventListener('blur', function() {
+          if (!el.checkValidity()) {
+            hint.textContent = f.hint;
+            hint.style.display = 'block';
+          } else {
+            hint.textContent = '';
+            hint.style.display = 'none';
+          }
+        });
+        el.addEventListener('input', function() {
+          if (el.checkValidity()) {
+            hint.textContent = '';
+            hint.style.display = 'none';
+          }
+        });
+      });
 
       function showMsg(msg, ok) {
         if (!messages) return;
@@ -340,6 +419,8 @@
           messages.style.color = 'red';
         }
         messages.style.display = 'block';
+        messages.style.opacity = 0;
+        setTimeout(() => { messages.style.opacity = 1; }, 10);
       }
       function clearMsg() {
         if (messages) { messages.textContent = ''; messages.style.display = 'none'; }
@@ -351,6 +432,17 @@
         // Set timestamp hidden field
         var ts = form.querySelector('input[name="timestamp"]');
         if (ts) ts.value = new Date().toISOString();
+        let valid = true;
+        fields.forEach(f => {
+          const el = document.getElementById(f.id);
+          const hint = document.getElementById(f.id + 'Hint');
+          if (el && !el.checkValidity()) {
+            hint.textContent = f.hint;
+            hint.style.display = 'block';
+            valid = false;
+          }
+        });
+        if (!valid) return;
         if (loadingEl) loadingEl.hidden = false;
         if (submitBtn) submitBtn.disabled = true;
         const data = new FormData(form);
@@ -385,7 +477,7 @@
           if (submitBtn) submitBtn.disabled = false;
         }
       });
-  // Keep success message persistent until full page refresh (no auto-clear)
+      // Keep success message persistent until full page refresh (no auto-clear)
     })();
   </script>
   <script defer src="main.js"></script>
