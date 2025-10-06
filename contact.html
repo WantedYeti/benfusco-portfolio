@@ -150,6 +150,7 @@
           <!-- Google reCAPTCHA v2 example: <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div> -->
         </div>
         <div class="actions">
+          <div class="g-recaptcha" data-sitekey="6LfxwN8rAAAAAKuiRznbKy3SDpIy-f0zBErTl0M_" style="margin-bottom:18px;"></div>
           <button type="submit" class="btn-primary" id="submitBtn">SEND MESSAGE</button>
           <span id="formLoading" class="form-loading" hidden aria-live="polite" aria-busy="true" style="margin-left:12px;">
             <svg width="22" height="22" viewBox="0 0 50 50" style="vertical-align:middle;"><circle cx="25" cy="25" r="20" fill="none" stroke="#98A0AB" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.9s" repeatCount="indefinite"/></circle></svg>
@@ -372,7 +373,7 @@
   </style>
   </style>
   <script>
-    // AJAX Formspree submission, inline validation, spinner, and inline messages
+    // AJAX Formspree submission, inline validation, spinner, reCAPTCHA, and inline messages
     (function() {
       const form = document.querySelector('.contact-form');
       if (!form) return;
@@ -442,10 +443,22 @@
             valid = false;
           }
         });
+        // reCAPTCHA validation
+        if (typeof grecaptcha !== 'undefined') {
+          const recaptchaResponse = grecaptcha.getResponse();
+          if (!recaptchaResponse) {
+            showMsg('Please complete the CAPTCHA.', false);
+            valid = false;
+          }
+        }
         if (!valid) return;
         if (loadingEl) loadingEl.hidden = false;
         if (submitBtn) submitBtn.disabled = true;
         const data = new FormData(form);
+        // Append reCAPTCHA response
+        if (typeof grecaptcha !== 'undefined') {
+          data.append('g-recaptcha-response', grecaptcha.getResponse());
+        }
         try {
           const resp = await fetch('https://formspree.io/f/mqaylyqj', {
             method: 'POST',
@@ -455,6 +468,7 @@
           if (resp.ok) {
             showMsg('✓ Thank you for contacting me! I\'ll return your e-mail within 24 hours', true);
             form.reset();
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
           } else {
             let err = 'Message failed. Please try again.';
             try {
@@ -481,5 +495,6 @@
     })();
   </script>
   <script defer src="main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
