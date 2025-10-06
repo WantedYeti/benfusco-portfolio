@@ -150,7 +150,7 @@
         </div>
         <input type="hidden" name="_subject" value="New message from website contact form">
         <input type="hidden" name="timestamp" id="formTimestamp">
-        <div id="form-messages" aria-live="polite" style="color: #7E8791; margin-top: 10px;"></div>
+  <div id="form-messages" aria-live="polite" style="color: #7E8791; margin-top: 10px;"></div>
   </form>
     </section>
   </main>
@@ -343,6 +343,9 @@
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         clearMsg();
+        // Set timestamp hidden field
+        var ts = form.querySelector('input[name="timestamp"]');
+        if (ts) ts.value = new Date().toISOString();
         if (loadingEl) loadingEl.hidden = false;
         if (submitBtn) submitBtn.disabled = true;
         const data = new FormData(form);
@@ -354,10 +357,21 @@
           });
           if (resp.ok) {
             showMsg('Message sent! Thank you.', true);
+            setTimeout(clearMsg, 5000);
             form.reset();
           } else {
             let err = 'Message failed. Please try again.';
-            try { const d = await resp.json(); if (d && d.errors && d.errors.length) err = d.errors[0].message; } catch(_){}
+            try {
+              const d = await resp.json();
+              if (d && d.errors && d.errors.length) {
+                // Try to show more descriptive error
+                err = d.errors.map(e => e.message).join('; ');
+              }
+              // Field-specific error
+              if (d && d.errors && d.errors[0] && d.errors[0].field === 'email') {
+                err = 'Email is invalid.';
+              }
+            } catch(_){}
             showMsg(err, false);
           }
         } catch(err) {
