@@ -5,49 +5,62 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Book a Session | Ben Fusco</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .booking-card{ max-width:920px; margin:36px auto; padding:28px; background:#fff; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,0.06);} 
-    .booking-grid{ display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start; }
-    .pkg-meta{ color:#6d7080; font-size:0.95rem; margin-bottom:8px; }
-    .pkg-title{ font-size:1.6rem; margin:0 0 12px; }
-    .pkg-price{ font-size:1.3rem; font-weight:600; color:#222; margin:8px 0; }
-    .pkg-cta{ display:inline-block; padding:12px 18px; border:1px solid #6d7080; background:#fff; color:#6d7080; text-decoration:none; border-radius:4px; }
-    @media (max-width:880px){ .booking-grid{ grid-template-columns:1fr; } .booking-card{ margin:18px; } }
-  </style>
+  <link rel="stylesheet" href="booking.css">
 </head>
 <body>
   <nav class="navbar">...existing nav markup...</nav>
   <main>
-    <section class="booking-card" id="bookingCard" aria-live="polite">
-      <div class="booking-grid">
-        <div>
-          <div class="pkg-meta" id="pkgCode"></div>
-          <h1 class="pkg-title" id="pkgTitle">Loading…</h1>
-          <p id="pkgDesc" style="opacity:.85; line-height:1.6;"></p>
-          <p class="pkg-price" id="pkgPrice"></p>
-          <ul id="pkgList" style="margin:12px 0 20px; color:#6d7080;"></ul>
-          <div style="margin-top:18px;">
-            <a id="proceedBtn" class="pkg-cta" href="contact.html">Proceed to Contact</a>
-          </div>
-          <div style="margin-top:22px;">
-            <h4 style="margin:8px 0 6px;">Pick a date & time</h4>
-            <div id="datePicker"></div>
-            <div id="timeSlots" style="margin-top:12px; display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"></div>
-            <div style="margin-top:14px;"><button id="continueBooking" class="pkg-cta">Continue</button></div>
-          </div>
-        </div>
-        <aside>
-          <div style="border:1px solid #eee; padding:14px; border-radius:8px;">
-            <h3 style="margin-top:0;">Package Details</h3>
-            <dl style="margin:0; color:#6d7080;">
-              <dt style="font-weight:600;">Duration</dt><dd id="pkgDuration">—</dd>
-              <dt style="font-weight:600;">Location</dt><dd id="pkgLocation">—</dd>
-              <dt style="font-weight:600;">Edited Images</dt><dd id="pkgEdited">—</dd>
-            </dl>
-          </div>
-        </aside>
+    <section class="bk-page">
+      <div class="bk-header">
+        <h2 class="bk-title">Book a Session</h2>
+        <p class="bk-sub">Choose a session below and pick a date and time to request your booking.</p>
+      </div>
+      <div class="bk-grid" id="bkGrid">
+        <!-- Cards injected by booking.js -->
       </div>
     </section>
+
+    <!-- Modal -->
+    <div class="bk-modal-backdrop" id="bkModal" aria-hidden="true">
+      <div class="bk-modal" role="dialog" aria-modal="true" aria-labelledby="bkModalTitle">
+        <div class="bk-modal-inner">
+          <div class="bk-modal-left">
+            <div class="bk-modal-head">
+              <h3 class="bk-modal-h1" id="bkModalTitle">Session</h3>
+              <button class="bk-close" id="bkClose" aria-label="Close">✕</button>
+            </div>
+            <div class="bk-calendar" id="bkCalendar">
+              <div class="bk-cal-header">
+                <button id="calPrev">‹</button>
+                <div id="calMonth">Month</div>
+                <button id="calNext">›</button>
+              </div>
+              <div class="bk-days"> <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div> </div>
+              <div class="bk-dates" id="bkDates"></div>
+            </div>
+            <div style="margin-top:12px;">
+              <label style="display:block;margin-bottom:6px">Notes</label>
+              <textarea id="bkNotes" placeholder="Anything we should know?"></textarea>
+            </div>
+          </div>
+          <div class="bk-modal-right">
+            <div id="bkSummary">
+              <p id="bkCode" class="bk-code"></p>
+              <h4 id="bkName" style="margin:6px 0 10px;"></h4>
+              <p id="bkShort" style="color:#6d7080;margin:0 0 12px"></p>
+            </div>
+            <form class="bk-form" id="bkForm">
+              <input id="bkFullName" name="name" placeholder="Full name" required />
+              <input id="bkEmail" name="email" type="email" placeholder="Email" required />
+              <input id="bkPhone" name="phone" placeholder="Phone (optional)" />
+              <div id="bkSelectedDate" style="color:#6d7080;font-size:14px;margin-top:6px;">No date selected</div>
+              <button type="submit" class="bk-confirm">Confirm Booking</button>
+              <div id="bkThanks" class="bk-thanks" style="display:none;">Thank you for booking!</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="booking.js"></script>
 </body>
