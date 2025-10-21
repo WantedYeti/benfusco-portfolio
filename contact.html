@@ -521,6 +521,36 @@
   // if (tokenInput && tokenInput.value) {
   //   await fetch('/verify-recaptcha', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ event:{ token: tokenInput.value, expectedAction: 'contact_form' } }) });
   // }
+
+  // Prefill package/date/time from query params (booking flow)
+  (function prefillFromQuery(){
+    const url = new URL(location.href);
+    const pkg = url.searchParams.get('pkg');
+    const title = url.searchParams.get('title');
+    const date = url.searchParams.get('date');
+    const time = url.searchParams.get('time');
+    if (!pkg && !date && !time) return;
+    const formEl = document.querySelector('.contact-form');
+    if (!formEl) return;
+    // create hidden inputs
+    const ensureHidden = (name, value) => {
+      let i = formEl.querySelector('input[name="' + name + '"]');
+      if (!i) { i = document.createElement('input'); i.type='hidden'; i.name = name; formEl.appendChild(i); }
+      i.value = value || '';
+    };
+    if (pkg) ensureHidden('package', pkg);
+    if (title) ensureHidden('packageTitle', title);
+    if (date) ensureHidden('packageDate', date);
+    if (time) ensureHidden('packageTime', time);
+
+    // show a compact summary above the form
+    const main = document.querySelector('main');
+    const summary = document.createElement('div');
+    summary.className = 'booking-summary';
+    summary.style = 'max-width:700px;margin:12px auto;padding:10px 14px;border-left:3px solid #e5e7eb;background:#fbfbfb;color:#6d7080;';
+    summary.innerHTML = `<strong>Booking:</strong> ${title ? title : pkg || ''} ${date ? ' — ' + date : ''} ${time ? ' @ ' + time : ''}`;
+    main.insertBefore(summary, main.firstChild);
+  })();
     })();
   </script>
   <script defer src="main.js"></script>
