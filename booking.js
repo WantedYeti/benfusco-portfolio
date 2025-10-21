@@ -92,4 +92,32 @@
 
   // init small accessibility niceties
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+  // If URL includes ?pkg=..., auto-open that package's modal and optionally preselect date
+  (function checkQuery(){
+    try{
+      const params = new URLSearchParams(window.location.search);
+      const pkgId = params.get('pkg');
+      const dateParam = params.get('date');
+      if (pkgId && packages[pkgId]){
+        // open the modal for that package
+        openModal(packages[pkgId]);
+        // if a date is provided, render calendar for that month and select it
+        if (dateParam){
+          const parts = dateParam.split('-');
+          if (parts.length===3){
+            const y = Number(parts[0]), m = Number(parts[1])-1, d = Number(parts[2]);
+            const dt = new Date(y,m,d);
+            // render calendar to that month then select the date button
+            renderCalendar(dt);
+            // wait for DOM nodes then select
+            setTimeout(()=>{
+              const iso = dt.toISOString().slice(0,10);
+              const btn = Array.from(document.querySelectorAll('.bk-date')).find(b=>b.textContent.trim()==String(d) && !b.classList.contains('disabled'));
+              if (btn) btn.click();
+            }, 50);
+          }
+        }
+      }
+    }catch(e){/* ignore */}
+  })();
 })();
