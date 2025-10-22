@@ -20,6 +20,38 @@
       </div>
     </section>
 
+    <!-- Full-page booking view (shown when ?pkg=... is present) -->
+    <section id="bkFullView" class="bk-fullview" hidden>
+      <div class="bk-fullwrap">
+        <div class="bk-topcard">
+          <div class="bk-code" id="fullCode"></div>
+          <h2 id="fullName"></h2>
+          <p id="fullShort" class="bk-desc"></p>
+          <div class="bk-topmeta"><span id="fullDuration"></span><span id="fullPrice"></span></div>
+        </div>
+
+        <div class="bk-bottom">
+          <div class="bk-full-calendar">
+            <div class="bk-cal-header">
+              <button id="fullCalPrev">‹</button>
+              <div id="fullCalMonth">Month</div>
+              <button id="fullCalNext">›</button>
+            </div>
+            <div class="bk-days"> <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div> </div>
+            <div class="bk-dates" id="bkDatesFull"></div>
+          </div>
+          <div class="bk-times">
+            <h4 style="margin:0 0 8px;">Available times</h4>
+            <div id="bkTimesFull" class="bk-times-grid"></div>
+          </div>
+        </div>
+
+        <div class="bk-continue-bar">
+          <button id="bkContinueFull" class="bk-confirm">Continue</button>
+        </div>
+      </div>
+    </section>
+
     <!-- Modal -->
     <div class="bk-modal-backdrop" id="bkModal" aria-hidden="true">
       <div class="bk-modal" role="dialog" aria-modal="true" aria-labelledby="bkModalTitle">

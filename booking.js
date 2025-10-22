@@ -99,25 +99,81 @@
       const pkgId = params.get('pkg');
       const dateParam = params.get('date');
       if (pkgId && packages[pkgId]){
-        // open the modal for that package
-        openModal(packages[pkgId]);
-        // if a date is provided, render calendar for that month and select it
+        // Full-page flow: show full view and populate
+        const full = document.getElementById('bkFullView');
+        const fullCode = document.getElementById('fullCode');
+        const fullName = document.getElementById('fullName');
+        const fullShort = document.getElementById('fullShort');
+        const fullDuration = document.getElementById('fullDuration');
+        const fullPrice = document.getElementById('fullPrice');
+        const pkg = packages[pkgId];
+        fullCode.textContent = pkg.code; fullName.textContent = pkg.title; fullShort.textContent = pkg.description;
+        fullDuration.textContent = pkg.duration; fullPrice.textContent = pkg.price;
+        full.hidden = false; document.querySelector('.bk-page').style.display = 'none';
+        // render calendar to full view
+        renderFullCalendar(new Date());
         if (dateParam){
           const parts = dateParam.split('-');
           if (parts.length===3){
             const y = Number(parts[0]), m = Number(parts[1])-1, d = Number(parts[2]);
-            const dt = new Date(y,m,d);
-            // render calendar to that month then select the date button
-            renderCalendar(dt);
-            // wait for DOM nodes then select
+            renderFullCalendar(new Date(y,m,d));
             setTimeout(()=>{
-              const iso = dt.toISOString().slice(0,10);
-              const btn = Array.from(document.querySelectorAll('.bk-date')).find(b=>b.textContent.trim()==String(d) && !b.classList.contains('disabled'));
+              const btn = Array.from(document.querySelectorAll('#bkDatesFull .bk-date')).find(b=>b.textContent.trim()==String(d) && !b.classList.contains('disabled'));
               if (btn) btn.click();
-            }, 50);
+            },50);
           }
         }
       }
     }catch(e){/* ignore */}
   })();
+  
+  // Full calendar renderer (renders into #bkDatesFull and small month header)
+  function renderFullCalendar(d){
+    const target = document.getElementById('bkDatesFull');
+    const monthEl = document.getElementById('fullCalMonth');
+    let cur = new Date(d.getFullYear(), d.getMonth(), 1);
+    monthEl.textContent = cur.toLocaleString(undefined,{month:'long', year:'numeric'});
+    target.innerHTML = '';
+    const startDay = new Date(cur.getFullYear(), cur.getMonth(), 1).getDay();
+    const daysInMonth = new Date(cur.getFullYear(), cur.getMonth()+1, 0).getDate();
+    for(let i=0;i<startDay;i++){ target.appendChild(document.createElement('div')); }
+    const todayIso = new Date().toISOString().slice(0,10);
+    for(let day=1; day<=daysInMonth; day++){
+      const iso = new Date(cur.getFullYear(), cur.getMonth(), day).toISOString().slice(0,10);
+      const b = document.createElement('button'); b.className='bk-date'; b.textContent=String(day);
+      if (iso < todayIso) b.classList.add('disabled');
+      b.addEventListener('click', ()=>{
+        if (b.classList.contains('disabled')) return;
+        document.querySelectorAll('#bkDatesFull .bk-date').forEach(x=>x.classList.remove('selected'));
+        b.classList.add('selected');
+        // populate times for selected date
+        renderTimesForFull(iso);
+      });
+      target.appendChild(b);
+    }
+  }
+
+  function renderTimesForFull(iso){
+    const grid = document.getElementById('bkTimesFull'); grid.innerHTML='';
+    // simple times as example
+    const times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'];
+    times.forEach(t=>{
+      const btn = document.createElement('button'); btn.textContent = t; btn.addEventListener('click', ()=>{
+        document.querySelectorAll('#bkTimesFull button').forEach(x=>x.classList.remove('selected'));
+        btn.classList.add('selected');
+        // store selection (could update a hidden field or display a summary)
+        document.getElementById('bkContinueFull').dataset.date = iso; document.getElementById('bkContinueFull').dataset.time = t;
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  // wire continue
+  document.getElementById('bkContinueFull').addEventListener('click', function(){
+    const date = this.dataset.date; const time = this.dataset.time;
+    if(!date || !time){ alert('Please select a date and time.'); return; }
+    const params = new URLSearchParams(); params.set('pkg', (new URLSearchParams(location.search)).get('pkg') || ''); params.set('date', date); params.set('time', time);
+    // navigate to contact with selection
+    location.href = 'contact.html?' + params.toString();
+  });
 })();
