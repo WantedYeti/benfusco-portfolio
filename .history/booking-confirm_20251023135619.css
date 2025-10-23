@@ -1,0 +1,866 @@
+.confirm-page {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #f4f5f7;
+  color: #2c3038;
+  min-height: 100vh;
+}
+
+.confirm-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1080px;
+  margin: 36px auto 28px;
+  padding: 0 20px;
+}
+
+.confirm-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: #2c3038;
+  text-decoration: none;
+  border-radius: 50%;
+  border: 1px solid rgba(44, 48, 56, 0.15);
+  background: #fff;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.confirm-back:hover {
+  background: #eef0f3;
+  border-color: rgba(44, 48, 56, 0.35);
+}
+
+.confirm-heading h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.confirm-heading p {
+  margin: 0;
+  color: #6d7080;
+  font-size: 14px;
+}
+
+.confirm-main {
+  display: grid;
+  grid-template-columns: minmax(0, 540px) 320px;
+  gap: 40px;
+  max-width: 1080px;
+  margin: 0 auto 72px;
+  padding: 0 20px;
+  align-items: flex-start;
+}
+
+.confirm-form-wrap,
+.confirm-summary {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(18, 22, 32, 0.12);
+  border: 1px solid rgba(18, 22, 32, 0.06);
+}
+
+.confirm-form-wrap {
+  align-self: stretch;
+}
+
+.confirm-summary {
+  align-self: flex-start;
+}
+
+
+.confirm-form {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-contact .step-header h2 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.step-contact .step-header p {
+  margin-top: 6px;
+  color: #8a8d96;
+  font-size: 15px;
+}
+
+.step-header h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+
+.step-header p {
+  margin: 0;
+  color: #6d7080;
+  font-size: 14px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  color: #575c66;
+}
+
+.field label span {
+  color: #f05a5a;
+  margin-left: 4px;
+}
+
+.field label .optional {
+  color: #6d7080;
+  text-transform: none;
+  font-size: 12px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #e0e3e8;
+  font-size: 15px;
+  background: #f7f8fb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.field input.has-error,
+.field textarea.has-error {
+  border-color: #f05a5a;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #2f66f4;
+  box-shadow: 0 0 0 3px rgba(47, 102, 244, 0.12);
+  background: #fff;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.error {
+  margin: 6px 0 0;
+  color: #f05a5a;
+  font-size: 12px;
+  min-height: 16px;
+}
+
+.confirm-submit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.confirm-submit:hover {
+  background: #2c3038;
+  transform: translateY(-1px);
+}
+
+.contract-submit {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.payment-submit {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.form-feedback {
+  font-size: 13px;
+  color: #2b6b2b;
+  min-height: 18px;
+}
+
+.form-feedback:not(:empty) {
+  margin-top: 16px;
+}
+
+.confirm-summary {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm-page.is-step-contact #contractStep,
+.confirm-page.is-step-contact #paymentStep,
+.confirm-page.is-step-contract #paymentStep {
+  display: none !important;
+}
+
+.summary-photo {
+  background: #d9dde2 center/cover no-repeat;
+  aspect-ratio: 4 / 3;
+  border-bottom: 1px solid rgba(18, 22, 32, 0.06);
+}
+
+.summary-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.summary-session h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3038;
+}
+
+.summary-meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summary-meta-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.summary-meta-icon {
+  flex: 0 0 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eef0f3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c3038;
+}
+
+.summary-meta-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.summary-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-meta-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9aa0a6;
+}
+
+.summary-meta-value {
+  font-size: 14px;
+  color: #2c3038;
+  font-weight: 500;
+}
+
+.summary-payments h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9aa0a6;
+}
+
+.summary-payments-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-payments-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #2c3038;
+}
+
+.summary-payments-list li span:first-child {
+  color: #6d7080;
+}
+
+.summary-payments-list li span:last-child {
+  font-weight: 600;
+}
+
+.summary-payments-list .is-highlight {
+  padding-top: 12px;
+  border-top: 1px solid rgba(18, 22, 32, 0.08);
+}
+
+.summary-payments-list .is-highlight span:last-child {
+  color: #2f66f4;
+}
+
+.contact-summary {
+  background: linear-gradient(135deg, rgba(245,246,249,0.9), rgba(255,255,255,0.9));
+  border: 1px solid rgba(18,22,32,0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(18,22,32,0.08);
+}
+
+.contact-summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.contact-summary-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.contact-edit {
+  border: none;
+  background: none;
+  color: #2f66f4;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.payment-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.payment-back {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(47,102,244,0.3);
+  background: rgba(47,102,244,0.08);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.payment-back:hover {
+  border-color: rgba(47,102,244,0.6);
+  background: rgba(47,102,244,0.16);
+}
+
+.contact-summary dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.contact-summary dt {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9aa0a6;
+}
+
+.contact-summary dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #2c3038;
+}
+
+.contract {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(18,22,32,0.08);
+  padding: 28px;
+  line-height: 1.75;
+  color: #2c3038;
+  box-shadow: inset 0 0 0 1px rgba(18,22,32,0.02);
+}
+
+.contract header h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.contract-meta {
+  margin: 0 0 18px;
+  color: #6d7080;
+  font-size: 13px;
+}
+
+.contract-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 14px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.contract-content strong {
+  font-weight: 600;
+}
+
+.contract-content .contract-highlight {
+  display: inline;
+  background-color: rgba(255, 240, 181, 0.95);
+  background-image: linear-gradient(135deg, rgba(255,240,181,0.92), rgba(255,249,220,0.95));
+  padding: 0 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #1f1f1f;
+  box-shadow: inset 0 0 0 1px rgba(255,214,102,0.45);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.contract-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.contract-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.sign-button {
+  align-self: flex-start;
+  border: 1px solid rgba(44,48,56,0.18);
+  background: #fff;
+  color: #2c3038;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sign-button:hover {
+  border-color: rgba(44,48,56,0.4);
+  box-shadow: 0 4px 12px rgba(18,22,32,0.1);
+}
+
+.signature-status {
+  margin: 0;
+  font-size: 13px;
+  color: #f05a5a;
+}
+
+.signature-status.is-signed {
+  color: #2b6b2b;
+}
+
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.signature-modal[hidden] {
+  display: none;
+}
+
+.signature-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));
+  background: rgba(8, 12, 22, 0.58);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  overscroll-behavior: contain;
+}
+
+.signature-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.signature-dialog {
+  width: min(520px, 100%);
+  max-height: calc(100vh - 48px);
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 34px 68px rgba(14, 17, 28, 0.35);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.signature-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 22px;
+  color: #5a5d68;
+  cursor: pointer;
+}
+
+.signature-subtitle {
+  margin: -6px 0 4px;
+  font-size: 13px;
+  color: #6d7080;
+}
+
+.signature-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.signature-tab {
+  flex: 1;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 0;
+  background: #eef0f5;
+  color: #555a67;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.signature-tab.is-active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.signature-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signature-panel[hidden] {
+  display: none !important;
+}
+
+.signature-canvas-wrap {
+  border: 1px dashed rgba(18, 22, 32, 0.25);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+}
+
+#signatureCanvas {
+  display: block;
+  width: 100%;
+  height: 180px;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+
+.signature-link {
+  align-self: flex-end;
+  border: none;
+  background: none;
+  color: #2f66f4;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.signature-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #d9dde6;
+  font-size: 15px;
+}
+
+.signature-input:focus {
+  outline: none;
+  border-color: #2f66f4;
+  box-shadow: 0 0 0 3px rgba(47, 102, 244, 0.12);
+}
+
+.signature-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: #2c3038;
+}
+
+.signature-consent input {
+  margin-top: 4px;
+}
+
+.signature-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.signature-button {
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.signature-button.secondary {
+  background: #eef0f5;
+  color: #2c3038;
+}
+
+.signature-button.secondary:hover {
+  background: #e2e5ec;
+}
+
+.signature-button.primary {
+  background: #111;
+  color: #fff;
+}
+
+.signature-button.primary:not(:disabled):hover {
+  background: #2c3038;
+}
+
+.signature-button.primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.contract-checkbox {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: #2c3038;
+}
+
+.contract-checkbox input {
+  margin-top: 3px;
+}
+
+.deposit-confirm {
+  margin-top: 12px;
+}
+
+.contract-feedback {
+  margin: 8px 0 0;
+  font-size: 13px;
+  min-height: 18px;
+  color: #f05a5a;
+}
+
+.step-payment {
+  gap: 28px;
+}
+
+.payment-instructions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.payment-instructions-block {
+  background: linear-gradient(135deg, rgba(245,246,249,0.8), rgba(255,255,255,0.95));
+  border-radius: 12px;
+  padding: 20px 22px;
+  border: 1px solid rgba(18,22,32,0.08);
+  box-shadow: 0 12px 30px rgba(18,22,32,0.08);
+}
+
+.payment-instructions-block h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9aa0a6;
+}
+
+.transfer-email {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #2c3038;
+}
+
+.transfer-note,
+.transfer-balance {
+  margin: 0;
+  color: #6d7080;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.transfer-amount {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3038;
+}
+
+.confirm-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 16px;
+}
+
+.empty-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 32px;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(18, 22, 32, 0.1);
+}
+
+.empty-card h2 { margin: 0 0 12px; }
+.empty-card p { color: #6d7080; }
+
+@media (max-width: 1024px) {
+  .confirm-main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .confirm-summary {
+    order: -1;
+  }
+
+  .summary-photo {
+    aspect-ratio: 3 / 2;
+  }
+  .field-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .payment-instructions {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .confirm-header {
+    margin-top: 20px;
+  }
+
+  .confirm-heading h1 {
+    font-size: 24px;
+  }
+
+  .confirm-form {
+    padding: 24px;
+  }
+
+  .contact-summary {
+    padding: 18px;
+  }
+
+  .contract {
+    padding: 22px;
+  }
+
+  .signature-modal {
+    padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .signature-dialog {
+    width: 100%;
+    max-height: calc(100vh - 32px);
+    border-radius: 16px;
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .signature-close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .signature-tabs {
+    flex-wrap: wrap;
+  }
+
+  .signature-tab {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 140px;
+  }
+
+  .signature-dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .signature-button {
+    width: 100%;
+  }
+
+  #signatureCanvas {
+    height: 200px;
+  }
+}
