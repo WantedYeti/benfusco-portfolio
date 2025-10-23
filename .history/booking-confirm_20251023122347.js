@@ -852,26 +852,8 @@
 
       try {
         const formData = new FormData(form);
-        const bookingSummary = `${pkg.title} on ${formattedDate} at ${sessionTimeDisplay}`;
-        formData.append('bookingSummary', bookingSummary);
+        formData.append('bookingSummary', `${pkg.title} on ${formattedDate} at ${sessionTimeDisplay}`);
         formData.append('contractAcceptedAt', new Date().toISOString());
-        const sessionDetails = [
-          `Package: ${pkg.title} (${pkg.code || '—'})`,
-          `Date & Time: ${formattedDate} at ${sessionTimeDisplay}`,
-          `Location: ${pkg.location || 'Client provided'}`,
-          `Session Fee: ${formatMoney(total)}`,
-          `Retainer Due: ${formatMoney(deposit)}`,
-          `Remaining Balance: ${formatMoney(balance)}`
-        ];
-        if (Array.isArray(pkg.includes) && pkg.includes.length){
-          sessionDetails.push(`Includes: ${pkg.includes.join(', ')}`);
-        }
-        formData.append('sessionDetails', sessionDetails.join('\n'));
-        if (signatureInput?.value){
-          formData.append('signaturePayload', signatureInput.value);
-        }
-        formData.append('_subject', `New Booking Request – ${pkg.title}`);
-        formData.append('_cc', 'contact@benfusco.com');
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,

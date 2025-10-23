@@ -203,36 +203,7 @@
     </aside>
   </main>
 
-  <div id="signatureModal" class="signature-modal" hidden>
-    <div class="signature-dialog" role="dialog" aria-modal="true" aria-labelledby="signatureTitle">
-      <button type="button" class="signature-close" id="signatureClose" aria-label="Close signature window">×</button>
-      <h3 id="signatureTitle">Signature</h3>
-      <p class="signature-subtitle">Sign below to confirm your agreement.</p>
-      <div class="signature-tabs" role="tablist">
-        <button type="button" class="signature-tab is-active" data-signature-mode="draw" aria-selected="true">Draw</button>
-        <button type="button" class="signature-tab" data-signature-mode="type" aria-selected="false">Type</button>
-      </div>
-      <div class="signature-panel" data-signature-panel="draw">
-        <div class="signature-canvas-wrap">
-          <canvas id="signatureCanvas" tabindex="0" aria-label="Draw your signature"></canvas>
-        </div>
-        <button type="button" class="signature-link" id="signatureClear">Clear</button>
-      </div>
-      <div class="signature-panel" data-signature-panel="type" hidden>
-        <input type="text" id="signatureTyped" class="signature-input" placeholder="Type your full name" autocomplete="name" />
-      </div>
-      <label class="signature-consent">
-        <input type="checkbox" id="signatureConsent" />
-        <span>By signing, I understand that this is a legally binding contract.</span>
-      </label>
-      <div class="signature-dialog-actions">
-        <button type="button" class="signature-button secondary" id="signatureCancel">Cancel</button>
-        <button type="button" class="signature-button primary" id="signatureAccept" disabled>Accept and Sign</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="booking-data.js?v=20251023.1"></script>
-  <script src="booking-confirm.js?v=20251023.1" defer></script>
+  <script src="booking-data.js?v=20251023"></script>
+  <script src="booking-confirm.js?v=20251023" defer></script>
 </body>
 </html>

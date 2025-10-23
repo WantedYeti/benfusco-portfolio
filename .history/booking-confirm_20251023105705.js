@@ -162,17 +162,6 @@
   const signatureInput = document.getElementById('signatureInput');
   const signButton = document.getElementById('signButton');
   const signatureStatus = document.getElementById('signatureStatus');
-  const signatureModal = document.getElementById('signatureModal');
-  const signatureClose = document.getElementById('signatureClose');
-  const signatureCanvas = document.getElementById('signatureCanvas');
-  const signatureCtx = signatureCanvas ? signatureCanvas.getContext('2d') : null;
-  const signatureAccept = document.getElementById('signatureAccept');
-  const signatureCancel = document.getElementById('signatureCancel');
-  const signatureClear = document.getElementById('signatureClear');
-  const signatureTyped = document.getElementById('signatureTyped');
-  const signatureConsent = document.getElementById('signatureConsent');
-  const signatureModeButtons = Array.from(document.querySelectorAll('[data-signature-mode]'));
-  const signaturePanels = Array.from(document.querySelectorAll('[data-signature-panel]'));
   const agreeCheckbox = document.getElementById('agreeCheckbox');
   const contractFeedback = document.getElementById('contractFeedback');
   const contractContinue = document.getElementById('contractContinue');
@@ -183,15 +172,11 @@
   const transferAmountEl = document.getElementById('transferAmount');
   const transferEmailEl = document.getElementById('transferEmail');
 
-  const photographerBusiness = 'Ben Fusco';
+  const photographerBusiness = 'Ben Fusco Photography';
   const photographerPerson = 'Ben Fusco';
-  const photographerEmail = 'bennyfusco@gmail.com';
-  const photographerNoticeEmail = 'contact@benfusco.com';
+  const photographerEmail = 'contact@benfusco.com';
+  const photographerNoticeEmail = 'bennyfusco@gmail.com';
   const defaultSignatureMessage = 'Signature required';
-  const signatureCanvasHeight = 180;
-  let signatureMode = 'draw';
-  let signatureHasInk = false;
-  let signatureModalOpen = false;
   if (transferEmailEl) transferEmailEl.textContent = photographerEmail;
 
   const fields = {
@@ -269,9 +254,6 @@
       signatureStatus.textContent = defaultSignatureMessage;
       signatureStatus.classList.remove('is-signed');
     }
-    signatureHasInk = false;
-    if (signatureConsent) signatureConsent.checked = false;
-    if (signatureCanvas && signatureCtx) resetSignatureCanvas();
     clearContractFeedback();
   };
 
@@ -290,167 +272,6 @@
     return { fullName, email: emailVal };
   };
 
-  const getDefaultSignatureName = ()=>{
-    const summaryName = summaryContactName?.textContent?.trim();
-    if (summaryName) return summaryName;
-    const first = fields.firstName.input?.value.trim() || '';
-    const last = fields.lastName.input?.value.trim() || '';
-    const fallback = `${first} ${last}`.trim();
-    return fallback || 'Client';
-  };
-
-  const updateSignatureAccept = ()=>{
-    if (!signatureAccept) return;
-    const consentOk = !!signatureConsent?.checked;
-    let ready = false;
-    if (signatureMode === 'draw'){
-      ready = signatureHasInk;
-    } else {
-      ready = Boolean(signatureTyped?.value.trim());
-    }
-    signatureAccept.disabled = !(ready && consentOk);
-  };
-
-  const resetSignatureCanvas = ()=>{
-    if (!signatureCanvas || !signatureCtx) return;
-    const container = signatureCanvas.parentElement;
-    let width = container?.clientWidth || container?.getBoundingClientRect().width || (window.innerWidth ? window.innerWidth - 64 : 420);
-    width = Math.max(240, Math.min(width, 520));
-    const ratio = window.devicePixelRatio || 1;
-    signatureCanvas.width = width * ratio;
-    signatureCanvas.height = signatureCanvasHeight * ratio;
-    signatureCanvas.style.width = `${width}px`;
-    signatureCanvas.style.height = `${signatureCanvasHeight}px`;
-    signatureCtx.setTransform(1, 0, 0, 1, 0, 0);
-    signatureCtx.fillStyle = '#ffffff';
-    signatureCtx.fillRect(0, 0, signatureCanvas.width, signatureCanvas.height);
-    signatureCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    signatureCtx.lineCap = 'round';
-    signatureCtx.lineJoin = 'round';
-    signatureCtx.lineWidth = 2;
-    signatureCtx.strokeStyle = '#111';
-    signatureHasInk = false;
-    updateSignatureAccept();
-  };
-
-  const signaturePanelsByMode = signaturePanels.reduce((acc, panel)=>{
-    const key = panel.getAttribute('data-signature-panel');
-    if (key) acc[key] = panel;
-    return acc;
-  }, {});
-
-  const setSignatureMode = (mode)=>{
-    signatureMode = mode;
-    signatureModeButtons.forEach(btn => {
-      const active = btn.dataset.signatureMode === mode;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-selected', active ? 'true' : 'false');
-      btn.setAttribute('tabindex', active ? '0' : '-1');
-    });
-    Object.entries(signaturePanelsByMode).forEach(([key, panel])=>{
-      panel.hidden = key !== mode;
-    });
-    if (mode === 'draw'){
-      signatureHasInk = false;
-      resetSignatureCanvas();
-      setTimeout(()=>{
-        signatureCanvas?.focus();
-      }, 0);
-    } else if (signatureTyped){
-      if (!signatureTyped.value.trim()){
-        signatureTyped.value = getDefaultSignatureName();
-      }
-      setTimeout(()=>{
-        signatureTyped.focus();
-      }, 0);
-    }
-    updateSignatureAccept();
-  };
-
-  const handleSignatureKeydown = (event)=>{
-    if (event.key === 'Escape'){
-      closeSignatureModal();
-    }
-  };
-
-  const closeSignatureModal = ()=>{
-    if (!signatureModalOpen || !signatureModal) return;
-    signatureModal.classList.remove('open');
-    signatureModalOpen = false;
-    document.body.classList.remove('modal-open');
-    window.removeEventListener('keydown', handleSignatureKeydown);
-    setTimeout(()=>{
-      if (!signatureModalOpen){
-        signatureModal.hidden = true;
-      }
-    }, 200);
-  };
-
-  const openSignatureModal = ()=>{
-    if (!signatureModal){
-      const timestampFallback = new Date().toLocaleString();
-      const fallbackName = getDefaultSignatureName();
-      if (signatureInput) signatureInput.value = `${fallbackName} | Signed ${timestampFallback}`;
-      if (signatureStatus){
-        signatureStatus.textContent = `Signed by ${fallbackName} on ${timestampFallback}`;
-        signatureStatus.classList.add('is-signed');
-      }
-      signButton.textContent = 'Signed — click to update';
-      resetFeedback();
-      clearContractFeedback();
-      return;
-    }
-  signatureConsent.checked = false;
-    let existingRecord = null;
-    if (signatureInput?.value){
-      try {
-        existingRecord = JSON.parse(signatureInput.value);
-      } catch (err){
-        existingRecord = null;
-      }
-    }
-    if (signatureTyped){
-      if (existingRecord?.mode === 'type'){
-        signatureTyped.value = existingRecord.name || existingRecord.value || getDefaultSignatureName();
-      } else {
-        signatureTyped.value = getDefaultSignatureName();
-      }
-    }
-    signatureModal.hidden = false;
-    requestAnimationFrame(()=>{
-      signatureModal.classList.add('open');
-    });
-    document.body.classList.add('modal-open');
-    signatureModalOpen = true;
-    const initialMode = existingRecord?.mode === 'type' ? 'type' : 'draw';
-    setSignatureMode(initialMode);
-    if (initialMode === 'draw' && existingRecord?.dataUrl && signatureCanvas && signatureCtx){
-      const img = new Image();
-      img.onload = ()=>{
-        resetSignatureCanvas();
-        const ratio = window.devicePixelRatio || 1;
-        const width = signatureCanvas.width / ratio;
-        signatureCtx.drawImage(img, 0, 0, width, signatureCanvasHeight);
-        signatureHasInk = true;
-        updateSignatureAccept();
-      };
-      img.src = existingRecord.dataUrl;
-    } else {
-      signatureHasInk = initialMode === 'type' ? Boolean(signatureTyped?.value.trim()) : false;
-      updateSignatureAccept();
-    }
-    window.addEventListener('keydown', handleSignatureKeydown);
-  };
-
-  const getCanvasPosition = (evt)=>{
-    if (!signatureCanvas) return { x: 0, y: 0 };
-    const rect = signatureCanvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
-  };
-
   const buildContractHtml = ({ fullName, email })=>{
     if (!contractContent) return;
     const effectiveDate = new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
@@ -458,40 +279,30 @@
       contractMeta.textContent = `Effective Date: ${effectiveDate} · Session: ${pkg.title}`;
     }
 
-  const highlight = (text)=>`<span class="contract-highlight">${text}</span>`;
-
-  const clientNameLine = fullName || 'Client Name';
-  const clientEmailLine = email || 'Client Email';
-  const locationLine = pkg.location || 'Location provided by client';
-  const sessionDateLine = formattedDate || 'Client date';
-  const sessionTimeLine = sessionTimeDisplay || 'Client time';
-  const highlightedTime = highlight(sessionTimeLine);
-  const totalDisplay = highlight(formatMoney(total));
-  const retainerDisplay = highlight(formatMoney(deposit));
-  const remainingDisplay = highlight(formatMoney(balance));
-  const durationText = Number.isFinite(durationMinutes) ? `${durationMinutes}-minute session` : 'Portrait session as outlined above';
-  const durationHighlight = highlight(durationText);
-  const includesEdited = Array.isArray(pkg.includes) ? pkg.includes.find(item => /edited/i.test(item)) : null;
-  const includesGallery = Array.isArray(pkg.includes) ? pkg.includes.find(item => /gallery/i.test(item)) : null;
-  const descriptionItems = [];
-  descriptionItems.push(durationHighlight);
-  if (includesEdited) descriptionItems.push(highlight(includesEdited));
-  else descriptionItems.push(highlight('Edited images delivered via online gallery'));
-  if (includesGallery && includesGallery !== includesEdited) descriptionItems.push(highlight(includesGallery));
-  const descriptionListHtml = descriptionItems.map(item => `<li>${item}</li>`).join('');
-  const monthlyFeeHighlight = highlight('2% monthly fee');
-  const cancellationHighlight = highlight('14 days');
-  const governingHighlight = highlight('Ontario, Canada');
-
-    const signatureLine = photographerBusiness === photographerPerson
-      ? photographerPerson
-      : `${photographerPerson}, ${photographerBusiness}`;
+    const clientNameLine = fullName || 'Client Name';
+    const clientEmailLine = email || 'Client Email';
+    const clientAddressLine = pkg.clientAddress || 'Client Address';
+    const locationLine = pkg.location || 'Location provided by client';
+    const sessionDateLine = formattedDate || 'Client date';
+    const sessionTimeLine = sessionTimeDisplay || 'Client time';
+    const totalDisplay = formatMoney(total);
+    const retainerDisplay = formatMoney(deposit);
+    const remainingDisplay = formatMoney(balance);
+    const durationText = Number.isFinite(durationMinutes) ? `${durationMinutes}-minute session` : 'Portrait session as outlined above';
+    const includesEdited = Array.isArray(pkg.includes) ? pkg.includes.find(item => /edited/i.test(item)) : null;
+    const includesGallery = Array.isArray(pkg.includes) ? pkg.includes.find(item => /gallery/i.test(item)) : null;
+    const descriptionItems = [];
+    descriptionItems.push(durationText);
+    if (includesEdited) descriptionItems.push(includesEdited);
+    else descriptionItems.push('Edited images delivered via online gallery');
+    if (includesGallery && includesGallery !== descriptionItems[descriptionItems.length - 1]) descriptionItems.push(includesGallery);
+    const descriptionListHtml = descriptionItems.map(item => `<li>${item}</li>`).join('');
 
     const contractHTML = [
-  `<p>This Portrait Photography Services Agreement ("Agreement") is made as of ${effectiveDate} (the "Effective Date") between ${clientNameLine}, with a primary contact email of ${clientEmailLine} ("Client"), and ${photographerPerson} ("Photographer").</p>`,
+      `<p>This Portrait Photography Services Agreement ("Agreement") is made as of ${effectiveDate} (the "Effective Date") between ${clientNameLine}, with a primary address of ${clientAddressLine} ("Client"), and ${photographerPerson} ("Photographer").</p>`,
       '<p><strong>1. Engagement of Photographer</strong></p>',
       `<p><strong>1.1 Services.</strong> Subject to the terms of this Agreement, Client engages Photographer to provide portrait photography services (the "Services") for the session described below (the "Portrait Session").</p>`,
-  `<p>Date and Time: ${sessionDateLine} — ${highlightedTime}</p>`,
+      `<p>Date and Time: ${sessionDateLine} — ${sessionTimeLine}</p>`,
       `<p>Location: ${locationLine}</p>`,
       '<p>Description:</p>',
       `<ul>${descriptionListHtml}</ul>`,
@@ -502,7 +313,7 @@
       `<ul><li>Total Fee: ${totalDisplay}</li><li>Retainer (due upon signing): ${retainerDisplay}</li><li>Remaining balance (due on the day of the session): ${remainingDisplay}</li></ul>`,
       '<p>All applicable taxes will be added where required.</p>',
       `<p><strong>2.2 Retainer.</strong> The Client acknowledges the retainer is non-refundable, securing the Photographer’s time and date. It will be applied toward the total fee.</p>`,
-  `<p><strong>2.3 Invoice and Late Payments.</strong> An invoice will be issued upon agreement of the Services. Late payments are subject to a ${monthlyFeeHighlight} on the outstanding balance.</p>`,
+      '<p><strong>2.3 Invoice and Late Payments.</strong> An invoice will be issued upon agreement of the Services. Late payments are subject to a 2% monthly fee on the outstanding balance.</p>',
       '<p><strong>3. Client Responsibilities</strong></p>',
       '<p><strong>3.1 Consents.</strong> Client must obtain any necessary consents or permissions for locations, venues, and participants before the session.</p>',
       '<p><strong>3.2 Travel and Expenses.</strong> If the session location is more than 100 km from Brockville, Ontario, the Client agrees to reimburse reasonable travel expenses.</p>',
@@ -521,10 +332,10 @@
       '<p><strong>6. Image Delivery and Download Policy</strong></p>',
       '<p><strong>6.1 Delivery Timeline.</strong> Final edited images will be delivered within 4 weeks unless otherwise agreed in writing.</p>',
       '<p><strong>6.2 Delivery Method.</strong> All final images will be delivered via a private online gallery. The Client will receive a secure download link and instructions for accessing their gallery.</p>',
-  `<p><strong>6.3 Client Download Responsibility.</strong> Client must download and back up images within 90 days of delivery. After this period, re-uploading (if possible) may incur a ${reuploadFee} fee.</p>`,
+      `<p><strong>6.3 Client Download Responsibility.</strong> Client must download and back up images within 90 days of delivery. After this period, re-uploading (if possible) may incur a ${reuploadFee} fee.</p>`,
       '<p><strong>7. Term and Termination</strong></p>',
       '<p><strong>7.1 Term.</strong> This Agreement remains in effect until all Services are completed and fees are paid.</p>',
-  `<p><strong>7.2 Cancellation.</strong> Cancellations must be made at least ${cancellationHighlight} before the session. Retainers are non-refundable.</p>`,
+      '<p><strong>7.2 Cancellation.</strong> Cancellations must be made at least 14 days before the session. Retainers are non-refundable.</p>',
       '<p><strong>7.3 Rescheduling.</strong> Photographer will make reasonable efforts to reschedule, subject to availability. If unavailable, the rescheduling will be treated as a cancellation.</p>',
       '<p><strong>7.4 Weather Conditions.</strong> Outdoor sessions may be postponed due to inclement weather. Fees (excluding the non-refundable retainer) may be applied toward a future session.</p>',
       '<p><strong>7.5 No Refunds.</strong> Client agrees no refunds will be issued for cancellations or dissatisfaction with subjective preferences.</p>',
@@ -547,11 +358,11 @@
       '<p><strong>12. General Provisions</strong></p>',
       `<p><strong>12.1 Notices.</strong> Photographer Email: ${photographerNoticeEmail}. Client Email: ${clientEmailLine}.</p>`,
       '<p><strong>12.2 Survival.</strong> Sections 7–11 will survive termination of this Agreement.</p>',
-  `<p><strong>12.3 Governing Law.</strong> This Agreement is governed by the laws of ${governingHighlight}.</p>`,
+      '<p><strong>12.3 Governing Law.</strong> This Agreement is governed by the laws of Ontario, Canada.</p>',
       '<p><strong>12.4 Amendments.</strong> Any amendments must be made in writing and signed by both parties.</p>',
       '<p><strong>12.5 Entire Agreement.</strong> This document represents the entire understanding between the parties.</p>',
       '<p><strong>12.6 Severability.</strong> If any clause is found invalid, the remainder of this Agreement shall remain in full force.</p>',
-      `<p><strong>Signatures.</strong><br>Client: ${fullName || '________________'}<br>${signatureLine}</p>`
+      `<p><strong>Signatures.</strong><br>Client: ${fullName || '________________'}<br>${photographerPerson}, ${photographerBusiness}</p>`
     ].join('');
 
     contractContent.innerHTML = contractHTML;
@@ -661,130 +472,18 @@
 
   if (signButton){
     signButton.addEventListener('click', ()=>{
-      openSignatureModal();
-    });
-  }
-
-  if (signatureModeButtons.length){
-    signatureModeButtons.forEach(btn => {
-      btn.addEventListener('click', ()=>{
-        const mode = btn.dataset.signatureMode || 'draw';
-        setSignatureMode(mode);
-      });
-    });
-  }
-
-  if (signatureClear){
-    signatureClear.addEventListener('click', ()=>{
-      resetSignatureCanvas();
-    });
-  }
-
-  if (signatureConsent){
-    signatureConsent.addEventListener('change', updateSignatureAccept);
-  }
-
-  if (signatureTyped){
-    signatureTyped.addEventListener('input', updateSignatureAccept);
-  }
-
-  if (signatureCancel){
-    signatureCancel.addEventListener('click', ()=>{
-      closeSignatureModal();
-    });
-  }
-
-  if (signatureClose){
-    signatureClose.addEventListener('click', ()=>{
-      closeSignatureModal();
-    });
-  }
-
-  if (signatureModal){
-    signatureModal.addEventListener('click', (event)=>{
-      if (event.target === signatureModal){
-        closeSignatureModal();
-      }
-    });
-  }
-
-  if (signatureAccept){
-    signatureAccept.addEventListener('click', ()=>{
-      if (signatureAccept.disabled) return;
-      const timestamp = new Date();
-      const displayTime = timestamp.toLocaleString();
-      const record = {
-        mode: signatureMode,
-        timestamp: timestamp.toISOString(),
-      };
-      let signerName = getDefaultSignatureName();
-      if (signatureMode === 'draw'){
-        if (signatureCanvas){
-          record.dataUrl = signatureCanvas.toDataURL('image/png');
-        }
-        record.name = signerName;
-      } else {
-        signerName = signatureTyped?.value.trim() || signerName;
-        record.name = signerName;
-        record.value = signerName;
-      }
-      if (signatureInput) signatureInput.value = JSON.stringify(record);
+      const name = summaryContactName?.textContent?.trim() || `${fields.firstName.input?.value.trim() || ''} ${fields.lastName.input?.value.trim() || ''}`.trim() || 'Client';
+      const timestamp = new Date().toLocaleString();
+      if (signatureInput) signatureInput.value = `${name} | Signed ${timestamp}`;
       if (signatureStatus){
-        const descriptor = signatureMode === 'draw' ? 'drawn signature' : 'typed signature';
-        signatureStatus.textContent = `Signed by ${record.name} on ${displayTime} (${descriptor})`;
+        signatureStatus.textContent = `Signed by ${name} on ${timestamp}`;
         signatureStatus.classList.add('is-signed');
       }
       signButton.textContent = 'Signed — click to update';
       resetFeedback();
       clearContractFeedback();
-      closeSignatureModal();
     });
   }
-
-  if (signatureCanvas && signatureCtx){
-    let drawing = false;
-    signatureCanvas.addEventListener('pointerdown', (event)=>{
-      if (signatureMode !== 'draw') return;
-      event.preventDefault();
-      const pos = getCanvasPosition(event);
-      signatureCanvas.setPointerCapture?.(event.pointerId);
-      signatureCtx.beginPath();
-      signatureCtx.moveTo(pos.x, pos.y);
-      signatureCtx.lineTo(pos.x + 0.01, pos.y + 0.01);
-      signatureCtx.stroke();
-      drawing = true;
-      signatureHasInk = true;
-      updateSignatureAccept();
-    });
-    signatureCanvas.addEventListener('pointermove', (event)=>{
-      if (!drawing || signatureMode !== 'draw') return;
-      event.preventDefault();
-      const pos = getCanvasPosition(event);
-      signatureCtx.lineTo(pos.x, pos.y);
-      signatureCtx.stroke();
-    });
-    const finishStroke = (event)=>{
-      if (!drawing) return;
-      drawing = false;
-      signatureCanvas.releasePointerCapture?.(event.pointerId);
-      signatureCtx.closePath();
-    };
-    signatureCanvas.addEventListener('pointerup', (event)=>{
-      if (signatureMode !== 'draw') return;
-      event.preventDefault();
-      finishStroke(event);
-    });
-    signatureCanvas.addEventListener('pointercancel', finishStroke);
-    signatureCanvas.addEventListener('pointerleave', ()=>{
-      drawing = false;
-    });
-  }
-
-  window.addEventListener('resize', ()=>{
-    if (signatureModalOpen){
-      resetSignatureCanvas();
-    }
-  });
 
   if (agreeCheckbox){
     agreeCheckbox.addEventListener('change', ()=>{
@@ -852,26 +551,8 @@
 
       try {
         const formData = new FormData(form);
-        const bookingSummary = `${pkg.title} on ${formattedDate} at ${sessionTimeDisplay}`;
-        formData.append('bookingSummary', bookingSummary);
+        formData.append('bookingSummary', `${pkg.title} on ${formattedDate} at ${sessionTimeDisplay}`);
         formData.append('contractAcceptedAt', new Date().toISOString());
-        const sessionDetails = [
-          `Package: ${pkg.title} (${pkg.code || '—'})`,
-          `Date & Time: ${formattedDate} at ${sessionTimeDisplay}`,
-          `Location: ${pkg.location || 'Client provided'}`,
-          `Session Fee: ${formatMoney(total)}`,
-          `Retainer Due: ${formatMoney(deposit)}`,
-          `Remaining Balance: ${formatMoney(balance)}`
-        ];
-        if (Array.isArray(pkg.includes) && pkg.includes.length){
-          sessionDetails.push(`Includes: ${pkg.includes.join(', ')}`);
-        }
-        formData.append('sessionDetails', sessionDetails.join('\n'));
-        if (signatureInput?.value){
-          formData.append('signaturePayload', signatureInput.value);
-        }
-        formData.append('_subject', `New Booking Request – ${pkg.title}`);
-        formData.append('_cc', 'contact@benfusco.com');
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,

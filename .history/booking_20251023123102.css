@@ -7,7 +7,6 @@ body.bk-fullview-active .bk-hero { display:flex; }
 .bk-hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.7) 100%); }
 .bk-backlink { position:absolute; top:26px; left:26px; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,0.4); background:rgba(0,0,0,0.45); color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; text-decoration:none; z-index:2; transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease; }
 .bk-backlink:hover { background:rgba(0,0,0,0.65); border-color:rgba(255,255,255,0.7); transform:translateY(-1px); }
-.bk-backlink:focus-visible { outline:2px solid #fff; outline-offset:3px; }
 .bk-hero-inner { position:relative; max-width:620px; z-index:1; }
 .bk-hero-inner h1 { font-size:34px; letter-spacing:1px; margin:0 0 12px; }
 .bk-hero-inner p { margin:0; font-size:16px; opacity:0.9; }
