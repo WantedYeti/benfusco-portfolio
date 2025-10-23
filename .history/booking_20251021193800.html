@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Book a Session | Ben Fusco</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .booking-card{ max-width:920px; margin:36px auto; padding:28px; background:#fff; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,0.06);} 
+    .booking-grid{ display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start; }
+    .pkg-meta{ color:#6d7080; font-size:0.95rem; margin-bottom:8px; }
+    .pkg-title{ font-size:1.6rem; margin:0 0 12px; }
+    .pkg-price{ font-size:1.3rem; font-weight:600; color:#222; margin:8px 0; }
+    .pkg-cta{ display:inline-block; padding:12px 18px; border:1px solid #6d7080; background:#fff; color:#6d7080; text-decoration:none; border-radius:4px; }
+    @media (max-width:880px){ .booking-grid{ grid-template-columns:1fr; } .booking-card{ margin:18px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">...existing nav markup...</nav>
+  <main>
+    <section class="booking-card" id="bookingCard" aria-live="polite">
+      <div class="booking-grid">
+        <div>
+          <div class="pkg-meta" id="pkgCode"></div>
+          <h1 class="pkg-title" id="pkgTitle">Loading…</h1>
+          <p id="pkgDesc" style="opacity:.85; line-height:1.6;"></p>
+          <p class="pkg-price" id="pkgPrice"></p>
+          <ul id="pkgList" style="margin:12px 0 20px; color:#6d7080;"></ul>
+          <div style="margin-top:18px;">
+            <a id="proceedBtn" class="pkg-cta" href="contact.html">Proceed to Contact</a>
+          </div>
+          <div style="margin-top:22px;">
+            <h4 style="margin:8px 0 6px;">Pick a date & time</h4>
+            <div id="datePicker"></div>
+            <div id="timeSlots" style="margin-top:12px; display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"></div>
+            <div style="margin-top:14px;"><button id="continueBooking" class="pkg-cta">Continue</button></div>
+          </div>
+        </div>
+        <aside>
+          <div style="border:1px solid #eee; padding:14px; border-radius:8px;">
+            <h3 style="margin-top:0;">Package Details</h3>
+            <dl style="margin:0; color:#6d7080;">
+              <dt style="font-weight:600;">Duration</dt><dd id="pkgDuration">—</dd>
+              <dt style="font-weight:600;">Location</dt><dd id="pkgLocation">—</dd>
+              <dt style="font-weight:600;">Edited Images</dt><dd id="pkgEdited">—</dd>
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script src="booking.js"></script>
+</body>
+</html>

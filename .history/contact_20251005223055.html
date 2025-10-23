@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact | Ben Fusco</title>
+  <meta name="description" content="Get in touch with Ben Fusco for photography inquiries and bookings.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Preload hero for faster LCP on contact page -->
+  <link rel="preload" as="image" href="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg" imagesrcset="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg 1x" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="index.html" class="logo-link" aria-label="Home">
+          <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+          <span class="site-title">Ben Fusco</span>
+        </a>
+      </div>
+      <div class="navbar-divider">
+        <svg height="1" width="100%" style="display:block;"><line x1="0" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:1;opacity:0.25;"></line></svg>
+      </div>
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+          <ul class="folder-child">
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
+            <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/weddings.html">Weddings</a></li>
+            <li><a href="Portfolio/other.html">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#instagram" class="nav-link">Instagram</a></li>
+        <li><a href="index.html#map-section" class="nav-link">Location</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div id="menu" class="mobile-nav">
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
+          <ul class="folder-child">
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
+            <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/weddings.html">Weddings</a></li>
+            <li><a href="Portfolio/other.html">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#instagram">Instagram</a></li>
+        <li><a href="index.html#map-section">Location</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay"></div>
+  </nav>
+
+  <!-- Photo Hero -->
+  <section class="hero" style="background-image:none;">
+    <div class="hero-media">
+      <img
+        src="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg"
+        alt="Signature photography by Ben Fusco"
+        fetchpriority="high"
+        decoding="async"
+        width="1600" height="1000"
+        sizes="100vw"
+        style="object-fit:cover; object-position:center 25%; width:100%; height:100%; transform:scale(1.06); transform-origin:center;"
+      />
+    </div>
+  </section>
+
+  <!-- 4 small photos in a horizontal row -->
+  <section class="contact-banner-photos" aria-hidden="true">
+    <div class="banner-grid">
+      <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Jordan/2M2A5585-Enhanced-NR.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Gabriella/IMG_1821-Edit-Edit.jpg" alt="" loading="lazy" decoding="async">
+      <img src="Images/Me/IMG_3874-Edit-Edit.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <main class="section contact contact-page" aria-labelledby="contact-heading">
+    <!-- Personal message under the 4-photo row -->
+    <section class="contact-message">
+      <h2 class="connect-title" id="contact-heading">LET’S CONNECT</h2>
+      <p class="connect-intro">Got a story to tell or a moment you want frozen in time? From weddings and couples’ shoots to families, portraits, real estate, gym sessions, or events — I’d love to be behind the lens. Drop your info below and I’ll reach out soon. Let’s make it happen!</p>
+    </section>
+    <section class="contact-card">
+  <form action="https://formspree.io/f/mqaylyqj" method="POST" class="contact-form">
+  <input type="hidden" name="subject" value="New contact from benfusco.com">
+        <div class="hp-field" aria-hidden="true">
+          <label>Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="field-label" for="firstName">First Name <span>*</span></label>
+            <input id="firstName" name="firstName" type="text" placeholder="" required autocomplete="given-name">
+            <div class="field-hint" id="firstNameHint" style="display:none;color:red;font-size:0.95em;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="field-label" for="lastName">Last Name <span>*</span></label>
+            <input id="lastName" name="lastName" type="text" placeholder="" required autocomplete="family-name">
+            <div class="field-hint" id="lastNameHint" style="display:none;color:red;font-size:0.95em;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label class="field-label" for="email">Email Address <span>*</span></label>
+            <input id="email" name="email" type="email" placeholder="" required autocomplete="email" inputmode="email">
+            <div class="field-hint" id="emailHint" style="display:none;color:red;font-size:0.95em;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label class="field-label" for="how">How did you hear about me? <span>*</span></label>
+            <select id="how" name="how" required>
+            <div class="field-hint" id="howHint" style="display:none;color:red;font-size:0.95em;"></div>
+              <option value="" disabled selected>Select option</option>
+              <option>Instagram</option>
+              <option>Friend / Referral</option>
+              <option>Google Search</option>
+              <option>Facebook</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field full">
+            <label class="field-label" for="message">Your Message <span>*</span></label>
+            <textarea id="message" name="message" rows="6" placeholder="" required></textarea>
+            <div class="field-hint" id="messageHint" style="display:none;color:red;font-size:0.95em;"></div>
+            <!-- reCAPTCHA placeholder: Replace SITE_KEY with your actual key to enable -->
+            <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" style="margin-top:18px;"></div>
+          </div>
+        </div>
+        <div class="captcha-row">
+          <!-- Optional CAPTCHA: Replace with Turnstile or reCAPTCHA widget -->
+          <!-- Cloudflare Turnstile example: <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div> -->
+          <!-- Google reCAPTCHA v2 example: <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div> -->
+        </div>
+        <div class="actions">
+          <div class="g-recaptcha" data-sitekey="6LfxwN8rAAAAAKuiRznbKy3SDpIy-f0zBErTl0M_" style="margin-bottom:18px;"></div>
+          <button type="submit" class="btn-primary" id="submitBtn">SEND MESSAGE</button>
+          <span id="formLoading" class="form-loading" hidden aria-live="polite" aria-busy="true" style="margin-left:12px;">
+            <svg width="22" height="22" viewBox="0 0 50 50" style="vertical-align:middle;"><circle cx="25" cy="25" r="20" fill="none" stroke="#98A0AB" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.9s" repeatCount="indefinite"/></circle></svg>
+          </span>
+        </div>
+        <input type="hidden" name="_subject" value="New message from website contact form">
+        <input type="hidden" name="timestamp" id="formTimestamp">
+  <div id="form-messages" aria-live="polite" style="color: #7E8791; margin-top: 10px;"></div>
+  </form>
+    </section>
+  </main>
+
+  <style>
+    /* Fade-in and padding for form messages */
+    #form-messages {
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+      padding: 10px 0 10px 0;
+      border-radius: 4px;
+      min-height: 1.5em;
+      box-sizing: border-box;
+    }
+    /* Subtle hover/focus for inputs and button */
+    .contact-card input:focus,
+    .contact-card select:focus,
+    .contact-card textarea:focus {
+      border-color: #8e929e;
+      box-shadow: 0 0 0 2px #e5e7eb;
+      outline: none;
+    }
+    .btn-primary:focus,
+    .btn-primary:hover {
+      background: #f5f7fa;
+      color: #222;
+      border-color: #8e929e;
+      outline: none;
+      box-shadow: 0 0 0 2px #e5e7eb;
+    }
+    /* Mobile touch-friendliness */
+    @media (max-width: 600px) {
+      .contact-card input,
+      .contact-card select,
+      .contact-card textarea {
+        font-size: 1em;
+        padding: 14px 10px;
+        width: 98vw;
+        min-width: 0;
+        max-width: 100vw;
+      }
+      .btn-primary {
+        font-size: 1em;
+        padding: 14px 18px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+      }
+    }
+    /* LET’S CONNECT heading and intro styles for subtle, light gray look */
+    .connect-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.03em;
+  font-weight: 400;
+  color: #6d7080;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 0.2em;
+    }
+    .connect-intro {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 0.87em;
+  color: #6d7080;
+  text-align: center;
+  margin-bottom: 2.5em;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+    }
+    /* Page-specific styles */
+    .contact-page { padding-top: 20px; }
+
+    /* Ensure hero displays beneath fixed navbar without overlap */
+    .hero { position: relative; overflow: hidden; padding-top: 70px; }
+    .hero .hero-media { position: absolute; inset: 0; }
+    .hero .hero-title { position: relative; z-index: 1; }
+
+    /* 4-photo banner (small) */
+    .contact-banner-photos { padding-top: 18px; padding-bottom: 6px; }
+    .contact-banner-photos .banner-grid {
+      display: flex; justify-content: center; align-items: center; gap: 0;
+      max-width: 900px; margin: 0 auto; padding: 0 16px; flex-wrap: nowrap;
+      position: relative; overflow: visible;
+    }
+    .contact-banner-photos img {
+      height: 244px; width: auto; object-fit: cover; border-radius: 0;
+      box-shadow: none;
+      flex: 0 0 auto; display:block;
+    }
+    /* Feather outer edges using CSS mask (fallback is hard edge) */
+    .contact-banner-photos .banner-grid img:first-child {
+      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 28px);
+              mask-image: linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 28px);
+    }
+    .contact-banner-photos .banner-grid img:last-child {
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 28px);
+              mask-image: linear-gradient(to left, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 28px);
+    }
+    /* Optional subtle edge glow to smooth into white background */
+    .contact-banner-photos .banner-grid::before,
+    .contact-banner-photos .banner-grid::after {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 28px; pointer-events: none;
+    }
+    .contact-banner-photos .banner-grid::before { left: 16px; background: linear-gradient(90deg, #fff, rgba(255,255,255,0)); }
+    .contact-banner-photos .banner-grid::after { right: 16px; background: linear-gradient(270deg, #fff, rgba(255,255,255,0)); }
+    @media (max-width: 720px){ .contact-banner-photos img { height: 192px; } }
+    @media (max-width: 500px){ .contact-banner-photos img { height: 160px; } }
+
+    .contact-card {
+  background: transparent;
+      max-width: 700px;
+      margin: 32px auto 0 auto;
+      padding: 32px 32px 24px 32px;
+      border-radius: 0;
+  box-shadow: none;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .contact-card form {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .contact-card .row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 32px;
+    }
+    .contact-card .field {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-card label.field-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14.85px;
+  font-weight: 400;
+  color: #6d7080;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-align: center;
+    }
+    .contact-card input,
+    .contact-card select,
+    .contact-card textarea {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 14.3px;
+      padding: 16px 18px;
+      border: 1px solid #e5e7eb;
+      border-radius: 0;
+      background: #fcfdff;
+      color: #6d7080;
+      margin-bottom: 0;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+      width: 720px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .contact-card input:focus,
+    .contact-card select:focus,
+    .contact-card textarea:focus {
+      border-color: #b0b3bb;
+      color: #222;
+    }
+    .contact-card textarea {
+      resize: vertical;
+      min-height: 120px;
+      max-height: 320px;
+    }
+    .contact-card .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .btn-primary {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 0;
+  background: #fff;
+  color: #6d7080;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 13.2px;
+  border: 1px solid #6d7080;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.18s, color 0.18s;
+    }
+    .btn-primary:hover {
+      background: #f5f7fa;
+      color: #222;
+    }
+    .contact-card select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23b0b3bb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 14px) 50%;
+      background-size: 14px 14px;
+      padding-right: 40px;
+    }
+    .hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .captcha-row { display:flex; justify-content:center; align-items:center; margin: 10px 0 6px; }
+    @media (max-width: 800px) {
+      .contact-card { padding: 18px 6px 12px 6px; max-width: 98vw; }
+    }
+  </style>
+  </style>
+  <script>
+    // AJAX Formspree submission, inline validation, spinner, reCAPTCHA, and inline messages
+    (function() {
+      const form = document.querySelector('.contact-form');
+      if (!form) return;
+      const messages = form.querySelector('#form-messages') || document.getElementById('form-messages');
+      const loadingEl = document.getElementById('formLoading');
+      const submitBtn = document.getElementById('submitBtn') || form.querySelector('button[type="submit"]');
+
+      // Inline validation hints
+      const fields = [
+        {id: 'firstName', hint: 'First name is required.'},
+        {id: 'lastName', hint: 'Last name is required.'},
+        {id: 'email', hint: 'Email must include @ and a domain.'},
+        {id: 'how', hint: 'Please select an option.'},
+        {id: 'message', hint: 'Message cannot be empty.'}
+      ];
+      fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        const hint = document.getElementById(f.id + 'Hint');
+        if (!el || !hint) return;
+        el.addEventListener('blur', function() {
+          if (!el.checkValidity()) {
+            hint.textContent = f.hint;
+            hint.style.display = 'block';
+          } else {
+            hint.textContent = '';
+            hint.style.display = 'none';
+          }
+        });
+        el.addEventListener('input', function() {
+          if (el.checkValidity()) {
+            hint.textContent = '';
+            hint.style.display = 'none';
+          }
+        });
+      });
+
+      function showMsg(msg, ok) {
+        if (!messages) return;
+        messages.textContent = msg;
+        // Keep existing site color for success; only set red for errors
+        if (ok) {
+          messages.style.color = '';
+        } else {
+          messages.style.color = 'red';
+        }
+        messages.style.display = 'block';
+        messages.style.opacity = 0;
+        setTimeout(() => { messages.style.opacity = 1; }, 10);
+      }
+      function clearMsg() {
+        if (messages) { messages.textContent = ''; messages.style.display = 'none'; }
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        clearMsg();
+        // Set timestamp hidden field
+        var ts = form.querySelector('input[name="timestamp"]');
+        if (ts) ts.value = new Date().toISOString();
+        let valid = true;
+        fields.forEach(f => {
+          const el = document.getElementById(f.id);
+          const hint = document.getElementById(f.id + 'Hint');
+          if (el && !el.checkValidity()) {
+            hint.textContent = f.hint;
+            hint.style.display = 'block';
+            valid = false;
+          }
+        });
+        // reCAPTCHA validation
+        if (typeof grecaptcha !== 'undefined') {
+          const recaptchaResponse = grecaptcha.getResponse();
+          if (!recaptchaResponse) {
+            showMsg('Please complete the CAPTCHA.', false);
+            valid = false;
+          }
+        }
+        if (!valid) return;
+        if (loadingEl) loadingEl.hidden = false;
+        if (submitBtn) submitBtn.disabled = true;
+        const data = new FormData(form);
+        // Append reCAPTCHA response
+        if (typeof grecaptcha !== 'undefined') {
+          data.append('g-recaptcha-response', grecaptcha.getResponse());
+        }
+        try {
+          const resp = await fetch('https://formspree.io/f/mqaylyqj', {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            showMsg('✓ Thank you for contacting me! I\'ll return your e-mail within 24 hours', true);
+            form.reset();
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          } else {
+            let err = 'Message failed. Please try again.';
+            try {
+              const d = await resp.json();
+              if (d && d.errors && d.errors.length) {
+                // Try to show more descriptive error
+                err = d.errors.map(e => e.message).join('; ');
+              }
+              // Field-specific error
+              if (d && d.errors && d.errors[0] && d.errors[0].field === 'email') {
+                err = 'Email is invalid.';
+              }
+            } catch(_){}
+            showMsg(err, false);
+          }
+        } catch(err) {
+          showMsg('Message failed. Please try again.', false);
+        } finally {
+          if (loadingEl) loadingEl.hidden = true;
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      });
+      // Keep success message persistent until full page refresh (no auto-clear)
+    })();
+  </script>
+  <script defer src="main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+</html>

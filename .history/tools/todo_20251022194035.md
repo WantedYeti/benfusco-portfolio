@@ -1,0 +1,7 @@
+# Task List - 2025-10-22
+
+- [x] Update pricing hero font imports to include elegant serif family.
+- [x] Refresh pricing hero panel styling in `styles.css` to match desired translucent look.
+- [x] Verify updated hero typography and panel render cleanly on pricing page.
+- [x] Soften pricing hero panel glassmorphism (lighter grey, reduced shadow).
+- [x] Refine title/copy typography to mirror reference (weight, spacing, color).

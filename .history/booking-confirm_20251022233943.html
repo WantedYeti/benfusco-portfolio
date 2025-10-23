@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirm Your Booking | Ben Fusco</title>
+  <meta name="description" content="Review and confirm your photography session with Ben Fusco.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="booking-confirm.css">
+</head>
+<body class="confirm-page">
+  <header class="confirm-header">
+    <a href="booking.html" class="confirm-back" id="confirmBack" aria-label="Back to booking">←</a>
+    <div class="confirm-heading">
+      <h1>Complete your booking</h1>
+      <p>Please enter your contact information to proceed</p>
+    </div>
+  </header>
+
+  <main class="confirm-main" id="confirmMain" hidden>
+    <section class="confirm-form-wrap">
+      <form class="confirm-form" id="confirmForm" action="https://formspree.io/f/mqaylyqj" method="POST" novalidate>
+        <input type="hidden" name="subject" value="New booking request from benfusco.com">
+        <input type="hidden" name="packageId" id="hiddenPackageId">
+        <input type="hidden" name="packageTitle" id="hiddenPackageTitle">
+        <input type="hidden" name="sessionDate" id="hiddenSessionDate">
+        <input type="hidden" name="sessionTime" id="hiddenSessionTime">
+        <input type="hidden" name="sessionPrice" id="hiddenSessionPrice">
+        <input type="hidden" name="depositDue" id="hiddenDepositDue">
+        <input type="hidden" name="signature" id="signatureInput">
+
+        <div class="step step-contact" id="contactStep">
+          <div class="step-header">
+            <h2>Contact information</h2>
+            <p>Tell me who I’ll be working with.</p>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="firstName">First Name<span>*</span></label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+              <p class="error" id="firstNameError"></p>
+            </div>
+            <div class="field">
+              <label for="lastName">Last Name<span>*</span></label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+              <p class="error" id="lastNameError"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email<span>*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+              <p class="error" id="emailError"></p>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="e.g. 819-555-1234">
+            </div>
+          </div>
+          <div class="field full">
+            <label for="message">Write a message <span class="optional">Optional</span></label>
+            <textarea id="message" name="message" rows="4" placeholder="Any notes, locations, or ideas you want to share?"></textarea>
+          </div>
+          <button type="button" class="confirm-submit" id="continueButton">Continue</button>
+        </div>
+
+        <div class="step step-contract" id="contractStep" hidden>
+          <div class="contact-summary" aria-live="polite">
+            <div class="contact-summary-heading">
+              <h2>Contact Information</h2>
+              <button type="button" class="contact-edit" id="editContact">Edit</button>
+            </div>
+            <dl>
+              <div>
+                <dt>Name</dt>
+                <dd id="summaryContactName"></dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd id="summaryContactEmail"></dd>
+              </div>
+              <div>
+                <dt>Phone</dt>
+                <dd id="summaryContactPhone"></dd>
+              </div>
+            </dl>
+          </div>
+
+          <article class="contract" id="contractBody">
+            <header>
+              <h2>Portrait Photography Services Agreement</h2>
+              <p class="contract-meta" id="contractMeta"></p>
+            </header>
+            <div class="contract-content" id="contractContent"></div>
+          </article>
+
+          <div class="contract-actions">
+            <button type="button" class="sign-button" id="signButton">Click here to sign</button>
+            <p class="signature-status" id="signatureStatus">Signature required</p>
+            <label class="contract-checkbox">
+              <input type="checkbox" id="agreeCheckbox" name="contractAgree" required>
+              <span>I have read and agree to the contract</span>
+            </label>
+            <button type="button" class="confirm-submit contract-submit" id="contractContinue">Continue</button>
+            <p class="contract-feedback" id="contractFeedback" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="step step-payment" id="paymentStep" hidden>
+          <div class="step-header payment-header">
+            <div class="payment-header-row">
+              <h2>Secure your session</h2>
+              <button type="button" class="contact-edit payment-back" id="backToContract">Review contract</button>
+            </div>
+            <p>Send your retainer via e-transfer to reserve your date.</p>
+          </div>
+          <div class="payment-instructions">
+            <div class="payment-instructions-block">
+              <h3>Send e-transfer to</h3>
+              <p class="transfer-email" id="transferEmail">contact@benfusco.com</p>
+              <p class="transfer-note">Include your name and session date in the memo.</p>
+            </div>
+            <div class="payment-instructions-block">
+              <h3>Retainer amount</h3>
+              <p class="transfer-amount" id="transferAmount"></p>
+              <p class="transfer-balance">Remaining balance is due on the day of your session.</p>
+            </div>
+          </div>
+          <label class="contract-checkbox deposit-confirm">
+            <input type="checkbox" id="depositCheckbox" name="depositCommit" required>
+            <span>I’ll send the retainer via e-transfer within 24 hours.</span>
+          </label>
+          <button type="submit" class="confirm-submit payment-submit">Send Booking Request</button>
+          <p class="form-feedback" id="formFeedback" role="alert"></p>
+        </div>
+      </form>
+    </section>
+
+    <aside class="confirm-summary" id="confirmSummary">
+      <div class="summary-photo" id="summaryPhoto" role="img" aria-label="Selected session preview"></div>
+      <div class="summary-body">
+        <div class="summary-session">
+          <h2 id="summaryTitle"></h2>
+        </div>
+        <ul class="summary-meta">
+          <li class="summary-meta-item">
+            <span class="summary-meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="5" width="18" height="16" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+                <path d="M3 9h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                <path d="M8 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                <path d="M16 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <div class="summary-meta-text">
+              <span class="summary-meta-label">Date</span>
+              <span class="summary-meta-value" id="summaryDate"></span>
+            </div>
+          </li>
+          <li class="summary-meta-item">
+            <span class="summary-meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+                <path d="M12 7.5v4.4l2.6 2.1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <div class="summary-meta-text">
+              <span class="summary-meta-label">Time</span>
+              <span class="summary-meta-value" id="summaryTime"></span>
+            </div>
+          </li>
+          <li class="summary-meta-item">
+            <span class="summary-meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21c-2.8-2.5-7-7.1-7-11a7 7 0 0 1 14 0c0 3.9-4.2 8.5-7 11z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+                <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+              </svg>
+            </span>
+            <div class="summary-meta-text">
+              <span class="summary-meta-label">Location</span>
+              <span class="summary-meta-value" id="summaryLocation"></span>
+            </div>
+          </li>
+        </ul>
+        <div class="summary-payments">
+          <h3>Payments</h3>
+          <ul class="summary-payments-list">
+            <li>
+              <span>Session fee</span>
+              <span id="summarySessionFee"></span>
+            </li>
+            <li>
+              <span>Total</span>
+              <span id="summaryTotal"></span>
+            </li>
+            <li class="is-highlight">
+              <span>Due today</span>
+              <span id="summaryDeposit"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="confirm-empty" id="confirmEmpty" hidden>
+    <div class="empty-card">
+      <h2>No booking selected</h2>
+      <p>Choose a session before confirming your booking.</p>
+      <a href="booking.html" class="confirm-submit">Browse sessions</a>
+    </div>
+  </section>
+
+  <script src="booking-data.js"></script>
+  <script src="booking-confirm.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirm Your Booking | Ben Fusco</title>
+  <meta name="description" content="Review and confirm your photography session with Ben Fusco.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="booking-confirm.css">
+</head>
+<body class="confirm-page">
+  <header class="confirm-header">
+    <a href="booking.html" class="confirm-back" id="confirmBack" aria-label="Back to booking">←</a>
+    <div class="confirm-heading">
+      <h1>Complete your booking</h1>
+      <p>Please enter your contact information to proceed</p>
+    </div>
+  </header>
+
+  <main class="confirm-main" id="confirmMain" hidden>
+    <section class="confirm-form-wrap">
+      <form class="confirm-form" id="confirmForm" action="https://formspree.io/f/mqaylyqj" method="POST" novalidate>
+        <input type="hidden" name="subject" value="New booking request from benfusco.com">
+        <input type="hidden" name="packageId" id="hiddenPackageId">
+        <input type="hidden" name="packageTitle" id="hiddenPackageTitle">
+        <input type="hidden" name="sessionDate" id="hiddenSessionDate">
+        <input type="hidden" name="sessionTime" id="hiddenSessionTime">
+        <input type="hidden" name="sessionPrice" id="hiddenSessionPrice">
+        <input type="hidden" name="depositDue" id="hiddenDepositDue">
+        <div class="field">
+          <label for="firstName">First Name<span>*</span></label>
+          <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+          <p class="error" id="firstNameError"></p>
+        </div>
+        <div class="field">
+          <label for="lastName">Last Name<span>*</span></label>
+          <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+          <p class="error" id="lastNameError"></p>
+        </div>
+        <div class="field">
+          <label for="email">Email<span>*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <p class="error" id="emailError"></p>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="e.g. 819-555-1234">
+        </div>
+        <div class="field">
+          <label for="message">Write a message <span class="optional">Optional</span></label>
+          <textarea id="message" name="message" rows="4" placeholder="Any notes, locations, or ideas you want to share?"></textarea>
+        </div>
+        <button type="submit" class="confirm-submit">Confirm Booking</button>
+        <p class="form-feedback" id="formFeedback" role="alert"></p>
+      </form>
+    </section>
+
+    <aside class="confirm-summary" id="confirmSummary">
+      <div class="summary-photo" id="summaryPhoto" role="img" aria-label="Selected session preview"></div>
+      <div class="summary-body">
+        <div class="summary-session">
+          <span class="summary-code" id="summaryCode"></span>
+          <h2 id="summaryTitle"></h2>
+          <p class="summary-desc" id="summaryDesc"></p>
+        </div>
+        <dl class="summary-details">
+          <div>
+            <dt>Date</dt>
+            <dd id="summaryDate"></dd>
+          </div>
+          <div>
+            <dt>Time</dt>
+            <dd id="summaryTime"></dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd id="summaryLocation"></dd>
+          </div>
+        </dl>
+        <div class="summary-includes">
+          <h3>What's included</h3>
+          <ul id="summaryIncludes"></ul>
+          <a href="#" id="summaryMore" class="summary-link" target="_blank" rel="noopener">View package details</a>
+        </div>
+        <div class="summary-payments">
+          <h3>Payments</h3>
+          <div class="payment-row"><span>Session fee</span><span id="summaryTotal"></span></div>
+          <div class="payment-row"><span>Due today</span><span id="summaryDeposit"></span></div>
+          <div class="payment-row"><span>Remaining balance</span><span id="summaryBalance"></span></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="confirm-empty" id="confirmEmpty" hidden>
+    <div class="empty-card">
+      <h2>No booking selected</h2>
+      <p>Choose a session before confirming your booking.</p>
+      <a href="booking.html" class="confirm-submit">Browse sessions</a>
+    </div>
+  </section>
+
+  <script src="booking-data.js"></script>
+  <script src="booking-confirm.js" defer></script>
+</body>
+</html>

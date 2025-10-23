@@ -1,0 +1,35 @@
+{
+  "mini": {
+    "id": "mini",
+    "code": "NR 01",
+    "title": "Mini Session",
+    "price": "$125",
+    "duration": "15 minutes",
+    "edited": "10 edited images",
+    "location": "Outdoor / Studio (local)",
+    "description": "A short and sweet session designed to capture beautiful moments with ease. Perfect for seasonal minis and quick updates.",
+    "contactCTA": "Book Mini Session"
+  },
+  "midi": {
+    "id": "midi",
+    "code": "NR 02",
+    "title": "Midi Session",
+    "price": "$175",
+    "duration": "30 minutes",
+    "edited": "up to 25 edited images",
+    "location": "Outdoor / Studio (local)",
+    "description": "A balanced session offering time for creativity and variety. Great for families or couples.",
+    "contactCTA": "Book Midi Session"
+  },
+  "maxi": {
+    "id": "maxi",
+    "code": "NR 03",
+    "title": "Maxi Session",
+    "price": "$225",
+    "duration": "60 minutes",
+    "edited": "up to 50 edited images",
+    "location": "Outdoor / Studio (local)",
+    "description": "The complete experience with ample room for variety. Ideal for families or engagement sessions.",
+    "contactCTA": "Book Maxi Session"
+  }
+}
