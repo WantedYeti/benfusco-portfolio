@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ben Fusco | Gym Portraits</title>
+  <meta name="description" content="Gym portrait photography by Ben Fusco."> 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../carousel/carousel.css" />
+  <style>.hero-portraits { background:#111; }</style>
+  <link rel="icon" type="image/png" href="../Images/Logo/logobutton.png" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="../index.html" class="logo-link" aria-label="Home">
+          <img src="../Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
+          <span class="site-title">Ben Fusco</span>
+        </a>
+      </div>
+      <div class="navbar-divider"></div>
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
+          <ul class="folder-child">
+            <li><a href="concerts.html">Concerts</a></li>
+            <li><a href="couples.html">Couples</a></li>
+            <li><a href="portraits.html">Portraits</a></li>
+            <li><a href="gym-portraits.html" class="active">Gym Portraits</a></li>
+            <li><a href="weddings.html">Weddings</a></li>
+          </ul>
+        </li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#instagram">Instagram</a></li>
+        <li><a href="../index.html#map-section">Location</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Toggle menu"></button>
+    </div>
+    <div id="menu" class="mobile-nav">
+      <ul class="nav-root">
+        <li class="folder-parent">
+          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
+          <ul class="folder-child">
+            <li><a href="concerts.html">Concerts</a></li>
+            <li><a href="couples.html">Couples</a></li>
+            <li><a href="portraits.html">Portraits</a></li>
+            <li><a href="gym-portraits.html" class="active">Gym Portraits</a></li>
+            <li><a href="weddings.html">Weddings</a></li>
+          </ul>
+        </li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#instagram">Instagram</a></li>
+        <li><a href="../index.html#map-section">Location</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero hero-portraits">
+    <h1>Gym Portraits</h1>
+  </section>
+
+  <section id="portfolio" class="section">
+    <h2 class="section-title section-heading">Gym Portrait Gallery</h2>
+    <div class="fx-carousel" aria-label="Gym portraits slideshow" data-src="../Images/Gym Portraits" data-shuffle="true" data-sample="15" data-delay="3000"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
+  </footer>
+
+  <script defer src="../carousel/carousel.js"></script>
+  <script defer src="../main.js"></script>
+</body>
+</html>
