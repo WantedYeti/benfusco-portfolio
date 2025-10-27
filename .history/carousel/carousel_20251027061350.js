@@ -566,7 +566,7 @@
       if (!this.state.ready) return;
       const N = this.slideCount();
       if (!N) return;
-      const { via, jump } = meta;
+    const { via, jump } = meta;
       if (this.state.animating && !jump) return;
 
       const before = this.state.idx;
@@ -580,31 +580,15 @@
 
       if (before === next && !jump) return;
 
-      // Determine wrap direction when looping to ensure we only move one slide per transition.
-      const wrapForward = (before === N-1 && next === 0);
-      const wrapBackward = (before === 0 && next === N-1);
-      let direction = via;
-      if (!direction){
-        const forwardSteps = (next - before + N) % N;
-        const backwardSteps = (before - next + N) % N;
-        direction = forwardSteps <= backwardSteps ? 'next' : 'prev';
-      }
+      // With triple-list rendering, we no longer need edge clone jump logic
 
-      if (this.opts.loop && !jump){
-        if (wrapForward && direction === 'next'){
-          this.state.offset += N;
-        } else if (wrapBackward && direction === 'prev'){
-          this.state.offset -= N;
-        } else {
-          this.state.offset = this.state.offset || N;
-        }
-      } else if (this.opts.loop && !this.state.offset){
-        this.state.offset = N;
+      // Normalize absolute position into middle block BEFORE transition to avoid post-anim snap
+      if (this.opts.loop) {
+        this.state.offset = N; // keep anchored in center block
       }
-
-      this.state.idx = next;
-      this.state.animating = true; // set before transform to block mid-animation recenter
-      this.applyTransform(false);
+    this.state.idx = next;
+    this.state.animating = true; // set before transform to block mid-animation recenter
+    this.applyTransform(false);
   // Warm up a wider neighbor radius for extra wide viewports
   this.ensureNeighborsLoaded(4);
   this._refreshLazyVisibility();
@@ -626,19 +610,6 @@
         this.state.animating = false;
         // Reset transition styles to avoid lingering effects
         track.style.transition = '';
-        if (this.opts.loop){
-          let recentered = false;
-          if (this.state.offset >= 2 * N){
-            this.state.offset -= N;
-            recentered = true;
-          } else if (this.state.offset < N){
-            this.state.offset += N;
-            recentered = true;
-          }
-          if (recentered){
-            this.applyTransform(true);
-          }
-        }
         if (this.state.needResize){ this.state.needResize = false; this.onResize(); }
       };
       track.addEventListener('transitionend', onEnd);
