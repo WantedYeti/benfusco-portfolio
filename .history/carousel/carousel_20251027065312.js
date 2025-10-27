@@ -224,7 +224,7 @@
       this.state.imgs = doShuffle ? shuffle(verified.slice()) : verified;
 
       if (!this.state.imgs.length){
-        console.warn('FXCarousel: no valid images resolved for', folderSrc || '[inline list]');
+        console.warn('FXCarousel: no images resolved for', debugSrc || '[inline images]');
         this.ui.track.innerHTML = '';
         const msg = document.createElement('div');
         msg.className = 'fx-status';

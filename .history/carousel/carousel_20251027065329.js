@@ -233,6 +233,16 @@
         return;
       }
 
+      if (!this.state.imgs.length){
+        console.warn('FXCarousel: no images resolved for', debugSrc || '[inline images]');
+        this.ui.track.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.className = 'fx-status';
+        msg.textContent = 'No images available for this carousel.';
+        this.ui.viewport.appendChild(msg);
+        return;
+      }
+
   // Prep phase: hide viewport until base layout is stable to avoid first-paint jitter
   this.ui.viewport.classList.add('fx-prep');
   this.renderSlides();
