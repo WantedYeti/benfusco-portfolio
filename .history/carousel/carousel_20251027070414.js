@@ -25,11 +25,6 @@
   function toUrl(base){ try { return new URL(base, document.baseURI).toString(); } catch { return base; } }
   const decodeEl = (img) => (img && img.decode ? img.decode().catch(()=>{}) : Promise.resolve());
 
-  function normalizeSrc(src){
-    if (!src) return src;
-    try { return new URL(src, document.baseURI).href; } catch { return src; }
-  }
-
   function isMobileViewport(){
     try {
       if (!window.matchMedia) return false;
@@ -226,12 +221,11 @@
         list = sampled.slice(0, sample);
       }
 
-      let normalized = list.map(normalizeSrc);
-      let verified = normalized;
+      let verified = list;
       if (folderSrc && (!Array.isArray(images) || !images.length)){
         try {
-          verified = await this.verifyImages(normalized);
-        } catch(_){ verified = normalized; }
+          verified = await this.verifyImages(list);
+        } catch(_){ verified = list; }
       }
 
       this.state.imgs = doShuffle ? shuffle(verified.slice()) : verified;

@@ -231,7 +231,7 @@
       if (folderSrc && (!Array.isArray(images) || !images.length)){
         try {
           verified = await this.verifyImages(normalized);
-        } catch(_){ verified = normalized; }
+        } catch(_){ verified = list; }
       }
 
       this.state.imgs = doShuffle ? shuffle(verified.slice()) : verified;
