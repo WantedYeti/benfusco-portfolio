@@ -39,10 +39,6 @@
   box-sizing: border-box;
   margin: 14px auto 0 auto;
 }
-.portraits-grid picture {
-  display: block;
-  width: 100%;
-}
 /* Add breathing room below the grid before the slideshow */
 .portraits-section .portraits-grid { margin-bottom: 28px; }
 
@@ -1642,21 +1638,37 @@ footer {
 }
 
 /* =========================
-   Instagram Slider (Desktop)
+   Instagram Slider (Responsive Single Component)
    ========================= */
-.instagram-slider {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
-/* Row layout for desktop */
-.ig-row {
+.ig-slider {
+  position: relative;
   display: flex;
   justify-content: center;
   gap: 24px;
   padding: 24px 0;
+  flex-wrap: wrap;
+  min-height: 460px;
 }
-.ig-slider {
+.ig-slider .slider-track {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+  min-height: 420px;
+}
+.ig-slider .ig-slide {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+.ig-slider .ig-slide .instagram-media {
+  width: 100% !important;
+}
+.ig-slider .nav,
+.ig-slider .slider-controls {
   display: none;
 }
 .instagram-media {
@@ -1665,164 +1677,146 @@ footer {
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   overflow: hidden;
-  /* Crop the embed to only show the photo and username */
   height: 420px;
 }
 
-/* =========================
-   Instagram Slider (Mobile/Tablet)
-   ========================= */
-@media (max-width: 1024px) {
-  .ig-row { display: none; }
-  .ig-slider {
-    display: block;
-    position: relative;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 0 0 32px 0;
-  }
-  /* IG Slider (namespaced) */
-  .ig-slider .slider-track {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
-    width: 100%;
-    position: relative;
-    height: 420px;
-    pointer-events: none;
-  }
-  .ig-slide {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 70%;
-    max-width: 320px;
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateX(-50%) scale(0.92);
-    /* Smooth slide transition */
-    transition: 
-      filter 0.6s cubic-bezier(.77,0,.18,1),
-      opacity 0.6s cubic-bezier(.77,0,.18,1),
-      transform 0.6s cubic-bezier(.77,0,.18,1),
-      z-index 0.6s cubic-bezier(.77,0,.18,1);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-  }
-  .ig-slide.active {
-    opacity: 1;
-    filter: none;
-    transform: translateX(-50%) scale(1);
-    z-index: 3;
-    pointer-events: auto;
-  }
-  .ig-slide.prev {
-    opacity: 1;
-    filter: blur(4px);
-    transform: translateX(-120%) scale(0.92);
-    z-index: 2;
-  }
-  .ig-slide.next {
-    opacity: 1;
-    filter: blur(4px);
-    transform: translateX(20%) scale(0.92);
-    z-index: 2;
-  }
-  .ig-slide:not(.active):not(.prev):not(.next) {
-    opacity: 0;
-    pointer-events: none;
-    display: none;
-  }
+.ig-slider.is-mobile {
+  display: block;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 0 32px 0;
+  min-height: 460px;
+}
+.ig-slider.is-mobile .slider-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+  position: relative;
+  height: 420px;
+  pointer-events: none;
+}
+.ig-slider.is-mobile .ig-slide {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 70%;
+  max-width: 320px;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(-50%) scale(0.92);
+  transition:
+    filter 0.6s cubic-bezier(.77,0,.18,1),
+    opacity 0.6s cubic-bezier(.77,0,.18,1),
+    transform 0.6s cubic-bezier(.77,0,.18,1),
+    z-index 0.6s cubic-bezier(.77,0,.18,1);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+.ig-slider.is-mobile .ig-slide.active {
+  opacity: 1;
+  filter: none;
+  transform: translateX(-50%) scale(1);
+  z-index: 3;
+  pointer-events: auto;
+}
+.ig-slider.is-mobile .ig-slide.prev {
+  opacity: 1;
+  filter: blur(4px);
+  transform: translateX(-120%) scale(0.92);
+  z-index: 2;
+}
+.ig-slider.is-mobile .ig-slide.next {
+  opacity: 1;
+  filter: blur(4px);
+  transform: translateX(20%) scale(0.92);
+  z-index: 2;
+}
+.ig-slider.is-mobile .ig-slide:not(.active):not(.prev):not(.next) {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+.ig-slider.is-mobile .nav {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: background 0.2s, border-color 0.2s;
+  opacity: 1;
+}
+.ig-slider.is-mobile .nav.prev {
+  left: clamp(8px, calc(50% - 180px), 120px);
+}
+.ig-slider.is-mobile .nav.next {
+  right: clamp(8px, calc(50% - 180px), 120px);
+}
+.ig-slider.is-mobile .nav:hover {
+  border-color: #888;
+  background: rgba(255,255,255,0.15);
+}
+.ig-slider.is-mobile .slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+  width: 100%;
+}
+.ig-slider.is-mobile .dots {
+  display: flex;
+  gap: 8px;
+}
+.ig-slider.is-mobile .ig-dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ig-slider.is-mobile .ig-dot.active {
+  background: #222;
+}
+.ig-slider.is-mobile .apple-style-button {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  opacity: 1;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  text-align: center;
+}
+.ig-slider.is-mobile .apple-style-button .pause-icon,
+.ig-slider.is-mobile .apple-style-button .play-icon {
+  width: 16px;
+  height: 16px;
+  fill: #222;
+}
 
-  /* Navigation arrows (hollow circles) */
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;         /* Transparent center */
-    border: 2px solid #ccc;          /* Circle border */
-    border-radius: 50%;
-    font-size: 1.3rem;               /* Arrow size */
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 4;
-    box-shadow: none;                /* Remove shadow for true hollow look */
-    transition: background 0.2s, border-color 0.2s;
-    opacity: 1;
+@media (max-width: 600px) {
+  .ig-slider.is-mobile {
+    transform: scale(0.9);
+    transform-origin: top center;
   }
-  .nav:hover {
-    border-color: #888;
-    background: rgba(255,255,255,0.15); /* Subtle hover effect */
-  }
-  .nav .arrow {
-    color: #222;
-    font-size: 1.3rem;
-    pointer-events: none;
-    line-height: 1;
-  }
-
-  /* Slider controls (dots and play button) */
-  .slider-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 18px;
-  }
-  .dots {
-    display: flex;
-    gap: 8px;
-  }
-  .dot {
-    width: 8px;
-    height: 8px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.2s;
-    border: none;
-    outline: none;
-  }
-  .dot.active { background: #222; }
-
-  /* Play/Pause button for slider */
-  .play {
-    background: rgba(255,255,255,0.85);
-    border: none;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    padding: 7px 10px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8px;
-    opacity: 1;
-    width: 36px;
-    height: 36px;
-    min-width: 36px; /* or whatever width fits your icons comfortably */
-    text-align: center;
-  }
-  .play .play-icon,
-  .play .pause-icon {
-    font-size: 1.1rem;
-    color: #222;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .play.active .play-icon { display: none; }
-  .play.active .pause-icon { display: inline-block; }
 }
 
 /* =========================
@@ -1840,35 +1834,6 @@ footer {
   left: auto;
 }
 
-/* =========================
-   Mobile-specific scaling and centering
-   ========================= */
-@media (max-width: 600px) {
-  .ig-slider {
-    transform: scale(0.8);
-    transform-origin: top center;
-    /* Optional: keep it centered */
-    margin: 0 auto;
-  }
-  .slider-controls {
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 100%;
-    left: 0;
-    right: 0;
-    position: relative;
-  }
-  .dots {
-    justify-content: center;
-    align-items: center;
-    width: auto;
-  }
-  .play {
-    margin-left: 12px;
-    margin-right: 0;
-  }
-}
 
 /* =========================
    Desktop nav visible only on desktop

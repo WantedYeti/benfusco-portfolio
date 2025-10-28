@@ -39,10 +39,6 @@
   box-sizing: border-box;
   margin: 14px auto 0 auto;
 }
-.portraits-grid picture {
-  display: block;
-  width: 100%;
-}
 /* Add breathing room below the grid before the slideshow */
 .portraits-section .portraits-grid { margin-bottom: 28px; }
 
@@ -1642,231 +1638,180 @@ footer {
 }
 
 /* =========================
-   Instagram Slider (Desktop)
+   Instagram Slider (Unified Responsive)
    ========================= */
-.instagram-slider {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
-/* Row layout for desktop */
-.ig-row {
+.ig-slider {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
   padding: 24px 0;
+  min-height: 440px;
 }
-.ig-slider {
-  display: none;
+.ig-slider .slider-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
 }
-.instagram-media {
-  width: 320px !important;
+.ig-slider .ig-slide {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+.ig-slider .instagram-media {
+  width: 100% !important;
   max-width: 100%;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   overflow: hidden;
-  /* Crop the embed to only show the photo and username */
+  min-height: 420px;
+}
+.ig-slider .nav,
+.ig-slider .slider-controls {
+  display: none;
+}
+
+.ig-slider.is-mobile {
+  display: block;
+  max-width: 420px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+  min-height: 470px;
+}
+.ig-slider.is-mobile .slider-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
   height: 420px;
+  pointer-events: none;
+}
+.ig-slider.is-mobile .ig-slide {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 78%;
+  max-width: 320px;
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-50%) scale(0.9);
+  transition:
+    filter 0.55s cubic-bezier(.77,0,.18,1),
+    opacity 0.55s cubic-bezier(.77,0,.18,1),
+    transform 0.55s cubic-bezier(.77,0,.18,1),
+    z-index 0.55s cubic-bezier(.77,0,.18,1);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+.ig-slider.is-mobile .ig-slide.active {
+  opacity: 1;
+  filter: none;
+  transform: translateX(-50%) scale(1);
+  z-index: 3;
+  pointer-events: auto;
+}
+.ig-slider.is-mobile .ig-slide.prev {
+  opacity: 1;
+  filter: blur(5px);
+  transform: translateX(-120%) scale(0.9);
+  z-index: 2;
+}
+.ig-slider.is-mobile .ig-slide.next {
+  opacity: 1;
+  filter: blur(5px);
+  transform: translateX(20%) scale(0.9);
+  z-index: 2;
+}
+.ig-slider.is-mobile .ig-slide:not(.active):not(.prev):not(.next) {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
 }
 
-/* =========================
-   Instagram Slider (Mobile/Tablet)
-   ========================= */
-@media (max-width: 1024px) {
-  .ig-row { display: none; }
-  .ig-slider {
-    display: block;
-    position: relative;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 0 0 32px 0;
-  }
-  /* IG Slider (namespaced) */
-  .ig-slider .slider-track {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
-    width: 100%;
-    position: relative;
-    height: 420px;
-    pointer-events: none;
-  }
-  .ig-slide {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 70%;
-    max-width: 320px;
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateX(-50%) scale(0.92);
-    /* Smooth slide transition */
-    transition: 
-      filter 0.6s cubic-bezier(.77,0,.18,1),
-      opacity 0.6s cubic-bezier(.77,0,.18,1),
-      transform 0.6s cubic-bezier(.77,0,.18,1),
-      z-index 0.6s cubic-bezier(.77,0,.18,1);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-  }
-  .ig-slide.active {
-    opacity: 1;
-    filter: none;
-    transform: translateX(-50%) scale(1);
-    z-index: 3;
-    pointer-events: auto;
-  }
-  .ig-slide.prev {
-    opacity: 1;
-    filter: blur(4px);
-    transform: translateX(-120%) scale(0.92);
-    z-index: 2;
-  }
-  .ig-slide.next {
-    opacity: 1;
-    filter: blur(4px);
-    transform: translateX(20%) scale(0.92);
-    z-index: 2;
-  }
-  .ig-slide:not(.active):not(.prev):not(.next) {
-    opacity: 0;
-    pointer-events: none;
-    display: none;
-  }
-
-  /* Navigation arrows (hollow circles) */
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;         /* Transparent center */
-    border: 2px solid #ccc;          /* Circle border */
-    border-radius: 50%;
-    font-size: 1.3rem;               /* Arrow size */
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 4;
-    box-shadow: none;                /* Remove shadow for true hollow look */
-    transition: background 0.2s, border-color 0.2s;
-    opacity: 1;
-  }
-  .nav:hover {
-    border-color: #888;
-    background: rgba(255,255,255,0.15); /* Subtle hover effect */
-  }
-  .nav .arrow {
-    color: #222;
-    font-size: 1.3rem;
-    pointer-events: none;
-    line-height: 1;
-  }
-
-  /* Slider controls (dots and play button) */
-  .slider-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 18px;
-  }
-  .dots {
-    display: flex;
-    gap: 8px;
-  }
-  .dot {
-    width: 8px;
-    height: 8px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.2s;
-    border: none;
-    outline: none;
-  }
-  .dot.active { background: #222; }
-
-  /* Play/Pause button for slider */
-  .play {
-    background: rgba(255,255,255,0.85);
-    border: none;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    padding: 7px 10px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8px;
-    opacity: 1;
-    width: 36px;
-    height: 36px;
-    min-width: 36px; /* or whatever width fits your icons comfortably */
-    text-align: center;
-  }
-  .play .play-icon,
-  .play .pause-icon {
-    font-size: 1.1rem;
-    color: #222;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .play.active .play-icon { display: none; }
-  .play.active .pause-icon { display: inline-block; }
+.ig-slider.is-mobile .nav {
+  display: flex;
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.ig-slider.is-mobile .nav.prev { left: clamp(6px, 11%, 48px); }
+.ig-slider.is-mobile .nav.next { right: clamp(6px, 11%, 48px); }
+.ig-slider.is-mobile .nav:hover {
+  background: rgba(0,0,0,0.38);
+  border-color: rgba(255,255,255,0.6);
 }
 
-/* =========================
-   Navigation Arrow Positioning
-   ========================= */
-.nav {
-  z-index: 10;
+.ig-slider.is-mobile .slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 6px auto 0;
 }
-.nav.prev {
-  left: 8px;
-  right: auto;
+.ig-slider.is-mobile .dots {
+  display: flex;
+  gap: 8px;
 }
-.nav.next {
-  right: 8px;
-  left: auto;
+.ig-slider.is-mobile .ig-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.ig-slider.is-mobile .ig-dot.active {
+  background: #222;
+  transform: scale(1.2);
+}
+.ig-slider.is-mobile .apple-style-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.ig-slider.is-mobile .apple-style-button .pause-icon,
+.ig-slider.is-mobile .apple-style-button .play-icon {
+  width: 16px;
+  height: 16px;
+  fill: #222;
 }
 
-/* =========================
-   Mobile-specific scaling and centering
-   ========================= */
 @media (max-width: 600px) {
-  .ig-slider {
-    transform: scale(0.8);
+  .ig-slider.is-mobile {
+    transform: scale(0.95);
     transform-origin: top center;
-    /* Optional: keep it centered */
-    margin: 0 auto;
-  }
-  .slider-controls {
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 100%;
-    left: 0;
-    right: 0;
-    position: relative;
-  }
-  .dots {
-    justify-content: center;
-    align-items: center;
-    width: auto;
-  }
-  .play {
-    margin-left: 12px;
-    margin-right: 0;
   }
 }
 

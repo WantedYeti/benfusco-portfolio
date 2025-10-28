@@ -39,10 +39,6 @@
   box-sizing: border-box;
   margin: 14px auto 0 auto;
 }
-.portraits-grid picture {
-  display: block;
-  width: 100%;
-}
 /* Add breathing room below the grid before the slideshow */
 .portraits-section .portraits-grid { margin-bottom: 28px; }
 

@@ -487,145 +487,129 @@ document.addEventListener('DOMContentLoaded', () => {
 // Grid Lightbox (portraits grid on homepage) – slider-style fullscreen
 // =======================
 document.addEventListener('DOMContentLoaded', () => {
-  buildDynamicGallery().then((initialThumbs) => {
-    const grid = document.querySelector('.portraits-grid');
-    if (!grid) return;
-    let thumbs = Array.isArray(initialThumbs) && initialThumbs.length
-      ? initialThumbs
-      : Array.from(grid.querySelectorAll('img.portrait-thumb'));
-    if (thumbs.length === 0) return;
-    // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
-    document.querySelectorAll('.lightbox').forEach(el => {
-      try { el.remove(); } catch (_) {}
-    });
+  const grid = document.querySelector('.portraits-grid');
+  if (!grid) return;
+  const thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
+  if (thumbs.length === 0) return;
 
-    // Build slider-style lightbox once
-    let lb = document.querySelector('.slider-lightbox');
-    if (!lb) {
-      lb = document.createElement('div');
-      lb.className = 'slider-lightbox';
-      lb.setAttribute('role', 'dialog');
-      lb.setAttribute('aria-modal', 'true');
-      lb.setAttribute('aria-label', 'Image viewer');
-      lb.innerHTML = `
-        <div class="lb-backdrop" data-close></div>
-        <div class="lb-inner">
-          <div class="lb-stage">
-            <img class="lb-image" alt="" />
-            <button class="lb-close" type="button" aria-label="Close">×</button>
-            <button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
-            <button class="lb-nav lb-next" type="button" aria-label="Next">›</button>
-          </div>
-          <div class="lb-caption" aria-live="polite"></div>
-          <div class="lb-counter" aria-live="polite"></div>
-        </div>`;
-      document.body.appendChild(lb);
-    }
+  // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
+  document.querySelectorAll('.lightbox').forEach(el => {
+    try { el.remove(); } catch (_) {}
+  });
 
-    const imgEl = lb.querySelector('.lb-image');
-    const closeBtn = lb.querySelector('.lb-close');
-    const prevBtn = lb.querySelector('.lb-prev');
-    const nextBtn = lb.querySelector('.lb-next');
-    const caption = lb.querySelector('.lb-caption');
-    const counter = lb.querySelector('.lb-counter');
-    let currentIndex = 0;
+  // Build slider-style lightbox once
+  let lb = document.querySelector('.slider-lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.className = 'slider-lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Image viewer');
+    lb.innerHTML = `
+      <div class="lb-backdrop" data-close></div>
+      <div class="lb-inner">
+        <div class="lb-stage">
+          <img class="lb-image" alt="" />
+          <button class="lb-close" type="button" aria-label="Close">×</button>
+          <button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
+          <button class="lb-nav lb-next" type="button" aria-label="Next">›</button>
+        </div>
+        <div class="lb-caption" aria-live="polite"></div>
+        <div class="lb-counter" aria-live="polite"></div>
+      </div>`;
+    document.body.appendChild(lb);
+  }
 
-    function refreshThumbs(){
-      thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
-    }
+  const imgEl = lb.querySelector('.lb-image');
+  const closeBtn = lb.querySelector('.lb-close');
+  const prevBtn = lb.querySelector('.lb-prev');
+  const nextBtn = lb.querySelector('.lb-next');
+  const caption = lb.querySelector('.lb-caption');
+  const counter = lb.querySelector('.lb-counter');
+  let currentIndex = 0;
 
-    function setImage(index, withFade = true){
-      const el = thumbs[index];
-      if (!el) return;
-      const src = el.getAttribute('data-fullsrc') || el.src;
-      const alt = el.alt || '';
+  function setImage(index, withFade = true){
+    const el = thumbs[index];
+    if (!el) return;
+    const src = el.getAttribute('data-fullsrc') || el.src;
+    const alt = el.alt || '';
 
-      if (withFade) {
-        // simple fade by toggling opacity via class
-        imgEl.classList.remove('loaded');
-        const tmp = new Image();
-        tmp.onload = () => {
-          imgEl.src = src;
-          imgEl.alt = alt;
-          requestAnimationFrame(() => imgEl.classList.add('loaded'));
-        };
-        tmp.src = src;
-      } else {
+    if (withFade) {
+      // simple fade by toggling opacity via class
+      imgEl.classList.remove('loaded');
+      const tmp = new Image();
+      tmp.onload = () => {
         imgEl.src = src;
         imgEl.alt = alt;
-        imgEl.classList.add('loaded');
-      }
-
-      // Caption and counter
-      if (caption) caption.textContent = alt || '';
-      if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
-
-      // Preload neighbors for snappy nav
-      const nextIdx = (index + 1) % thumbs.length;
-      const prevIdx = (index - 1 + thumbs.length) % thumbs.length;
-      [nextIdx, prevIdx].forEach(i => {
-        const n = thumbs[i];
-        if (!n) return;
-        const nsrc = n.getAttribute('data-fullsrc') || n.src;
-        const pre = new Image();
-        pre.src = nsrc;
-      });
+        requestAnimationFrame(() => imgEl.classList.add('loaded'));
+      };
+      tmp.src = src;
+    } else {
+      imgEl.src = src;
+      imgEl.alt = alt;
+      imgEl.classList.add('loaded');
     }
 
-    function openAt(index){
-      currentIndex = index;
-      setImage(currentIndex, false);
-      lb.classList.add('open');
-      document.body.classList.add('fx-lightbox-open', 'lightbox-open');
-    }
+    // Caption and counter
+    if (caption) caption.textContent = alt || '';
+    if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
 
-    function close(){
-      lb.classList.remove('open');
-      document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
-    }
-
-    function step(dir){
-      const len = thumbs.length;
-      currentIndex = (currentIndex + dir + len) % len;
-      setImage(currentIndex, true);
-    }
-
-    // Click to open from grid
-    grid.addEventListener('click', (e) => {
-      const t = e.target;
-      if (!(t && t.classList && t.classList.contains('portrait-thumb'))) return;
-      e.preventDefault();
-      refreshThumbs();
-      const idx = thumbs.indexOf(t);
-      if (idx >= 0) openAt(idx);
+    // Preload neighbors for snappy nav
+    const nextIdx = (index + 1) % thumbs.length;
+    const prevIdx = (index - 1 + thumbs.length) % thumbs.length;
+    [nextIdx, prevIdx].forEach(i => {
+      const n = thumbs[i];
+      if (!n) return;
+      const nsrc = n.getAttribute('data-fullsrc') || n.src;
+      const pre = new Image();
+      pre.src = nsrc;
     });
+  }
 
-    // Controls
-    if (closeBtn) closeBtn.addEventListener('click', close);
-    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
-    if (nextBtn) nextBtn.addEventListener('click', () => step(1));
-    lb.addEventListener('click', (e) => {
-      // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
-      const stage = lb.querySelector('.lb-stage');
-      if (e.target && e.target.hasAttribute('data-close')) return close();
-      if (stage && !stage.contains(e.target)) return close();
-    });
+  function openAt(index){
+    currentIndex = index;
+    setImage(currentIndex, false);
+    lb.classList.add('open');
+    document.body.classList.add('fx-lightbox-open', 'lightbox-open');
+  }
 
-    // Keyboard navigation
-    window.addEventListener('keydown', (e) => {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      else if (e.key === 'ArrowRight') step(1);
-      else if (e.key === 'ArrowLeft') step(-1);
-    });
+  function close(){
+    lb.classList.remove('open');
+    document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
+  }
 
-    grid.addEventListener('gallery:ready', () => {
-      refreshThumbs();
-      if (lb.classList.contains('open')) {
-        currentIndex = Math.min(currentIndex, Math.max(thumbs.length - 1, 0));
-        setImage(currentIndex, false);
-      }
-    });
+  function step(dir){
+    const len = thumbs.length;
+    currentIndex = (currentIndex + dir + len) % len;
+    setImage(currentIndex, true);
+  }
+
+  // Click to open from grid
+  grid.addEventListener('click', (e) => {
+    const t = e.target;
+    if (!(t && t.classList && t.classList.contains('portrait-thumb'))) return;
+    e.preventDefault();
+    const idx = thumbs.indexOf(t);
+    if (idx >= 0) openAt(idx);
+  });
+
+  // Controls
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => step(1));
+  lb.addEventListener('click', (e) => {
+    // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
+    const stage = lb.querySelector('.lb-stage');
+    if (e.target && e.target.hasAttribute('data-close')) return close();
+    if (stage && !stage.contains(e.target)) return close();
+  });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
   });
 });
 

@@ -134,105 +134,6 @@ window.initLeafletMap = function initLeafletMap(){
   }
 };
 
-function shuffleArray(list){
-  for (let i = list.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [list[i], list[j]] = [list[j], list[i]];
-  }
-  return list;
-}
-
-function buildDynamicGallery(){
-  const grid = document.querySelector('.portraits-grid');
-  if (!grid) return Promise.resolve([]);
-
-  const folderAttr = grid.getAttribute('data-folders');
-  if (!folderAttr){
-    grid.dataset.galleryReady = 'static';
-    return Promise.resolve(Array.from(grid.querySelectorAll('img.portrait-thumb')));
-  }
-
-  const folders = folderAttr.split(',').map(s => s.trim()).filter(Boolean);
-  if (!folders.length){
-    grid.dataset.galleryReady = 'static';
-    return Promise.resolve(Array.from(grid.querySelectorAll('img.portrait-thumb')));
-  }
-
-  const desktopBase = (grid.getAttribute('data-desktop-base') || 'Images/Desktop').replace(/\/+$/,'');
-  const mobileBase = (grid.getAttribute('data-mobile-base') || 'Images/Mobile').replace(/\/+$/,'');
-  const altPrefix = grid.getAttribute('data-alt-prefix') || 'Gallery photo';
-  const desiredCount = Math.max(1, parseInt(grid.getAttribute('data-count'), 10) || 12);
-  const originalHTML = grid.innerHTML;
-
-  const fetchLists = folders.map((folder) => {
-    const normalizedFolder = folder.replace(/^\/+|\/+$/g, '');
-    const url = `${desktopBase}/${normalizedFolder}/_images.json`.replace(/\\/g, '/');
-    return fetch(url, { cache: 'no-store' })
-      .then((res) => res.ok ? res.json() : [])
-      .then((items) => items.map((file) => ({ folder: normalizedFolder, file })))
-      .catch(() => []);
-  });
-
-  return Promise.all(fetchLists).then((results) => {
-    const pool = results.flat();
-    if (!pool.length){
-      grid.innerHTML = originalHTML;
-      grid.dataset.galleryReady = 'fallback';
-      return Array.from(grid.querySelectorAll('img.portrait-thumb'));
-    }
-
-    const unique = [];
-    const seen = new Set();
-    shuffleArray(pool);
-    pool.forEach((item) => {
-      const key = `${item.folder}/${item.file}`;
-      if (!seen.has(key)){
-        seen.add(key);
-        unique.push(item);
-      }
-    });
-
-    const selection = unique.slice(0, Math.min(desiredCount, unique.length));
-    const fragment = document.createDocumentFragment();
-
-    selection.forEach((item, idx) => {
-      const picture = document.createElement('picture');
-      picture.className = 'portrait-picture';
-      picture.setAttribute('role', 'listitem');
-
-      const mobileSource = document.createElement('source');
-      mobileSource.media = '(max-width: 768px)';
-      mobileSource.srcset = `${mobileBase}/${item.folder}/${item.file}`.replace(/\\/g, '/');
-      picture.appendChild(mobileSource);
-
-      const img = document.createElement('img');
-      img.className = 'portrait-thumb';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.src = `${desktopBase}/${item.folder}/${item.file}`.replace(/\\/g, '/');
-      img.alt = `${altPrefix} ${idx + 1}`;
-      img.dataset.fullsrc = img.src;
-      picture.appendChild(img);
-
-      fragment.appendChild(picture);
-    });
-
-    grid.innerHTML = '';
-    grid.appendChild(fragment);
-    grid.dataset.galleryReady = 'true';
-    grid.dispatchEvent(new CustomEvent('gallery:ready', {
-      bubbles: true,
-      detail: { count: selection.length }
-    }));
-
-    return Array.from(grid.querySelectorAll('img.portrait-thumb'));
-  }).catch(() => {
-    grid.innerHTML = originalHTML;
-    grid.dataset.galleryReady = 'error';
-    return Array.from(grid.querySelectorAll('img.portrait-thumb'));
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   // Setup hamburger menu
   initHamburger();
@@ -265,43 +166,72 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = sliderRoot.querySelector('.nav.prev');
   const nextBtn = sliderRoot.querySelector('.nav.next');
   const playBtn = document.getElementById('igPlayBtn');
+  const mq = window.matchMedia('(max-width: 1024px)');
   let currentIndex = 0;
   let autoplay = null;
 
+  function positionNavButtons(){
+    if (!prevBtn || !nextBtn) return;
+    if (!sliderRoot.classList.contains('is-mobile')) {
+      prevBtn.style.top = '';
+      nextBtn.style.top = '';
+      prevBtn.style.left = '';
+      prevBtn.style.right = '';
+      nextBtn.style.left = '';
+      nextBtn.style.right = '';
+      return;
+    }
+    const activeMedia = sliderRoot.querySelector('.ig-slide.active .instagram-media');
+    if (!activeMedia) return;
+    const sliderRect = sliderRoot.getBoundingClientRect();
+    const mediaRect = activeMedia.getBoundingClientRect();
+    const midY = mediaRect.top + (mediaRect.height / 2) - sliderRect.top;
+    const leftOffset = Math.max(12, mediaRect.left - sliderRect.left - (prevBtn.offsetWidth / 2) - 8);
+    const rightOffset = Math.max(12, sliderRect.right - mediaRect.right - (nextBtn.offsetWidth / 2) - 8);
+
+    prevBtn.style.top = `${midY}px`;
+    nextBtn.style.top = `${midY}px`;
+    prevBtn.style.left = `${leftOffset}px`;
+    nextBtn.style.right = `${rightOffset}px`;
+  }
+
+  function syncPlayButton() {
+    if (!playBtn) return;
+    const playI = playBtn.querySelector('.play-icon');
+    const pauseI = playBtn.querySelector('.pause-icon');
+    if (autoplay) {
+      playBtn.classList.add('active');
+      if (playI) playI.style.display = 'none';
+      if (pauseI) pauseI.style.display = 'inline-block';
+    } else {
+      playBtn.classList.remove('active');
+      if (playI) playI.style.display = 'inline-block';
+      if (pauseI) pauseI.style.display = 'none';
+    }
+  }
+
   function updateSlider(index) {
-    // Infinite loop: wrap index
+    if (slides.length === 0) return;
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     currentIndex = index;
 
-    slides.forEach((slide, i) => {
-      slide.classList.remove('active', 'prev', 'next');
-    });
+    const mobileMode = sliderRoot.classList.contains('is-mobile');
+    slides.forEach(slide => slide.classList.remove('active', 'prev', 'next'));
+    dots.forEach((dot, i) => dot.classList.toggle('active', mobileMode && i === index));
+
+    if (!mobileMode) {
+      slides.forEach(slide => slide.classList.add('active'));
+      syncPlayButton();
+      return;
+    }
+
     const total = slides.length;
     slides[index].classList.add('active');
     slides[(index - 1 + total) % total].classList.add('prev');
     slides[(index + 1) % total].classList.add('next');
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-
-    // Play button icon
-    if (playBtn) {
-      if (autoplay) {
-        playBtn.classList.add('active');
-        const playI = playBtn.querySelector('.play-icon');
-        const pauseI = playBtn.querySelector('.pause-icon');
-        if (playI) playI.style.display = 'none';
-        if (pauseI) pauseI.style.display = 'inline-block';
-      } else {
-        playBtn.classList.remove('active');
-        const playI = playBtn.querySelector('.play-icon');
-        const pauseI = playBtn.querySelector('.pause-icon');
-        if (playI) playI.style.display = 'inline-block';
-        if (pauseI) pauseI.style.display = 'none';
-      }
-    }
+    syncPlayButton();
+    requestAnimationFrame(positionNavButtons);
   }
 
   function nextSlide() {
@@ -317,46 +247,73 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startAutoplay() {
+    if (!sliderRoot.classList.contains('is-mobile')) {
+      autoplay = null;
+      syncPlayButton();
+      return;
+    }
     if (autoplay) clearInterval(autoplay);
     autoplay = setInterval(nextSlide, 4000);
-    updateSlider(currentIndex);
+    syncPlayButton();
   }
 
-  function stopAutoplay() {
+  function stopAutoplay(options = {}) {
     if (autoplay) clearInterval(autoplay);
     autoplay = null;
-    updateSlider(currentIndex);
+    if (!options.silent) syncPlayButton();
   }
 
   if (playBtn) {
     playBtn.addEventListener('click', () => {
-    if (autoplay) {
-      stopAutoplay();
-    } else {
-      startAutoplay();
-    }
+      if (!sliderRoot.classList.contains('is-mobile')) return;
+      if (autoplay) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
     });
   }
 
-  nextBtn.addEventListener('click', () => {
-    nextSlide();
-    stopAutoplay();
-  });
-  prevBtn.addEventListener('click', () => {
-    prevSlide();
-    stopAutoplay();
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (!sliderRoot.classList.contains('is-mobile')) return;
+      nextSlide();
+      stopAutoplay();
+    });
+  }
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (!sliderRoot.classList.contains('is-mobile')) return;
+      prevSlide();
+      stopAutoplay();
+    });
+  }
 
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
+      if (!sliderRoot.classList.contains('is-mobile')) return;
       goToSlide(i);
       stopAutoplay();
     });
   });
 
-  // Initialize
-  updateSlider(currentIndex);
-  startAutoplay(); // <-- Add this line to start the slideshow automatically
+  function applyMode() {
+    const mobile = mq.matches;
+    if (!mobile) {
+      stopAutoplay({ silent: true });
+    }
+    sliderRoot.classList.toggle('is-mobile', mobile);
+    updateSlider(currentIndex);
+    if (mobile) startAutoplay();
+    requestAnimationFrame(positionNavButtons);
+  }
+
+  if (mq.addEventListener) mq.addEventListener('change', applyMode); else mq.addListener(applyMode);
+  applyMode();
+
+  window.addEventListener('resize', () => {
+    requestAnimationFrame(positionNavButtons);
+  });
 });
 
 // remove old duplicate hamburger wiring in favor of initHamburger()
@@ -487,145 +444,129 @@ document.addEventListener('DOMContentLoaded', () => {
 // Grid Lightbox (portraits grid on homepage) – slider-style fullscreen
 // =======================
 document.addEventListener('DOMContentLoaded', () => {
-  buildDynamicGallery().then((initialThumbs) => {
-    const grid = document.querySelector('.portraits-grid');
-    if (!grid) return;
-    let thumbs = Array.isArray(initialThumbs) && initialThumbs.length
-      ? initialThumbs
-      : Array.from(grid.querySelectorAll('img.portrait-thumb'));
-    if (thumbs.length === 0) return;
-    // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
-    document.querySelectorAll('.lightbox').forEach(el => {
-      try { el.remove(); } catch (_) {}
-    });
+  const grid = document.querySelector('.portraits-grid');
+  if (!grid) return;
+  const thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
+  if (thumbs.length === 0) return;
 
-    // Build slider-style lightbox once
-    let lb = document.querySelector('.slider-lightbox');
-    if (!lb) {
-      lb = document.createElement('div');
-      lb.className = 'slider-lightbox';
-      lb.setAttribute('role', 'dialog');
-      lb.setAttribute('aria-modal', 'true');
-      lb.setAttribute('aria-label', 'Image viewer');
-      lb.innerHTML = `
-        <div class="lb-backdrop" data-close></div>
-        <div class="lb-inner">
-          <div class="lb-stage">
-            <img class="lb-image" alt="" />
-            <button class="lb-close" type="button" aria-label="Close">×</button>
-            <button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
-            <button class="lb-nav lb-next" type="button" aria-label="Next">›</button>
-          </div>
-          <div class="lb-caption" aria-live="polite"></div>
-          <div class="lb-counter" aria-live="polite"></div>
-        </div>`;
-      document.body.appendChild(lb);
-    }
+  // Remove any legacy basic .lightbox element to prevent accidental overlay conflicts
+  document.querySelectorAll('.lightbox').forEach(el => {
+    try { el.remove(); } catch (_) {}
+  });
 
-    const imgEl = lb.querySelector('.lb-image');
-    const closeBtn = lb.querySelector('.lb-close');
-    const prevBtn = lb.querySelector('.lb-prev');
-    const nextBtn = lb.querySelector('.lb-next');
-    const caption = lb.querySelector('.lb-caption');
-    const counter = lb.querySelector('.lb-counter');
-    let currentIndex = 0;
+  // Build slider-style lightbox once
+  let lb = document.querySelector('.slider-lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.className = 'slider-lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Image viewer');
+    lb.innerHTML = `
+      <div class="lb-backdrop" data-close></div>
+      <div class="lb-inner">
+        <div class="lb-stage">
+          <img class="lb-image" alt="" />
+          <button class="lb-close" type="button" aria-label="Close">×</button>
+          <button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
+          <button class="lb-nav lb-next" type="button" aria-label="Next">›</button>
+        </div>
+        <div class="lb-caption" aria-live="polite"></div>
+        <div class="lb-counter" aria-live="polite"></div>
+      </div>`;
+    document.body.appendChild(lb);
+  }
 
-    function refreshThumbs(){
-      thumbs = Array.from(grid.querySelectorAll('img.portrait-thumb'));
-    }
+  const imgEl = lb.querySelector('.lb-image');
+  const closeBtn = lb.querySelector('.lb-close');
+  const prevBtn = lb.querySelector('.lb-prev');
+  const nextBtn = lb.querySelector('.lb-next');
+  const caption = lb.querySelector('.lb-caption');
+  const counter = lb.querySelector('.lb-counter');
+  let currentIndex = 0;
 
-    function setImage(index, withFade = true){
-      const el = thumbs[index];
-      if (!el) return;
-      const src = el.getAttribute('data-fullsrc') || el.src;
-      const alt = el.alt || '';
+  function setImage(index, withFade = true){
+    const el = thumbs[index];
+    if (!el) return;
+    const src = el.getAttribute('data-fullsrc') || el.src;
+    const alt = el.alt || '';
 
-      if (withFade) {
-        // simple fade by toggling opacity via class
-        imgEl.classList.remove('loaded');
-        const tmp = new Image();
-        tmp.onload = () => {
-          imgEl.src = src;
-          imgEl.alt = alt;
-          requestAnimationFrame(() => imgEl.classList.add('loaded'));
-        };
-        tmp.src = src;
-      } else {
+    if (withFade) {
+      // simple fade by toggling opacity via class
+      imgEl.classList.remove('loaded');
+      const tmp = new Image();
+      tmp.onload = () => {
         imgEl.src = src;
         imgEl.alt = alt;
-        imgEl.classList.add('loaded');
-      }
-
-      // Caption and counter
-      if (caption) caption.textContent = alt || '';
-      if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
-
-      // Preload neighbors for snappy nav
-      const nextIdx = (index + 1) % thumbs.length;
-      const prevIdx = (index - 1 + thumbs.length) % thumbs.length;
-      [nextIdx, prevIdx].forEach(i => {
-        const n = thumbs[i];
-        if (!n) return;
-        const nsrc = n.getAttribute('data-fullsrc') || n.src;
-        const pre = new Image();
-        pre.src = nsrc;
-      });
+        requestAnimationFrame(() => imgEl.classList.add('loaded'));
+      };
+      tmp.src = src;
+    } else {
+      imgEl.src = src;
+      imgEl.alt = alt;
+      imgEl.classList.add('loaded');
     }
 
-    function openAt(index){
-      currentIndex = index;
-      setImage(currentIndex, false);
-      lb.classList.add('open');
-      document.body.classList.add('fx-lightbox-open', 'lightbox-open');
-    }
+    // Caption and counter
+    if (caption) caption.textContent = alt || '';
+    if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
 
-    function close(){
-      lb.classList.remove('open');
-      document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
-    }
-
-    function step(dir){
-      const len = thumbs.length;
-      currentIndex = (currentIndex + dir + len) % len;
-      setImage(currentIndex, true);
-    }
-
-    // Click to open from grid
-    grid.addEventListener('click', (e) => {
-      const t = e.target;
-      if (!(t && t.classList && t.classList.contains('portrait-thumb'))) return;
-      e.preventDefault();
-      refreshThumbs();
-      const idx = thumbs.indexOf(t);
-      if (idx >= 0) openAt(idx);
+    // Preload neighbors for snappy nav
+    const nextIdx = (index + 1) % thumbs.length;
+    const prevIdx = (index - 1 + thumbs.length) % thumbs.length;
+    [nextIdx, prevIdx].forEach(i => {
+      const n = thumbs[i];
+      if (!n) return;
+      const nsrc = n.getAttribute('data-fullsrc') || n.src;
+      const pre = new Image();
+      pre.src = nsrc;
     });
+  }
 
-    // Controls
-    if (closeBtn) closeBtn.addEventListener('click', close);
-    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
-    if (nextBtn) nextBtn.addEventListener('click', () => step(1));
-    lb.addEventListener('click', (e) => {
-      // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
-      const stage = lb.querySelector('.lb-stage');
-      if (e.target && e.target.hasAttribute('data-close')) return close();
-      if (stage && !stage.contains(e.target)) return close();
-    });
+  function openAt(index){
+    currentIndex = index;
+    setImage(currentIndex, false);
+    lb.classList.add('open');
+    document.body.classList.add('fx-lightbox-open', 'lightbox-open');
+  }
 
-    // Keyboard navigation
-    window.addEventListener('keydown', (e) => {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      else if (e.key === 'ArrowRight') step(1);
-      else if (e.key === 'ArrowLeft') step(-1);
-    });
+  function close(){
+    lb.classList.remove('open');
+    document.body.classList.remove('fx-lightbox-open', 'lightbox-open');
+  }
 
-    grid.addEventListener('gallery:ready', () => {
-      refreshThumbs();
-      if (lb.classList.contains('open')) {
-        currentIndex = Math.min(currentIndex, Math.max(thumbs.length - 1, 0));
-        setImage(currentIndex, false);
-      }
-    });
+  function step(dir){
+    const len = thumbs.length;
+    currentIndex = (currentIndex + dir + len) % len;
+    setImage(currentIndex, true);
+  }
+
+  // Click to open from grid
+  grid.addEventListener('click', (e) => {
+    const t = e.target;
+    if (!(t && t.classList && t.classList.contains('portrait-thumb'))) return;
+    e.preventDefault();
+    const idx = thumbs.indexOf(t);
+    if (idx >= 0) openAt(idx);
+  });
+
+  // Controls
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => step(1));
+  lb.addEventListener('click', (e) => {
+    // Close when clicking the backdrop or anywhere outside the stage (not on image/controls)
+    const stage = lb.querySelector('.lb-stage');
+    if (e.target && e.target.hasAttribute('data-close')) return close();
+    if (stage && !stage.contains(e.target)) return close();
+  });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
   });
 });
 
