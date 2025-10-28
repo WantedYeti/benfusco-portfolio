@@ -1529,12 +1529,12 @@ body.menu-open { overflow: hidden; }
 }
 .hero .hero-title {
   margin: 0;
-  font-family: 'Bodoni Moda', serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: clamp(1.9rem, 5vw, 3.5rem);
-  line-height: 1.06;
+  letter-spacing: 0.14em;
+  font-size: clamp(2rem, 5.2vw, 3.7rem);
+  line-height: 1.08;
 }
 .hero .hero-title-line {
   display: block;

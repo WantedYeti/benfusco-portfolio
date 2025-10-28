@@ -1483,101 +1483,110 @@ body.menu-open { overflow: hidden; }
    Hero Section
    ========================= */
 .hero {
-  position: relative;
-  background-image: var(--hero-image, url('Images/Wedding/2M2A4151.jpg'));
+  /* Allow page to override with --hero-image: url('...'); default set to Couples/Josh/15-2M2A4076.jpg */
+  background-image: var(--hero-image, url('Images/Couples/Josh/15-2M2A4076.jpg'));
+  /* Shift the image upward a bit so more of the lower area is visible; tweak via --hero-pos-y */
   background-position: center var(--hero-pos-y, 30%);
+  /* Allow tasteful zoom to reduce perceived grain; default 100% */
   background-size: var(--hero-size, cover);
   background-repeat: no-repeat;
   min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  padding-inline: clamp(16px, 6vw, 72px);
   text-align: center;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
-  padding: clamp(110px, 14vw, 160px) clamp(20px, 6vw, 80px) clamp(90px, 12vw, 140px);
+  position: relative;
   overflow: hidden;
+  padding-top: clamp(110px, 14vw, 160px);
+  padding-bottom: clamp(80px, 12vw, 140px);
 }
-.hero .hero-media {
+.hero .hero-content {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
 .hero .hero-media img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
+  gap: clamp(14px, 3vw, 26px);
+  max-width: min(660px, 100%);
+  padding-bottom: clamp(32px, 7vw, 56px);
   transform: scale(1.08);
   transform-origin: center;
 }
 .hero .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0.55) 0%, rgba(8, 8, 10, 0.35) 45%, rgba(8, 8, 10, 0.7) 100%);
+  font-size: clamp(0.55rem, 1.2vw, 0.78rem);
+  letter-spacing: 0.24em;
+  background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.65) 100%);
   z-index: 1;
   pointer-events: none;
 }
 .hero .hero-content {
   position: relative;
-  z-index: 2;
+  font-size: clamp(2.05rem, 5.1vw, 3.7rem);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: clamp(16px, 3.5vw, 30px);
-  max-width: min(760px, 100%);
-}
-.hero .hero-title {
-  margin: 0;
-  font-family: 'Bodoni Moda', serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: clamp(1.9rem, 5vw, 3.5rem);
-  line-height: 1.06;
-}
-.hero .hero-title-line {
-  display: block;
-}
-.hero .hero-subtitle {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.78rem, 2vw, 1.15rem);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.82);
+  max-width: min(720px, 100%);
+  padding-bottom: clamp(24px, 6vw, 48px);
 }
 .hero .hero-eyebrow {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.6rem, 1.5vw, 0.92rem);
-  letter-spacing: 0.24em;
+  font-size: clamp(0.68rem, 1.7vw, 0.98rem);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255,255,255,0.68);
+}
+.hero .hero-title {
+.hero .hero-cta {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  padding: 0;
+  padding: 11px 30px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+.hero .hero-title .hero-title-line {
+  display: block;
+}
+.hero .hero-subtitle {
+  margin: 0;
+  font-size: clamp(0.8rem, 2vw, 1.15rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  font-family: 'Montserrat', sans-serif;
 }
 .hero .hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 32px;
+  padding: 12px 34px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255,255,255,0.65);
   color: #fff;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  font-weight: 600;
 }
 .hero .hero-cta:hover,
 .hero .hero-cta:focus-visible {
-  background: rgba(255, 255, 255, 0.9);
-  color: #111;
-  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  border-color: rgba(255,255,255,0.9);
 }
 
 #photo-gallery-heading {

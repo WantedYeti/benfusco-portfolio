@@ -1483,20 +1483,25 @@ body.menu-open { overflow: hidden; }
    Hero Section
    ========================= */
 .hero {
-  position: relative;
-  background-image: var(--hero-image, url('Images/Wedding/2M2A4151.jpg'));
+  /* Allow page to override with --hero-image: url('...'); default set to Couples/Josh/15-2M2A4076.jpg */
+  background-image: var(--hero-image, url('Images/Couples/Josh/15-2M2A4076.jpg'));
+  /* Shift the image upward a bit so more of the lower area is visible; tweak via --hero-pos-y */
   background-position: center var(--hero-pos-y, 30%);
+  /* Allow tasteful zoom to reduce perceived grain; default 100% */
   background-size: var(--hero-size, cover);
   background-repeat: no-repeat;
   min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  padding-inline: clamp(16px, 6vw, 72px);
   text-align: center;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
-  padding: clamp(110px, 14vw, 160px) clamp(20px, 6vw, 80px) clamp(90px, 12vw, 140px);
+  position: relative;
   overflow: hidden;
+  padding-top: clamp(90px, 12vw, 140px);
+  padding-bottom: clamp(60px, 10vw, 120px);
 }
 .hero .hero-media {
   position: absolute;
@@ -1514,7 +1519,7 @@ body.menu-open { overflow: hidden; }
 .hero .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0.55) 0%, rgba(8, 8, 10, 0.35) 45%, rgba(8, 8, 10, 0.7) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.65) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -1524,60 +1529,49 @@ body.menu-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(16px, 3.5vw, 30px);
-  max-width: min(760px, 100%);
+  justify-content: center;
+  gap: clamp(18px, 4vw, 32px);
+  max-width: min(720px, 100%);
+  padding-bottom: clamp(24px, 6vw, 48px);
 }
 .hero .hero-title {
   margin: 0;
-  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  padding: 0;
+  white-space: normal;
+  letter-spacing: -0.01em;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: clamp(1.9rem, 5vw, 3.5rem);
-  line-height: 1.06;
-}
-.hero .hero-title-line {
-  display: block;
+  font-family: 'Playfair Display', serif;
 }
 .hero .hero-subtitle {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.78rem, 2vw, 1.15rem);
-  letter-spacing: 0.22em;
+  font-size: clamp(0.72rem, 1.8vw, 1.05rem);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.82);
-}
-.hero .hero-eyebrow {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.6rem, 1.5vw, 0.92rem);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255,255,255,0.85);
 }
 .hero .hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 32px;
+  padding: 12px 34px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255,255,255,0.65);
   color: #fff;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  font-weight: 600;
 }
 .hero .hero-cta:hover,
 .hero .hero-cta:focus-visible {
-  background: rgba(255, 255, 255, 0.9);
-  color: #111;
-  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  border-color: rgba(255,255,255,0.9);
 }
 
 #photo-gallery-heading {

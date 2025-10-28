@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link rel="preconnect" href="https://www.instagram.com" crossorigin>
   <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Bodoni+Moda:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <!-- Preload hero image for faster LCP -->
   <link rel="preload" as="image" href="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg" imagesrcset="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg 1x" />
@@ -60,9 +60,7 @@
     if ("fonts" in document) {
       Promise.all([
         document.fonts.load("400 1em Montserrat"),
-        document.fonts.load("700 1em Montserrat"),
-        document.fonts.load("600 1em 'Bodoni Moda'"),
-        document.fonts.load("700 1em 'Bodoni Moda'")
+        document.fonts.load("700 1em Montserrat")
       ]).then(() => {
         document.documentElement.classList.add("fonts-loaded");
       });
@@ -127,26 +125,21 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" style="--hero-image:none;">
     <div class="hero-media">
       <img
         src="Images/Wedding/2M2A4151.jpg"
         alt="Wedding couple embrace in golden hour light"
         fetchpriority="high"
         decoding="async"
-        data-lazy-ignore="true"
         width="1600" height="1000"
         sizes="100vw"
       />
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="hero-title-line">Capturing</span>
-        <span class="hero-title-line">Moments That Matter</span>
-      </h1>
-      <p class="hero-subtitle">Photo | Video | Creative Media</p>
-      <p class="hero-eyebrow">Based in Ottawa &amp; Gatineau</p>
+      <h1 class="hero-title">From Moments to Movements, We Make It Visual</h1>
+      <p class="hero-subtitle">Photo | Video | Creative Media | Gatineau // Ottawa</p>
       <a class="hero-cta" href="pricing.html">Book Now</a>
     </div>
   </section>
@@ -270,10 +263,6 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    /* Ensure hero media covers the hero section without shifting layout */
-  .hero { position: relative; overflow: hidden; padding-top:70px; }
-    .hero .hero-media { position:absolute; inset:0; }
-    .hero .hero-title { position:relative; z-index:1; }
   </style>
 
   
