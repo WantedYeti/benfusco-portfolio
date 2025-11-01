@@ -160,9 +160,15 @@ const ResponsiveAssetMapper = (() => {
   function transformSingle(path, isMobile){
     if (!path) return path;
     const hasImageFolder = /Images\/(Desktop\/|Mobile\/)/i.test(path);
+    const hasExtension = /(\.jpg|\.jpeg|\.png)(?=[?#]|$)/i.test(path);
+
+    // If the project doesn't maintain Desktop/Mobile variants, leave paths untouched
     if (!hasImageFolder) return path;
 
     let out = path;
+    if (hasExtension){
+      out = out.replace(/(\.jpg|\.jpeg|\.png)(?=[?#]|$)/gi, '.webp');
+    }
     const target = isMobile ? 'Images/Mobile/' : 'Images/Desktop/';
     out = out.replace(/Images\/(Desktop\/|Mobile\/)/i, target);
     return out;
