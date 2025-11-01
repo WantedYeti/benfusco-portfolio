@@ -269,12 +269,6 @@ const ResponsiveAssetMapper = (() => {
   return { apply };
 })();
 
-try {
-  ResponsiveAssetMapper.apply(window.innerWidth <= 900);
-} catch(_) {
-  // ignore early errors; DOM may not be ready yet
-}
-
 function buildDynamicGallery(){
   const grid = document.querySelector('.portraits-grid');
   if (!grid) return Promise.resolve([]);

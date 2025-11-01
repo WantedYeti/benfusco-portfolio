@@ -168,8 +168,15 @@ const ResponsiveAssetMapper = (() => {
       out = out.replace(/(\.jpg|\.jpeg|\.png)(?=[?#]|$)/gi, '.webp');
     }
     if (hasImageFolder){
-      const target = isMobile ? 'Images/Mobile/' : 'Images/Desktop/';
-      out = out.replace(/Images\/(Desktop\/|Mobile\/)?/i, target);
+      out = out.replace(/Images\/(Desktop\/|Mobile\/)?/i, (match) => {
+        const prefix = match.slice(0, match.indexOf('Images/'));
+        const base = match.toLowerCase().startsWith('images/') ? 'Images/' : match.replace(/Images\/(Desktop\/|Mobile\/)?/i, 'Images/');
+        const relative = match.replace(/.*Images\/(?:Desktop\/|Mobile\/)?/i, '');
+        const target = isMobile ? 'Images/Mobile/' : 'Images/Desktop/';
+        return (match.startsWith('Images/') ? target : match.replace(/Images\/(Desktop\/|Mobile\/)?/i, target));
+      });
+      // Collapse any double replacements like Images/Desktop/Desktop/
+      out = out.replace(/Images\/(Desktop\/|Mobile\/){2}/gi, (dup) => dup.slice(0, dup.length / 2));
     }
     return out;
   }
@@ -268,12 +275,6 @@ const ResponsiveAssetMapper = (() => {
   document.addEventListener('DOMContentLoaded', init);
   return { apply };
 })();
-
-try {
-  ResponsiveAssetMapper.apply(window.innerWidth <= 900);
-} catch(_) {
-  // ignore early errors; DOM may not be ready yet
-}
 
 function buildDynamicGallery(){
   const grid = document.querySelector('.portraits-grid');

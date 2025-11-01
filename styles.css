@@ -1484,7 +1484,9 @@ body.menu-open { overflow: hidden; }
    ========================= */
 .hero {
   position: relative;
-  background-image: var(--hero-image, url('Images/Wedding/2M2A4151.jpg'));
+  background-image:
+    var(--hero-image, url('Images/Desktop/Wedding/2M2A4151.webp')),
+    url('Images/Wedding/2M2A4151.jpg');
   background-position: center var(--hero-pos-y, 30%);
   background-size: var(--hero-size, cover);
   background-repeat: no-repeat;
@@ -1497,6 +1499,14 @@ body.menu-open { overflow: hidden; }
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
   padding: clamp(110px, 14vw, 160px) clamp(20px, 6vw, 80px) clamp(90px, 12vw, 140px);
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    background-image:
+      var(--hero-image-mobile, url('Images/Mobile/Wedding/2M2A4151.webp')),
+      url('Images/Wedding/2M2A4151.jpg');
+  }
 }
 .hero .hero-media {
   position: absolute;
@@ -1590,7 +1600,9 @@ body.menu-open { overflow: hidden; }
 .about-section {
   position: relative;
   /* Use CSS var override if provided; default to Ben's portrait */
-  background-image: var(--about-image, url('Images/Me/IMG_3874-Edit-Edit.jpg'));
+  background-image:
+    var(--about-image, url('Images/Desktop/Portraits/Me/IMG_3874-Edit-Edit.webp')),
+    url('Images/Me/IMG_3874-Edit-Edit.jpg');
   background-size: cover;
   background-position: center 40%;
   background-repeat: no-repeat;
@@ -1599,6 +1611,14 @@ body.menu-open { overflow: hidden; }
   align-items: center;
   justify-content: center;
   color: #fff;
+}
+
+@media (max-width: 900px) {
+  .about-section {
+    background-image:
+      var(--about-image-mobile, url('Images/Mobile/Portraits/Me/IMG_3874-Edit-Edit.webp')),
+      url('Images/Me/IMG_3874-Edit-Edit.jpg');
+  }
 }
 .about-section .about-overlay {
   position: absolute;
