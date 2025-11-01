@@ -274,13 +274,9 @@ const ResponsiveAssetMapper = (() => {
   return { apply };
 })();
 
-let __responsiveAssetState = null;
 try {
-  const initialState = window.innerWidth <= 900;
-  ResponsiveAssetMapper.apply(initialState);
-  __responsiveAssetState = initialState;
+  ResponsiveAssetMapper.apply(window.innerWidth <= 900);
 } catch(_) {
-  __responsiveAssetState = null;
   // ignore early errors; DOM may not be ready yet
 }
 
