@@ -1868,14 +1868,12 @@ footer {
   .ig-slider .slider-controls {
     --ig-btn-size: 40px;
     position: absolute;
-    left: 50%;
-    bottom: clamp(32px, 8%, 60px);
-    transform: translateX(-50%);
+    left: 12px;
+    right: 12px;
+    bottom: clamp(44px, 12%, 72px);
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: fit-content;
-    padding: 0 6px;
+    gap: 0;
   }
   .ig-slider .slider-controls .ig-control-spacer {
     flex: 0 0 var(--ig-btn-size);
@@ -1937,12 +1935,10 @@ footer {
     padding-bottom: 40px;
   }
   .ig-slider .slider-controls {
-    left: 50%;
-    right: auto;
-    bottom: 32px;
-    transform: translateX(-50%);
-    gap: 8px;
-    padding: 0 6px;
+    left: 8px;
+    right: 8px;
+    bottom: 44px;
+    gap: 0;
   }
 }
 

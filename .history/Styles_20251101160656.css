@@ -1868,26 +1868,26 @@ footer {
   .ig-slider .slider-controls {
     --ig-btn-size: 40px;
     position: absolute;
-    left: 50%;
-    bottom: clamp(32px, 8%, 60px);
-    transform: translateX(-50%);
+    left: 12px;
+    right: 12px;
+    bottom: clamp(32px, 10%, 62px);
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: fit-content;
-    padding: 0 6px;
+    gap: 0;
   }
   .ig-slider .slider-controls .ig-control-spacer {
-    flex: 0 0 var(--ig-btn-size);
-    width: var(--ig-btn-size);
-    height: var(--ig-btn-size);
-    visibility: hidden;
+  flex: 0 0 var(--ig-btn-size);
+  width: var(--ig-btn-size);
+  height: var(--ig-btn-size);
+  visibility: hidden;
+    margin-right: 14px;
   }
   .ig-slider .slider-controls .dots {
-    flex: 0 0 auto;
-    display: flex;
-    gap: 8px;
-    justify-content: center;
+    flex: 1 1 auto;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+    margin-right: 14px;
     align-items: center;
   }
   .dot {
@@ -1904,12 +1904,7 @@ footer {
 
   /* Play/Pause button for slider */
   .ig-slider .slider-controls .ig-play {
-    flex: 0 0 var(--ig-btn-size);
-    width: var(--ig-btn-size);
-    height: var(--ig-btn-size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
   }
 }
 
@@ -1937,12 +1932,17 @@ footer {
     padding-bottom: 40px;
   }
   .ig-slider .slider-controls {
-    left: 50%;
-    right: auto;
-    bottom: 32px;
-    transform: translateX(-50%);
-    gap: 8px;
-    padding: 0 6px;
+    left: 8px;
+    right: 8px;
+    bottom: 40px;
+    gap: 0;
+  }
+  .ig-slider .slider-controls .ig-control-spacer {
+    margin-right: 12px;
+  }
+  .ig-slider .slider-controls .dots {
+    margin-right: 12px;
+    align-items: center;
   }
 }
 

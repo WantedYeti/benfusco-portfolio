@@ -1771,9 +1771,8 @@ footer {
     display: block;
     position: relative;
     max-width: 420px;
-    width: min(420px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 0 0 32px;
+    padding: 0 0 32px 0;
   }
   /* IG Slider (namespaced) */
   .ig-slider .slider-track {
@@ -1866,29 +1865,19 @@ footer {
 
   /* Slider controls (dots and play button) */
   .ig-slider .slider-controls {
-    --ig-btn-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     position: absolute;
     left: 50%;
-    bottom: clamp(32px, 8%, 60px);
+  bottom: 60px;
     transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: fit-content;
-    padding: 0 6px;
+    margin-top: 0;
   }
-  .ig-slider .slider-controls .ig-control-spacer {
-    flex: 0 0 var(--ig-btn-size);
-    width: var(--ig-btn-size);
-    height: var(--ig-btn-size);
-    visibility: hidden;
-  }
-  .ig-slider .slider-controls .dots {
-    flex: 0 0 auto;
+  .dots {
     display: flex;
     gap: 8px;
-    justify-content: center;
-    align-items: center;
   }
   .dot {
     width: 8px;
@@ -1903,14 +1892,34 @@ footer {
   .dot.active { background: #222; }
 
   /* Play/Pause button for slider */
-  .ig-slider .slider-controls .ig-play {
-    flex: 0 0 var(--ig-btn-size);
-    width: var(--ig-btn-size);
-    height: var(--ig-btn-size);
+  .play {
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    padding: 7px 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 8px;
+    opacity: 1;
+    width: 36px;
+    height: 36px;
+    min-width: 36px; /* or whatever width fits your icons comfortably */
+    text-align: center;
   }
+  .play .play-icon,
+  .play .pause-icon {
+    font-size: 1.1rem;
+    color: #222;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .play.active .play-icon { display: none; }
+  .play.active .pause-icon { display: inline-block; }
 }
 
 /* =========================
@@ -1933,16 +1942,29 @@ footer {
    ========================= */
 @media (max-width: 600px) {
   .ig-slider {
-    width: min(360px, calc(100% - 24px));
-    padding-bottom: 40px;
+    transform: scale(0.8);
+    transform-origin: top center;
+    /* Optional: keep it centered */
+    margin: 0 auto;
   }
   .ig-slider .slider-controls {
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: auto;
+    position: absolute;
     left: 50%;
-    right: auto;
-    bottom: 32px;
     transform: translateX(-50%);
-    gap: 8px;
-    padding: 0 6px;
+    bottom: 52px;
+  }
+  .dots {
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  }
+  .play {
+    margin-left: 12px;
+    margin-right: 0;
   }
 }
 

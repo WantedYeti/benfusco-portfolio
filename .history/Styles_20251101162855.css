@@ -1869,7 +1869,7 @@ footer {
     --ig-btn-size: 40px;
     position: absolute;
     left: 50%;
-    bottom: clamp(32px, 8%, 60px);
+    bottom: clamp(44px, 12%, 72px);
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -1939,7 +1939,7 @@ footer {
   .ig-slider .slider-controls {
     left: 50%;
     right: auto;
-    bottom: 32px;
+    bottom: 44px;
     transform: translateX(-50%);
     gap: 8px;
     padding: 0 6px;
