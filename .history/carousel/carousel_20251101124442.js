@@ -526,23 +526,17 @@
 
     onImageError(index, entry, img){
       if (!entry) return;
-  const tried = img.getAttribute('data-error-attempts') ? img.getAttribute('data-error-attempts').split(',') : [];
-  const candidates = (entry.primaryCandidates || []).concat(entry.fallbackCandidates || [], entry.original ? [entry.original] : []);
-  const useSrc = candidates.find(c => c && c !== entry.primary && tried.indexOf(c) === -1);
+      const candidates = entry.primaryCandidates || [];
+      const tried = img.getAttribute('data-error-attempts') ? img.getAttribute('data-error-attempts').split(',') : [];
+      const next = candidates.find(c => c !== entry.primary && tried.indexOf(c) === -1);
+      const fallback = entry.fallback;
+
+      const useSrc = next || fallback;
       if (!useSrc || img.src === useSrc) return;
       tried.push(useSrc);
       img.setAttribute('data-error-attempts', tried.join(','));
       entry.primary = useSrc;
       img.src = useSrc;
-      img.setAttribute('data-src', useSrc);
-      try {
-        const peers = this.ui.track.querySelectorAll('img.fx-img[data-entry="' + index + '"]');
-        peers.forEach(peer => {
-          if (peer === img) return;
-          peer.setAttribute('data-src', useSrc);
-          if (isLoaded(peer)) peer.src = useSrc;
-        });
-      } catch(_){ }
     }
 
     buildDots(){
@@ -933,9 +927,8 @@
         this.ui.lbCounter.textContent = `${this.lbIndex+1} / ${this.slideCount()}`;
       };
       tester.onerror = () => {
-        const fallbacks = (entry.fallbackCandidates || []).concat(entry.original ? [entry.original] : []);
-        const fallback = fallbacks.find(f => f && f !== primary);
-        if (fallback){
+        const fallback = entry.fallback && entry.fallback !== primary ? entry.fallback : entry.original;
+        if (fallback && fallback !== primary){
           entry.primary = fallback;
           this.ui.lbImg.src = fallback;
           this.ui.lbImg.classList.add('loaded');

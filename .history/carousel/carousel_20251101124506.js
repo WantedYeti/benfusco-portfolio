@@ -534,15 +534,6 @@
       img.setAttribute('data-error-attempts', tried.join(','));
       entry.primary = useSrc;
       img.src = useSrc;
-      img.setAttribute('data-src', useSrc);
-      try {
-        const peers = this.ui.track.querySelectorAll('img.fx-img[data-entry="' + index + '"]');
-        peers.forEach(peer => {
-          if (peer === img) return;
-          peer.setAttribute('data-src', useSrc);
-          if (isLoaded(peer)) peer.src = useSrc;
-        });
-      } catch(_){ }
     }
 
     buildDots(){

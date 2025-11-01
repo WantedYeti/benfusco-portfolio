@@ -74,24 +74,9 @@
   function createSourceEntry(src){
     const absolute = toAbsoluteSrc(src);
     const candidates = deviceVariants(absolute);
-    const isMobile = isMobileViewport();
-    const hyphenBase = isMobile ? 'Images-Mobile' : 'Images-Desktop';
-    const slashBase = isMobile ? 'Images/Mobile' : 'Images/Desktop';
-    const fallbackSet = new Set();
-    const addFallback = (pattern, replacement) => {
-      if (!absolute || !pattern.test(absolute)) return;
-      fallbackSet.add(absolute.replace(pattern, replacement));
-    };
-    addFallback(/\/Images\//, '/' + hyphenBase + '/');
-    addFallback(/\/Images\//, '/' + slashBase + '/');
-    addFallback(/Images\//, hyphenBase + '/');
-    addFallback(/Images\//, slashBase + '/');
-    if (absolute) fallbackSet.add(absolute);
-    const fallbackCandidates = Array.from(fallbackSet).filter(Boolean);
     const entry = {
       original: absolute,
-      fallback: fallbackCandidates.length ? fallbackCandidates[0] : absolute,
-      fallbackCandidates,
+      fallback: absolute,
       primaryCandidates: candidates.length ? candidates.slice() : [absolute],
       primary: candidates.length ? candidates[0] : absolute,
     };
@@ -345,8 +330,8 @@
       // Warm up cache for neighbors to avoid blank left/right images on first paint
       this.preloadAhead();
       updatePreloads([
-        (this.state.imgs[(this.state.idx+1)%this.slideCount()] || {}).primary,
-        (this.state.imgs[(this.state.idx+2)%this.slideCount()] || {}).primary
+        this.state.imgs[(this.state.idx+1)%this.slideCount()],
+        this.state.imgs[(this.state.idx+2)%this.slideCount()]
       ]);
       if (this.opts.autoplay.enabled){
         const rect = this.ui.viewport.getBoundingClientRect();
@@ -410,11 +395,8 @@
           return;
         }
 
-        const candidates = (entry.primaryCandidates || []).slice();
+        const candidates = entry.primaryCandidates.slice();
         const tried = new Set();
-        const fallbacks = (entry.fallbackCandidates || []).slice();
-        if (entry.fallback && !fallbacks.length) fallbacks.push(entry.fallback);
-        if (entry.original && fallbacks.indexOf(entry.original) === -1) fallbacks.push(entry.original);
         const attempt = () => {
           const next = candidates.shift();
           if (next){
@@ -425,12 +407,11 @@
             img.src = next;
             return;
           }
-          const fallback = fallbacks.shift();
+          const fallback = entry.fallback;
           if (fallback && !tried.has(fallback)){
-            tried.add(fallback);
             const fb = new Image();
             fb.onload = () => { entry.primary = fallback; resolve(entry); };
-            fb.onerror = attempt;
+            fb.onerror = () => resolve(null);
             fb.src = fallback;
             return;
           }
@@ -526,23 +507,17 @@
 
     onImageError(index, entry, img){
       if (!entry) return;
-  const tried = img.getAttribute('data-error-attempts') ? img.getAttribute('data-error-attempts').split(',') : [];
-  const candidates = (entry.primaryCandidates || []).concat(entry.fallbackCandidates || [], entry.original ? [entry.original] : []);
-  const useSrc = candidates.find(c => c && c !== entry.primary && tried.indexOf(c) === -1);
+      const candidates = entry.primaryCandidates || [];
+      const tried = img.getAttribute('data-error-attempts') ? img.getAttribute('data-error-attempts').split(',') : [];
+      const next = candidates.find(c => c !== entry.primary && tried.indexOf(c) === -1);
+      const fallback = entry.fallback;
+
+      const useSrc = next || fallback;
       if (!useSrc || img.src === useSrc) return;
       tried.push(useSrc);
       img.setAttribute('data-error-attempts', tried.join(','));
       entry.primary = useSrc;
       img.src = useSrc;
-      img.setAttribute('data-src', useSrc);
-      try {
-        const peers = this.ui.track.querySelectorAll('img.fx-img[data-entry="' + index + '"]');
-        peers.forEach(peer => {
-          if (peer === img) return;
-          peer.setAttribute('data-src', useSrc);
-          if (isLoaded(peer)) peer.src = useSrc;
-        });
-      } catch(_){ }
     }
 
     buildDots(){
@@ -798,15 +773,10 @@
       for (let k=1; k<=preloadAhead; k++){
         const i1 = (this.state.idx + k) % N;
         const i2 = (this.state.idx - k + N) % N;
-        const s1 = this.state.imgs[i1] && this.state.imgs[i1].primary;
-        const s2 = this.state.imgs[i2] && this.state.imgs[i2].primary;
-        if (s1) preload(s1);
-        if (s2) preload(s2);
+        preload(this.state.imgs[i1]);
+        preload(this.state.imgs[i2]);
       }
-      updatePreloads([
-        (this.state.imgs[(this.state.idx+1)%N] || {}).primary,
-        (this.state.imgs[(this.state.idx+2)%N] || {}).primary
-      ]);
+      updatePreloads([this.state.imgs[(this.state.idx+1)%N], this.state.imgs[(this.state.idx+2)%N]]);
     }
 
     schedule(){
@@ -921,28 +891,14 @@
     }
 
     loadLbImage(){
-      const entry = this.state.imgs[this.lbIndex];
-      if (!entry) return;
-      const primary = entry.primary || entry.fallback || entry.original;
-      if (!primary) return;
+      const src = this.state.imgs[this.lbIndex];
       this.ui.lbImg.classList.remove('loaded');
-      const tester = new Image();
-      tester.onload = () => {
-        this.ui.lbImg.src = primary;
-        this.ui.lbImg.classList.add('loaded');
+      const img = new Image();
+      img.onload = () => {
+        this.ui.lbImg.src = src; this.ui.lbImg.classList.add('loaded');
         this.ui.lbCounter.textContent = `${this.lbIndex+1} / ${this.slideCount()}`;
       };
-      tester.onerror = () => {
-        const fallbacks = (entry.fallbackCandidates || []).concat(entry.original ? [entry.original] : []);
-        const fallback = fallbacks.find(f => f && f !== primary);
-        if (fallback){
-          entry.primary = fallback;
-          this.ui.lbImg.src = fallback;
-          this.ui.lbImg.classList.add('loaded');
-          this.ui.lbCounter.textContent = `${this.lbIndex+1} / ${this.slideCount()}`;
-        }
-      };
-      tester.src = primary;
+      img.src = src;
     }
   }
 
