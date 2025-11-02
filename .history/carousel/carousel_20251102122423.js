@@ -263,34 +263,20 @@
   const folderSrc = rawSrc ? resolveDeviceFolder(rawSrc) : rawSrc;
   const debugSrc = folderSrc || rawSrc;
       let list = [];
-      let listTrusted = false;
-      let listGuessed = false;
       // Prefer explicit images option, then inline data-images attribute, then folder src
       if (Array.isArray(images) && images.length){
         list = images;
-        listTrusted = true;
       } else {
         const inline = this.root.getAttribute('data-images');
         if (inline){
           try {
             const arr = JSON.parse(inline);
-            if (Array.isArray(arr)){
-              list = arr;
-              listTrusted = true;
-            } else {
-              console.warn('data-images must be a JSON array');
-            }
+            if (Array.isArray(arr)) list = arr; else console.warn('data-images must be a JSON array');
           } catch(e){ console.warn('Invalid data-images JSON:', e); }
         }
         if (!list.length && folderSrc){
           const fetched = await readFolderListing(folderSrc);
-          if (Array.isArray(fetched)){
-            list = fetched;
-          } else if (fetched && Array.isArray(fetched.list)){
-            list = fetched.list;
-            listGuessed = !!fetched.guessed;
-            listTrusted = !fetched.guessed;
-          }
+          if (Array.isArray(fetched)) list = fetched;
         }
       }
       if (!list.length){ console.warn('FXCarousel: no images source'); return; }
@@ -301,22 +287,6 @@
       }
 
       const entries = list.map(createSourceEntry);
-      const authoritative = listTrusted && !listGuessed;
-      entries.forEach(entry => {
-        if (!entry) return;
-        entry.__trusted = authoritative;
-        entry.__guessed = listGuessed;
-        if (authoritative){
-          const seen = new Set();
-          const ordered = [];
-          if (entry.original && !seen.has(entry.original)){ ordered.push(entry.original); seen.add(entry.original); }
-          (entry.primaryCandidates || []).forEach(src => {
-            if (src && !seen.has(src)){ ordered.push(src); seen.add(src); }
-          });
-          entry.primaryCandidates = ordered.length ? ordered : [entry.original].filter(Boolean);
-          entry.primary = ordered.length ? ordered[0] : entry.original;
-        }
-      });
       let verified = entries;
       try {
         verified = await this.verifyImages(entries.slice());
@@ -435,45 +405,40 @@
     }
 
     async verifyImages(list){
-      if (!Array.isArray(list) || !list.length) return [];
-      const checks = list.map(entry => {
-        if (!entry) return Promise.resolve(null);
-        if (entry.__trusted) return Promise.resolve(entry);
-        return new Promise(resolve => {
-          if (!entry.primaryCandidates){
-            resolve(null);
+      const checks = list.map(entry => new Promise(resolve => {
+        if (!entry || !entry.primaryCandidates){
+          resolve(null);
+          return;
+        }
+
+        const candidates = (entry.primaryCandidates || []).slice();
+        const tried = new Set();
+        const fallbacks = (entry.fallbackCandidates || []).slice();
+        if (entry.fallback && !fallbacks.length) fallbacks.push(entry.fallback);
+        if (entry.original && fallbacks.indexOf(entry.original) === -1) fallbacks.push(entry.original);
+        const attempt = () => {
+          const next = candidates.shift();
+          if (next){
+            tried.add(next);
+            const img = new Image();
+            img.onload = () => { entry.primary = next; resolve(entry); };
+            img.onerror = attempt;
+            img.src = next;
             return;
           }
-
-          const candidates = (entry.primaryCandidates || []).slice();
-          const tried = new Set();
-          const fallbacks = (entry.fallbackCandidates || []).slice();
-          if (entry.fallback && !fallbacks.length) fallbacks.push(entry.fallback);
-          if (entry.original && fallbacks.indexOf(entry.original) === -1) fallbacks.push(entry.original);
-          const attempt = () => {
-            const next = candidates.shift();
-            if (next){
-              tried.add(next);
-              const img = new Image();
-              img.onload = () => { entry.primary = next; resolve(entry); };
-              img.onerror = attempt;
-              img.src = next;
-              return;
-            }
-            const fallback = fallbacks.shift();
-            if (fallback && !tried.has(fallback)){
-              tried.add(fallback);
-              const fb = new Image();
-              fb.onload = () => { entry.primary = fallback; resolve(entry); };
-              fb.onerror = attempt;
-              fb.src = fallback;
-              return;
-            }
-            resolve(null);
-          };
-          attempt();
-        });
-      });
+          const fallback = fallbacks.shift();
+          if (fallback && !tried.has(fallback)){
+            tried.add(fallback);
+            const fb = new Image();
+            fb.onload = () => { entry.primary = fallback; resolve(entry); };
+            fb.onerror = attempt;
+            fb.src = fallback;
+            return;
+          }
+          resolve(null);
+        };
+        attempt();
+      }));
       const results = await Promise.all(checks);
       return results.filter(Boolean);
     }

@@ -306,16 +306,6 @@
         if (!entry) return;
         entry.__trusted = authoritative;
         entry.__guessed = listGuessed;
-        if (authoritative){
-          const seen = new Set();
-          const ordered = [];
-          if (entry.original && !seen.has(entry.original)){ ordered.push(entry.original); seen.add(entry.original); }
-          (entry.primaryCandidates || []).forEach(src => {
-            if (src && !seen.has(src)){ ordered.push(src); seen.add(src); }
-          });
-          entry.primaryCandidates = ordered.length ? ordered : [entry.original].filter(Boolean);
-          entry.primary = ordered.length ? ordered[0] : entry.original;
-        }
       });
       let verified = entries;
       try {
