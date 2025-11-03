@@ -125,30 +125,6 @@
     return swapped ? resolved : folder;
   }
 
-  function swapDeviceFolder(folder){
-    if (!folder) return folder;
-    const normalized = folder.replace(/\\/g, '/');
-    const hasDesktop = /(Images[-/]Desktop\b|\/Desktop\/)/i.test(normalized);
-    const hasMobile = /(Images[-/]Mobile\b|\/Mobile\/)/i.test(normalized);
-
-    if (hasDesktop){
-      return normalized
-        .replace(/Images-Desktop/gi, 'Images-Mobile')
-        .replace(/Images\/Desktop/gi, 'Images/Mobile')
-        .replace(/\/Desktop\//gi, '/Mobile/');
-    }
-
-    if (hasMobile){
-      return normalized
-        .replace(/Images-Mobile/gi, 'Images-Desktop')
-        .replace(/Images\/Mobile/gi, 'Images/Desktop')
-        .replace(/\/Mobile\//gi, '/Desktop/');
-    }
-
-    const resolved = resolveDeviceFolder(normalized);
-    return resolved || normalized;
-  }
-
   function buildMarkup(root){
     root.classList.add('fx-carousel');
     root.innerHTML = [
@@ -293,20 +269,12 @@
 
     async mount(){
       const { sample, images, shuffle: doShuffle } = this.opts;
-      const rawSrc = this.opts.src;
-      const candidates = [];
-      const addCandidate = (src) => {
-        if (!src) return;
-        if (candidates.indexOf(src) === -1) candidates.push(src);
-      };
-      addCandidate(resolveDeviceFolder(rawSrc));
-      addCandidate(rawSrc);
-      addCandidate(swapDeviceFolder(rawSrc));
+  const rawSrc = this.opts.src;
+  const folderSrc = rawSrc ? resolveDeviceFolder(rawSrc) : rawSrc;
+  const debugSrc = folderSrc || rawSrc;
       let list = [];
       let listTrusted = false;
       let listGuessed = false;
-      let sourceUsed = null;
-
       // Prefer explicit images option, then inline data-images attribute, then folder src
       if (Array.isArray(images) && images.length){
         list = images;
@@ -324,28 +292,18 @@
             }
           } catch(e){ console.warn('Invalid data-images JSON:', e); }
         }
-        if (!list.length && candidates.length){
-          for (const folderSrc of candidates){
-            const fetched = await readFolderListing(folderSrc);
-            if (Array.isArray(fetched)){
-              list = fetched;
-              listTrusted = false;
-              listGuessed = false;
-              sourceUsed = folderSrc;
-              break;
-            }
-            if (fetched && Array.isArray(fetched.list) && fetched.list.length){
-              list = fetched.list;
-              listGuessed = !!fetched.guessed;
-              listTrusted = !fetched.guessed;
-              sourceUsed = folderSrc;
-              break;
-            }
+        if (!list.length && folderSrc){
+          const fetched = await readFolderListing(folderSrc);
+          if (Array.isArray(fetched)){
+            list = fetched;
+          } else if (fetched && Array.isArray(fetched.list)){
+            list = fetched.list;
+            listGuessed = !!fetched.guessed;
+            listTrusted = !fetched.guessed;
           }
         }
       }
-      if (!list.length){ console.warn('FXCarousel: no images source for', rawSrc); return; }
-      this.state.source = sourceUsed || rawSrc;
+      if (!list.length){ console.warn('FXCarousel: no images source'); return; }
 
       if (sample > 0 && list.length > sample){
         const sampled = shuffle(list.slice());
@@ -377,7 +335,7 @@
       this.state.imgs = doShuffle ? shuffle(verified.slice()) : verified;
 
       if (!this.state.imgs.length){
-        console.warn('FXCarousel: no valid images resolved for', (sourceUsed || rawSrc || '[inline list]'));
+        console.warn('FXCarousel: no valid images resolved for', folderSrc || '[inline list]');
         this.ui.track.innerHTML = '';
         const msg = document.createElement('div');
         msg.className = 'fx-status';
@@ -386,10 +344,10 @@
         return;
       }
 
-      // Prep phase: hide viewport until base layout is stable to avoid first-paint jitter
-      this.ui.viewport.classList.add('fx-prep');
-      this.renderSlides();
-      this.applyAspect();
+  // Prep phase: hide viewport until base layout is stable to avoid first-paint jitter
+  this.ui.viewport.classList.add('fx-prep');
+  this.renderSlides();
+  this.applyAspect();
       if (this.opts.tight) {
         this.root.classList.add('fx-tight');
         // Defer computeLayout until initial decode completes to avoid jitter from reflow
@@ -398,9 +356,9 @@
       this.bind();
       this.observeVisibility();
       // Lazy-load observer and immediate warm-up
-      this.attachLazy();
-      const _isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
-      this.ensureNeighborsLoaded(_isMobile ? 1 : 2);
+  this.attachLazy();
+  const _isMobile = (window.matchMedia && window.matchMedia('(max-width: 600px)').matches);
+  this.ensureNeighborsLoaded(_isMobile ? 1 : 2);
       // Decode a wider window around the starting view to avoid blank neighbors on first paint
       try {
         const imgsInTrack = Array.from(this.ui.track.querySelectorAll('img.fx-img'));
@@ -422,7 +380,7 @@
         this.computeLayout();
       }
       this.state.ready = true;
-      this.applyTransform(true);
+  this.applyTransform(true);
       // Reveal after a tick to let the compositor settle
       requestAnimationFrame(() => this.ui.viewport.classList.remove('fx-prep'));
       // Warm up cache for neighbors to avoid blank left/right images on first paint

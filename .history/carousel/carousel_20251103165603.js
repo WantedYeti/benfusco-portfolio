@@ -125,30 +125,6 @@
     return swapped ? resolved : folder;
   }
 
-  function swapDeviceFolder(folder){
-    if (!folder) return folder;
-    const normalized = folder.replace(/\\/g, '/');
-    const hasDesktop = /(Images[-/]Desktop\b|\/Desktop\/)/i.test(normalized);
-    const hasMobile = /(Images[-/]Mobile\b|\/Mobile\/)/i.test(normalized);
-
-    if (hasDesktop){
-      return normalized
-        .replace(/Images-Desktop/gi, 'Images-Mobile')
-        .replace(/Images\/Desktop/gi, 'Images/Mobile')
-        .replace(/\/Desktop\//gi, '/Mobile/');
-    }
-
-    if (hasMobile){
-      return normalized
-        .replace(/Images-Mobile/gi, 'Images-Desktop')
-        .replace(/Images\/Mobile/gi, 'Images/Desktop')
-        .replace(/\/Mobile\//gi, '/Desktop/');
-    }
-
-    const resolved = resolveDeviceFolder(normalized);
-    return resolved || normalized;
-  }
-
   function buildMarkup(root){
     root.classList.add('fx-carousel');
     root.innerHTML = [
@@ -295,13 +271,9 @@
       const { sample, images, shuffle: doShuffle } = this.opts;
       const rawSrc = this.opts.src;
       const candidates = [];
-      const addCandidate = (src) => {
-        if (!src) return;
-        if (candidates.indexOf(src) === -1) candidates.push(src);
-      };
-      addCandidate(resolveDeviceFolder(rawSrc));
-      addCandidate(rawSrc);
-      addCandidate(swapDeviceFolder(rawSrc));
+      if (rawSrc) candidates.push(rawSrc);
+      const swapped = swapDeviceFolder(rawSrc);
+      if (swapped && swapped !== rawSrc) candidates.push(swapped);
       let list = [];
       let listTrusted = false;
       let listGuessed = false;

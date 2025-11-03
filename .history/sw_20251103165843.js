@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v1.0.1';
+const SW_VERSION = 'v1.1.5';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;
@@ -52,9 +52,8 @@ async function limitCache(cacheName, max) {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const urlObj = new URL(req.url);
-
-  // Never intercept non-GET requests (e.g., form POST)
-  if (req.method !== 'GET') return;
+  // Do not intercept POST requests (forms). Let them hit the network directly.
+  if (req.method === 'POST') return;
 
   // Only handle same-origin requests
   if (urlObj.origin !== scopeUrl.origin) return;

@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v1.1.3';
+const SW_VERSION = 'v1.1.6';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;

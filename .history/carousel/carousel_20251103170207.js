@@ -295,13 +295,9 @@
       const { sample, images, shuffle: doShuffle } = this.opts;
       const rawSrc = this.opts.src;
       const candidates = [];
-      const addCandidate = (src) => {
-        if (!src) return;
-        if (candidates.indexOf(src) === -1) candidates.push(src);
-      };
-      addCandidate(resolveDeviceFolder(rawSrc));
-      addCandidate(rawSrc);
-      addCandidate(swapDeviceFolder(rawSrc));
+      if (rawSrc) candidates.push(rawSrc);
+      const swapped = swapDeviceFolder(rawSrc);
+      if (swapped && swapped !== rawSrc) candidates.push(swapped);
       let list = [];
       let listTrusted = false;
       let listGuessed = false;

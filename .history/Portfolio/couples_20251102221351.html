@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ben Fusco | Other Photography</title>
-  <meta name="description" content="Concerts, couples, and editorial photography by Ben Fusco.">
+  <title>Ben Fusco | Couples Photography</title>
+  <meta name="description" content="Couples photography by Ben Fusco.">
   <meta name="robots" content="index, follow">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../carousel/carousel.css" />
+  <script src="../main.js" defer></script>
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
   <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png" />
@@ -17,6 +18,18 @@
   <link rel="shortcut icon" href="../favicon/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
   <link rel="manifest" href="../favicon/site.webmanifest" />
+  <style>
+    /* Page-specific hero background */
+    .hero-couples {
+      background: url('../Images/Desktop/Couples/Josh%20and%20Maggie/478-2M2A2929.jpg') 75% 35% / cover no-repeat;
+    }
+
+    @media (max-width: 900px) {
+      .hero-couples {
+        background: url('../Images/Mobile/Couples/Josh%20and%20Maggie/478-2M2A2929.jpg') 80% 45% / cover no-repeat;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -34,10 +47,11 @@
         <li class="folder-parent">
           <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
           <ul class="folder-child">
-            <li><a href="concerts.html" class="nav-link">Concerts</a></li>
-            <li><a href="couples.html" class="nav-link">Couples</a></li>
             <li><a href="portraits.html" class="nav-link">Portraits</a></li>
+            <li><a href="gym-portraits.html" class="nav-link">Gym Portraits</a></li>
+            <li><a href="concerts.html" class="nav-link">Concerts</a></li>
             <li><a href="weddings.html" class="nav-link">Weddings</a></li>
+            <li><a href="couples.html" class="nav-link active">Couples</a></li>
           </ul>
         </li>
         <li><a href="../index.html#about" class="nav-link">About</a></li>
@@ -45,17 +59,18 @@
         <li><a href="../index.html#map-section" class="nav-link">Location</a></li>
   <li><a href="../contact.html" class="nav-link">Contact</a></li>
       </ul>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  <button class="menu-toggle" aria-label="Toggle menu"></button>
     </div>
     <div id="menu" class="mobile-nav">
       <ul class="nav-root">
         <li class="folder-parent">
           <span>Portfolio <span class="dropdown-arrow">▼</span></span>
           <ul class="folder-child">
-            <li><a href="concerts.html" class="nav-link">Concerts</a></li>
-            <li><a href="couples.html" class="nav-link">Couples</a></li>
             <li><a href="portraits.html" class="nav-link">Portraits</a></li>
+            <li><a href="gym-portraits.html" class="nav-link">Gym Portraits</a></li>
+            <li><a href="concerts.html" class="nav-link">Concerts</a></li>
             <li><a href="weddings.html" class="nav-link">Weddings</a></li>
+            <li><a href="couples.html" class="nav-link active">Couples</a></li>
           </ul>
         </li>
         <li><a href="../index.html#about">About</a></li>
@@ -67,23 +82,22 @@
     <div class="nav-overlay"></div>
   </nav>
 
-  <section class="hero">
-    <h1>Other Photography</h1>
+  <section class="hero hero-couples">
+    <h1>Couples Photography</h1>
   </section>
 
-  <section id="concerts" class="section">
-    <h2>Concerts</h2>
-  <div class="fx-carousel" data-src="../Images/Concert" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"></div>
-  </section>
-
-  <section id="couples" class="section">
-    <h2>Couples / J&M</h2>
-  <div class="fx-carousel" data-src="../Images/J&amp;M" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"></div>
-  </section>
-
-  <section id="gabriella" class="section">
-    <h2>Gabriella</h2>
-  <div class="fx-carousel" data-src="../Images/Gabriella" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"></div>
+  <section id="portfolio" class="section">
+    <h2 class="section-title section-heading">Couples Gallery</h2>
+    <div
+      class="fx-carousel"
+      aria-label="Couples photography slideshow"
+      data-shuffle="true"
+      data-delay="3000"
+      data-aspect="4x5"
+      data-tight="true"
+      data-src="../Images/Desktop/Couples"
+      data-sample="15"
+    ></div>
   </section>
 
   <footer>
@@ -91,6 +105,6 @@
   </footer>
 
   <script defer src="../carousel/carousel.js"></script>
-  <script src="../main.js"></script>
+  <script defer src="../main.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v1.0.0';
+const SW_VERSION = 'v1.1.4';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;
@@ -32,6 +32,10 @@ self.addEventListener('activate', (event) => {
     await Promise.all(keys.map(k => {
       if (![CORE_CACHE, IMG_CACHE, STATIC_CACHE].includes(k)) return caches.delete(k);
     }));
+    // Enable navigation preload where supported
+    if (self.registration.navigationPreload) {
+      try { await self.registration.navigationPreload.enable(); } catch(_){}
+    }
     await self.clients.claim();
   })());
 });
@@ -48,6 +52,8 @@ async function limitCache(cacheName, max) {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const urlObj = new URL(req.url);
+  // Do not intercept POST requests (forms). Let them hit the network directly.
+  if (req.method === 'POST') return;
 
   // Only handle same-origin requests
   if (urlObj.origin !== scopeUrl.origin) return;
@@ -56,7 +62,9 @@ self.addEventListener('fetch', (event) => {
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       try {
-        const fresh = await fetch(req);
+        // Use preload response if available
+        const preload = await event.preloadResponse;
+        const fresh = preload || await fetch(req);
         // Optionally cache the page
         const cache = await caches.open(CORE_CACHE);
         cache.put(req, fresh.clone());
