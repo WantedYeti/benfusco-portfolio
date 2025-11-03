@@ -1485,7 +1485,7 @@ body.menu-open { overflow: hidden; }
 .hero {
   position: relative;
   background-image:
-  var(--hero-image, url("Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg"));
+    var(--hero-image, url("Images/Desktop/Weddings/Max%20and%20Taylor/8-2M2A4000.jpg"));
   background-position: center var(--hero-pos-y, 30%);
   background-size: var(--hero-size, cover);
   background-repeat: no-repeat;
@@ -1503,7 +1503,7 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 900px) {
   .hero {
     background-image:
-  var(--hero-image-mobile, url("Images/Mobile/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg"));
+      var(--hero-image-mobile, url("Images/Mobile/Weddings/Max%20and%20Taylor/8-2M2A4000.jpg"));
   }
 }
 .hero .hero-media {
@@ -1515,7 +1515,7 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 45%;
+  object-position: center 25%;
   transform: scale(1.08);
   transform-origin: center;
 }
