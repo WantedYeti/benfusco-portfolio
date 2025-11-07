@@ -6,14 +6,26 @@
   <title>Ben Fusco | Photographer & Videographer</title>
   <meta name="description" content="Professional photography and videography portfolio by Ben Fusco. Book a session or explore past work. Based in Aylmer, Gatineau.">
   <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://benfusco.com/">
+  <meta property="og:title" content="Ben Fusco | Photographer &amp; Videographer">
+  <meta property="og:description" content="Cinematic photography and videography capturing weddings, portraits, and events across Ottawa &amp; Gatineau.">
+  <meta property="og:image" content="https://benfusco.com/favicon/website-favicon.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://benfusco.com/">
+  <meta name="twitter:title" content="Ben Fusco | Photographer &amp; Videographer">
+  <meta name="twitter:description" content="Cinematic photography and videography capturing weddings, portraits, and events across Ottawa &amp; Gatineau.">
+  <meta name="twitter:image" content="https://benfusco.com/favicon/website-favicon.jpg">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link rel="preconnect" href="https://www.instagram.com" crossorigin>
   <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Bodoni+Moda:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <!-- Preload hero image for faster LCP -->
-  <link rel="preload" as="image" href="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg" imagesrcset="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg 1x" />
+  <link rel="preload" as="image" href="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg" imagesrcset="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg 1x" />
   <link rel="stylesheet" href="carousel/carousel.css">
   <script src="carousel/carousel.js" defer></script>
   <script src="main.js" defer></script>
@@ -60,7 +72,9 @@
     if ("fonts" in document) {
       Promise.all([
         document.fonts.load("400 1em Montserrat"),
-        document.fonts.load("700 1em Montserrat")
+        document.fonts.load("700 1em Montserrat"),
+        document.fonts.load("600 1em 'Bodoni Moda'"),
+        document.fonts.load("700 1em 'Bodoni Moda'")
       ]).then(() => {
         document.documentElement.classList.add("fonts-loaded");
       });
@@ -85,11 +99,11 @@
         <li class="folder-parent">
           <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
           <ul class="folder-child">
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
             <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
             <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/other.html">Other</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
           </ul>
         </li>
         <li><a href="#about" class="nav-link">About</a></li>
@@ -98,18 +112,18 @@
         <li><a href="#map-section" class="nav-link">Location</a></li>
   <li><a href="contact.html" class="nav-link">Contact</a></li>
       </ul>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  <button class="menu-toggle" aria-label="Toggle menu"></button>
     </div>
     <div id="menu" class="mobile-nav">
       <ul class="nav-root">
         <li class="folder-parent">
           <span>Portfolio <span class="dropdown-arrow">▼</span></span>
           <ul class="folder-child">
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
             <li><a href="Portfolio/portraits.html">Portraits</a></li>
+            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
+            <li><a href="Portfolio/concerts.html">Concerts</a></li>
             <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/other.html">Other</a></li>
+            <li><a href="Portfolio/couples.html">Couples</a></li>
           </ul>
         </li>
         <li><a href="#about">About</a></li>
@@ -123,19 +137,28 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero" style="background-image:none;">
+  <section class="hero">
     <div class="hero-media">
-      <img
-        src="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg"
-        alt="Elegant wedding moment by Ben Fusco"
+  <img
+  src="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg"
+    alt="Close-up of wedding rings as couple holds hands"
         fetchpriority="high"
         decoding="async"
+        data-lazy-ignore="true"
         width="1600" height="1000"
         sizes="100vw"
-        style="object-fit:cover; object-position:center 25%; width:100%; height:100%; transform:scale(1.08); transform-origin:center;"
       />
     </div>
-    <h1 class="hero-title">Capturing Moments That Matter</h1>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-title-line">Capturing</span>
+        <span class="hero-title-line">Moments That Matter</span>
+      </h1>
+      <p class="hero-subtitle">Photo | Video | Creative Media</p>
+      <p class="hero-eyebrow">Based in Ottawa &amp; Gatineau</p>
+      <a class="hero-cta" href="pricing.html">Book Now</a>
+    </div>
   </section>
 
   <!-- Removed duplicate header-divider, unnecessary inline styles, and ensured semantic structure -->
@@ -143,40 +166,31 @@
 
     <!-- Portraits Section -->
     <section id="portraits" class="portraits-section" aria-labelledby="photo-gallery-heading">
-      <h2 id="photo-gallery-heading" class="section-title">Photo Gallery</h2>
-      <div class="portraits-grid" role="list">
-        <!-- First row - Eager loading for immediate visibility -->
-  <img src="Images/Jordan/2M2A5383-Enhanced-NR.jpg" alt="Creative portrait of Jordan in soft natural light" class="portrait-thumb" loading="lazy" role="listitem" decoding="async">
-  <img src="Images/Jordan/2M2A5474-Enhanced-NR.jpg" alt="Outdoor portrait with warm tone" class="portrait-thumb" loading="lazy" role="listitem" decoding="async">
-  <img src="Images/Jordan/2M2A5585-Enhanced-NR.jpg" alt="Dramatic side-lit portrait" class="portrait-thumb" loading="lazy" role="listitem" decoding="async">
-  <img src="Images/Jordan/2M2A5606-Enhanced-NR.jpg" alt="Editorial style headshot" class="portrait-thumb" loading="lazy" role="listitem" decoding="async">
-  <img src="Images/Me/IMG_3874-Edit-Edit.jpg" alt="Behind the lens self-portrait of Ben" class="portrait-thumb" loading="lazy" role="listitem" decoding="async">
-        <!-- Remaining images - Progressive loading -->
-  <img src="Images/Wedding/2M2A4151.jpg" alt="Portrait 6" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A4800.jpg" alt="Portrait 7" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A4878.jpg" alt="Portrait 8" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A5022.jpg" alt="Portrait 9" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A5366.jpg" alt="Portrait 10" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A6081-Enhanced-NR.jpg" alt="Portrait 11" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A6197.jpg" alt="Portrait 12" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Wedding/2M2A6232-Enhanced-NR-2-Edit.jpg" alt="Portrait 13" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Gabriella/IMG_1773-Edit-Edit-Edit.jpg" alt="Portrait 14" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/Gabriella/IMG_1821-Edit-Edit.jpg" alt="Portrait 15" class="portrait-thumb" loading="lazy" decoding="async">
-  <!-- Additional images to fill the grid nicely -->
-  <img src="Images/Concert/2M2A4605-Edit-Edit.jpg" alt="Concert portrait" class="portrait-thumb" loading="lazy" decoding="async">
-  <img src="Images/J&amp;M/2M2A3323-Edit.jpg" alt="Wedding couple portrait" class="portrait-thumb" loading="lazy" decoding="async">
+      <div class="portraits-shell" role="presentation">
+  <h2 id="photo-gallery-heading" class="section-title section-heading">Photo Gallery</h2>
+        <div
+          class="portraits-grid"
+          role="list"
+          data-folders="Portraits,Weddings,Couples,Concerts"
+          data-desktop-base="Images/Desktop"
+          data-mobile-base="Images/Mobile"
+          data-count="15"
+          data-alt-prefix="Portfolio gallery image"
+        >
+          <span class="gallery-loading" aria-live="polite">Loading gallery…</span>
+        </div>
       </div>
       <!-- Featured Carousel (moved below the photo grid per request) -->
       <div class="fx-carousel" aria-label="Featured photography" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"
            data-images='[
-             "Images/Jordan/2M2A5383-Enhanced-NR.jpg",
-             "Images/Jordan/2M2A5474-Enhanced-NR.jpg",
-             "Images/Jordan/2M2A5585-Enhanced-NR.jpg",
-             "Images/Jordan/2M2A5606-Enhanced-NR.jpg",
-             "Images/Wedding/2M2A4151.jpg",
-             "Images/Wedding/2M2A4800.jpg",
-             "Images/Wedding/2M2A4878.jpg",
-             "Images/Wedding/2M2A5022.jpg"
+             "Images/Desktop/Portraits/Jordan/2M2A5383-Enhanced-NR.jpg",
+             "Images/Desktop/Portraits/Jordan/2M2A5474-Enhanced-NR.jpg",
+             "Images/Desktop/Portraits/Jordan/2M2A5503-Enhanced-NR.jpg",
+             "Images/Desktop/Portraits/Jordan/2M2A5606-Enhanced-NR.jpg",
+             "Images/Desktop/Weddings/Max%20and%20Taylor/8-2M2A4000.jpg",
+             "Images/Desktop/Weddings/Max%20and%20Taylor/25-2M2A4878.jpg",
+             "Images/Desktop/Weddings/Max%20and%20Taylor/32-2M2A5024.jpg",
+             "Images/Desktop/Weddings/Max%20and%20Taylor/35-2M2A5336.jpg"
            ]'></div>
     </section>
 
@@ -204,8 +218,8 @@
     </div>
   </section>
 
-   <section id="instagram" class="section">
-    <h2>Latest on Instagram</h2>
+  <section id="instagram" class="section">
+   <h2 class="section-title section-heading">Latest on Instagram</h2>
     <!-- Desktop: row layout -->
     <div class="ig-row">
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
@@ -228,12 +242,13 @@
     </div>
     <button class="nav next" aria-label="Next">&#10095;</button>
     <div class="slider-controls">
+      <span class="ig-control-spacer" aria-hidden="true"></span>
       <div class="dots">
         <span class="ig-dot active" data-index="0"></span>
         <span class="ig-dot" data-index="1"></span>
         <span class="ig-dot" data-index="2"></span>
       </div>
-  <button id="igPlayBtn" class="apple-style-button" aria-pressed="false" aria-label="Pause slideshow" title="Pause">
+  <button id="igPlayBtn" class="apple-style-button ig-play" aria-pressed="false" aria-label="Pause slideshow" title="Pause">
         <svg class="pause-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="6" y="5" width="4" height="14" rx="1"/>
           <rect x="14" y="5" width="4" height="14" rx="1"/>
@@ -247,8 +262,8 @@
   </section>
   <!-- Instagram embed script loaded once at end of body; removed here to prevent duplicate load -->
 
-   <section id="map-section" class="section">
-    <h2>My Location</h2>
+  <section id="map-section" class="section">
+   <h2 class="section-title section-heading">My Location</h2>
     <p>Based in Gatineau, Quebec</p>
     <div id="map">
       <div id="spinner" class="spinner"></div>
