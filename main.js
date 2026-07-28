@@ -1,4 +1,11 @@
 // (Removed legacy .folder-toggle code – not used by current markup)
+
+// Dynamic footer copyright year
+document.addEventListener('DOMContentLoaded', () => {
+  const yearEl = document.getElementById('copyrightYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+});
+
 // Unified hamburger menu controller with overlay, scroll lock, ARIA, and focus management
 let menuInitialized = false;
 function initHamburger() {
@@ -598,8 +605,13 @@ document.addEventListener('DOMContentLoaded', () => {
     link.setAttribute('aria-haspopup', 'true');
     link.setAttribute('aria-expanded', 'false');
 
-    // Click toggles open; prevent default navigation to '#'
+    // Click toggles open; if link has a real destination and is already open, let the second click navigate
     link.addEventListener('click', (e) => {
+      const hasRealHref = link.getAttribute('href') && link.getAttribute('href') !== '#';
+      const isOpenAlready = parent.classList.contains('open');
+      if (hasRealHref && isOpenAlready) {
+        return; // allow default navigation
+      }
       e.preventDefault();
       e.stopPropagation();
       const isOpen = parent.classList.toggle('open');

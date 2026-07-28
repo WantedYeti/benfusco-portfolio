@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v1.1.6';
+const SW_VERSION = 'v3.2.7-coming-soon-gate-20260728';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;
@@ -12,10 +12,17 @@ function url(p){ return new URL(p.replace(/^\//,''), scopeUrl).toString(); }
 const CORE_ASSETS = [
   url('/'),
   url('/index.html'),
-  url('/styles.css'),
-  url('/main.js'),
-  url('/carousel/carousel.css'),
-  url('/carousel/carousel.js'),
+  url('/portfolio.html'),
+  url('/pricing.html'),
+  url('/team.html'),
+  url('/about.html'),
+  url('/contact.html'),
+  url('/booking.html'),
+  url('/site-gate.js?v=20260728.1'),
+  url('/exact.css?v=20260728.2'),
+  url('/data/favorites.js?v=20260726.1'),
+  url('/exact.js?v=20260726.8'),
+  url('/Images/Logo/logobutton.png'),
 ];
 
 self.addEventListener('install', (event) => {

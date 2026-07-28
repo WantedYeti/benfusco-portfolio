@@ -1,6 +1,6 @@
 /* Grid Lightbox - Reuses FX Carousel lightbox styling for any image grid */
 (function(){
-  const SELECTOR = '.portraits-grid img'; // default grid on index.html
+  const SELECTOR = '.portraits-grid img, .portfolio-grid img'; // grids that use this lightbox
 
   function getSrc(img){
     if (!img) return '';
@@ -138,4 +138,7 @@
   } else {
     initGridLightbox();
   }
+
+  // Expose a manual re-init for grids populated after page load (e.g. fetched portfolio images)
+  window.reinitGridLightbox = initGridLightbox;
 })();

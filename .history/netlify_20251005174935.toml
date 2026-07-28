@@ -1,9 +1,0 @@
-[build]
-  publish = "."
-
-# Optional: enable form submissions without JS. Netlify auto-detects forms in your HTML.
-# No build command needed for a static site.
-
-[forms]
-  # Notifications via Netlify UI; email forwarding can be configured there.
-  # No custom server required. Ensure contact.html has data-netlify and hidden form-name.

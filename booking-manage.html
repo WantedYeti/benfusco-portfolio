@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Change a Booking Request | Ben Fusco Media</title>
+  <script src="site-gate.js?v=20260728.1"></script>
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f5f3ef">
+  <link rel="icon" type="image/png" href="Images/Logo/logobutton.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;1,500&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="booking-manage.css?v=20260724.2">
+</head>
+<body>
+  <header class="manage-header"><a href="index.html" class="manage-brand">Ben Fusco<small>MEDIA</small></a><a href="booking.html">New booking request</a></header>
+  <main class="manage-page">
+    <section class="manage-intro"><p class="eyebrow">Existing request</p><h1>Request a change</h1><p>Use this form to request a new date, update project details, or cancel. Nothing changes until you receive written confirmation.</p></section>
+    <form id="manageForm" class="manage-form" novalidate>
+      <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_subject" value="Booking change request from benfusco.com">
+      <label><span>Booking reference *</span><input id="manageReference" name="bookingReference" required placeholder="BFM-…"></label>
+      <label><span>Email used for the request *</span><input id="manageEmail" name="email" type="email" autocomplete="email" required></label>
+      <label><span>What would you like to do? *</span><select name="requestType" required><option value="">Choose one</option><option>Request a new date or time</option><option>Update project details</option><option>Cancel the request</option><option>Ask a question</option></select></label>
+      <label><span>Preferred new date <small>(if rescheduling)</small></span><input name="newDate" type="date"></label>
+      <label class="full"><span>Details *</span><textarea name="message" rows="6" required placeholder="Tell me what needs to change."></textarea></label>
+      <label class="check full"><input type="checkbox" required><span>I understand this is a request and the original booking remains unchanged until Ben Fusco Media confirms otherwise. Submitted information is handled under the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+      <div class="full manage-actions"><button type="submit" id="manageSubmit">Send change request</button><a href="mailto:contact@benfusco.com">Or email contact@benfusco.com</a></div>
+      <p class="full manage-status" id="manageStatus" role="status"></p>
+    </form>
+  </main>
+  <script src="booking-data.js?v=20260727.13"></script><script src="booking-manage.js?v=20260724.2"></script>
+</body>
+</html>

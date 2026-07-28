@@ -34,7 +34,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Compose mail
-$to = 'contact@benfusco.com'; // TODO: update to your email
+$to = 'contact@benfusco.com';
 $subject = 'New contact from benfusco.com';
 $body = "New contact submission:\n\n" .
         "Name: {$first} {$last}\n" .

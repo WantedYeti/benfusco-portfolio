@@ -1,9 +1,9 @@
 {
   "mini": {
     "id": "mini",
-    "code": "NR 01",
+    "code": "POR 01",
     "title": "Mini Session",
-    "price": "$125",
+    "price": "CA$125",
     "duration": "15 minutes",
     "edited": "10 edited images",
     "location": "Outdoor / Studio (local)",
@@ -12,9 +12,9 @@
   },
   "midi": {
     "id": "midi",
-    "code": "NR 02",
+    "code": "POR 02",
     "title": "Midi Session",
-    "price": "$175",
+    "price": "CA$175",
     "duration": "30 minutes",
     "edited": "up to 25 edited images",
     "location": "Outdoor / Studio (local)",
@@ -23,9 +23,9 @@
   },
   "maxi": {
     "id": "maxi",
-    "code": "NR 03",
+    "code": "POR 03",
     "title": "Maxi Session",
-    "price": "$225",
+    "price": "CA$225",
     "duration": "60 minutes",
     "edited": "up to 50 edited images",
     "location": "Outdoor / Studio (local)",

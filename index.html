@@ -1,343 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ben Fusco | Photographer & Videographer</title>
-  <meta name="description" content="Professional photography and videography portfolio by Ben Fusco. Book a session or explore past work. Based in Aylmer, Gatineau.">
-  <meta name="robots" content="index, follow">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://benfusco.com/">
-  <meta property="og:title" content="Ben Fusco | Photographer &amp; Videographer">
-  <meta property="og:description" content="Cinematic photography and videography capturing weddings, portraits, and events across Ottawa &amp; Gatineau.">
-  <meta property="og:image" content="https://benfusco.com/favicon/website-favicon.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://benfusco.com/">
-  <meta name="twitter:title" content="Ben Fusco | Photographer &amp; Videographer">
-  <meta name="twitter:description" content="Cinematic photography and videography capturing weddings, portraits, and events across Ottawa &amp; Gatineau.">
-  <meta name="twitter:image" content="https://benfusco.com/favicon/website-favicon.jpg">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <link rel="preconnect" href="https://www.instagram.com" crossorigin>
-  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Bodoni+Moda:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <!-- Preload hero image for faster LCP -->
-  <link rel="preload" as="image" href="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg" imagesrcset="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg 1x" />
-  <link rel="stylesheet" href="carousel/carousel.css">
-  <script src="carousel/carousel.js" defer></script>
-  <script src="main.js" defer></script>
-  <!-- Favicon references -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ben Fusco Media | Photography, Video &amp; Creative Media</title>
+  <script src="site-gate.js?v=20260728.1"></script>
   <link rel="icon" type="image/png" href="Images/Logo/logobutton.png">
-  <link rel="apple-touch-icon" href="Images/Logo/logobutton.png">
-  
-  <script>
-    if ('PerformanceObserver' in window) {
-      // Monitor Largest Contentful Paint
-      new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries();
-        const lastEntry = entries[entries.length - 1];
-        console.log('LCP:', lastEntry.startTime);
-      }).observe({ entryTypes: ['largest-contentful-paint'] });
-
-      // Monitor First Input Delay
-      new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries();
-        entries.forEach(entry => {
-          console.log('FID:', entry.processingStart - entry.startTime);
-        });
-      }).observe({ entryTypes: ['first-input'] });
-    }
-
-    // Progressive enhancement
-    if ('connection' in navigator) {
-      if (navigator.connection.saveData) {
-        // Reduce image quality for data-saver mode
-        document.documentElement.classList.add('save-data');
-      }
-      if (navigator.connection.effectiveType.includes('4g')) {
-        // Load high quality images for fast connections
-        document.documentElement.classList.add('high-quality');
-      }
-    }
-
-    // Queue analytics and non-critical operations
-    requestIdleCallback(() => {
-      // Initialize any analytics here
-    });
-
-    // Optimize font loading
-    if ("fonts" in document) {
-      Promise.all([
-        document.fonts.load("400 1em Montserrat"),
-        document.fonts.load("700 1em Montserrat"),
-        document.fonts.load("600 1em 'Bodoni Moda'"),
-        document.fonts.load("700 1em 'Bodoni Moda'")
-      ]).then(() => {
-        document.documentElement.classList.add("fonts-loaded");
-      });
-    }
-    
-    // Removed custom data-src lazy loader (mismatch). Rely on native loading="lazy".
-  </script>
+  <meta name="description" content="Cinematic photography, video and creative media for weddings, portraits, events, brands and real estate in Ottawa and Gatineau.">
+  <link rel="canonical" href="https://benfusco.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ben Fusco Media">
+  <meta property="og:title" content="Ben Fusco Media | Photography, Video &amp; Creative Media">
+  <meta property="og:description" content="Photography, video and creative media in Ottawa and Gatineau.">
+  <meta property="og:image" content="https://benfusco.com/Images/social-preview.jpg">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ben Fusco Media — Photography, Video and Creative Media">
+  <meta property="og:url" content="https://benfusco.com/">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Ben Fusco Media | Photography, Video &amp; Creative Media"><meta name="twitter:description" content="Photography, video and creative media in Ottawa and Gatineau."><meta name="twitter:image" content="https://benfusco.com/Images/social-preview.jpg">
+  <meta name="theme-color" content="#111111">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;1,500&amp;family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="exact.css?v=20260728.2">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="data/favorites.js?v=20260726.1" defer></script>
+  <script src="exact.js?v=20260726.8" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Ben Fusco Media","url":"https://benfusco.com/","email":"contact@benfusco.com","telephone":"+1-819-592-6251","image":"https://benfusco.com/Images/social-preview.jpg","description":"Photography, video, drone and creative-media services for weddings, portraits, events, businesses and real estate.","areaServed":[{"@type":"City","name":"Gatineau"},{"@type":"City","name":"Ottawa"},{"@type":"Place","name":"Aylmer"}],"sameAs":["https://www.instagram.com/fusco_media/"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Creative Media Services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Portrait Photography"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Wedding Photography and Video"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Real Estate Media"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Business and Social Content"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Event and Concert Coverage"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Drone and Aerial Media"}}]}}</script>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="navbar-content">
-      <div class="navbar-left">
-        <a href="index.html" class="logo-link" aria-label="Home">
-          <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
-          <span class="site-title">Ben Fusco</span>
-        </a>
-      </div>
-      <div class="navbar-divider">
-        <svg height="1" width="100%" style="display:block;"><line x1="0" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:1;opacity:0.25;"></line></svg>
-      </div>
-      <ul class="nav-root">
-        <li class="folder-parent">
-          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
-          <ul class="folder-child">
-            <li><a href="Portfolio/portraits.html">Portraits</a></li>
-            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
-          </ul>
-        </li>
-        <li><a href="#about" class="nav-link">About</a></li>
-  <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-        <li><a href="#instagram" class="nav-link">Instagram</a></li>
-        <li><a href="#map-section" class="nav-link">Location</a></li>
-  <li><a href="contact.html" class="nav-link">Contact</a></li>
+<body class="exact-site">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="exact-header is-overlay">
+    <nav class="exact-nav" aria-label="Main navigation">
+      <a class="brand-script" href="index.html" aria-current="page">Ben Fusco<small>MEDIA</small></a>
+      <ul class="exact-links">
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Services</a></li>
+        <li><a href="team.html">The Team</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="exact-book" href="booking.html">Book Now</a></li>
       </ul>
-  <button class="menu-toggle" aria-label="Toggle menu"></button>
-    </div>
-    <div id="menu" class="mobile-nav">
-      <ul class="nav-root">
-        <li class="folder-parent">
-          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
-          <ul class="folder-child">
-            <li><a href="Portfolio/portraits.html">Portraits</a></li>
-            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
-          </ul>
-        </li>
-        <li><a href="#about">About</a></li>
-  <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="#instagram">Instagram</a></li>
-        <li><a href="#map-section">Location</a></li>
-  <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav-overlay"></div>
-  </nav>
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+      <div class="mobile-drawer" id="mobile-menu">
+        <a href="portfolio.html">Portfolio</a>
+        <a href="pricing.html">Services</a>
+        <a href="team.html">The Team</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="booking.html">Book Now</a>
+      </div>
+    </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-media">
-  <img
-  src="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg"
-    alt="Close-up of wedding rings as couple holds hands"
-        fetchpriority="high"
-        decoding="async"
-        data-lazy-ignore="true"
-        width="1600" height="1000"
-        sizes="100vw"
-      />
-    </div>
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="hero-title-line">Capturing</span>
-        <span class="hero-title-line">Moments That Matter</span>
-      </h1>
-      <p class="hero-subtitle">Photo | Video | Creative Media</p>
-      <p class="hero-eyebrow">Based in Ottawa &amp; Gatineau</p>
-      <a class="hero-cta" href="pricing.html">Book Now</a>
-    </div>
-  </section>
-
-  <!-- Removed duplicate header-divider, unnecessary inline styles, and ensured semantic structure -->
- 
-
-    <!-- Portraits Section -->
-    <section id="portraits" class="portraits-section" aria-labelledby="photo-gallery-heading">
-      <div class="portraits-shell" role="presentation">
-  <h2 id="photo-gallery-heading" class="section-title section-heading">Photo Gallery</h2>
-        <div
-          class="portraits-grid"
-          role="list"
-          data-folders="Portraits,Weddings,Couples,Concerts"
-          data-desktop-base="Images/Desktop"
-          data-mobile-base="Images/Mobile"
-          data-count="15"
-          data-alt-prefix="Portfolio gallery image"
-        >
-          <span class="gallery-loading" aria-live="polite">Loading gallery…</span>
+  <main id="main">
+    <section class="hero-exact" aria-labelledby="home-title">
+      <picture>
+        <source media="(max-width: 760px)" srcset="Images/Mobile/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg">
+        <img src="Images/Desktop/Weddings/Max%20and%20Taylor/14-2M2A4891.jpg" alt="Close-up wedding portrait showing a couple holding hands" fetchpriority="high">
+      </picture>
+      <div class="hero-copy">
+        <h1 id="home-title">Capturing<br>Moments That<br>Matter</h1>
+        <p>Photo | Video | Creative Media</p>
+        <p>Based in Ottawa &amp; Gatineau</p>
+        <div class="hero-actions">
+          <a class="btn" href="booking.html">Book Now</a>
+          <a class="btn btn-ghost" href="portfolio.html">View Portfolio</a>
         </div>
       </div>
-      <!-- Featured Carousel (moved below the photo grid per request) -->
-      <div class="fx-carousel" aria-label="Featured photography" data-shuffle="true" data-delay="3000" data-aspect="4x5" data-tight="true"
-           data-images='[
-             "Images/Desktop/Portraits/Jordan/2M2A5383-Enhanced-NR.jpg",
-             "Images/Desktop/Portraits/Jordan/2M2A5474-Enhanced-NR.jpg",
-             "Images/Desktop/Portraits/Jordan/2M2A5503-Enhanced-NR.jpg",
-             "Images/Desktop/Portraits/Jordan/2M2A5606-Enhanced-NR.jpg",
-             "Images/Desktop/Weddings/Max%20and%20Taylor/8-2M2A4000.jpg",
-             "Images/Desktop/Weddings/Max%20and%20Taylor/25-2M2A4878.jpg",
-             "Images/Desktop/Weddings/Max%20and%20Taylor/32-2M2A5024.jpg",
-             "Images/Desktop/Weddings/Max%20and%20Taylor/35-2M2A5336.jpg"
-           ]'></div>
     </section>
 
-    <!-- About Me Section -->
-    <section id="about" class="about-section" style="--about-image: url('Images/Me/IMG_3874-Edit-Edit.jpg');">
-      <div class="about-overlay"></div>
-      <div class="about-content">
-        <h2>Hi, I'm Ben</h2>
-        <p class="about-text">I'm a Gatineau-based photographer<br>
-        passionate about capturing real stories,<br>
-        raw emotion, and unforgettable moments.<br>
-        Whether it's a wedding, portrait session,<br>
-        or brand shoot,<br>
-        I aim to bring your vision to life.</p>
-        <button class="team-button">i TEAM</button>
+    <section class="section-exact" aria-labelledby="gallery-title">
+      <p class="section-kicker" id="gallery-title">Photo Gallery</p>
+      <div class="thumb-strip">
+        <a href="portfolio.html?filter=weddings"><img src="Images/Desktop/Weddings/Max%20and%20Taylor/25-2M2A4878.jpg" alt="Wedding photography preview" loading="lazy" width="1351" height="2200"></a>
+        <a href="portfolio.html?filter=portraits"><img src="Images/Desktop/Portraits/Syd/2M2A6299-Edit-Edit.jpg" alt="Portrait photography preview" loading="lazy" width="1760" height="2200"></a>
+        <a href="portfolio.html?filter=portraits"><img src="Images/Desktop/Portraits/Jordan/2M2A5383-Enhanced-NR.jpg" alt="Editorial portrait preview" loading="lazy" width="1760" height="2200"></a>
+        <a href="portfolio.html?filter=events"><img src="Images/Desktop/Concerts/Sepultra/13-2M2A2071-Edit.jpg" alt="Concert photography preview" loading="lazy" width="1467" height="2200"></a>
+        <a href="portfolio.html?filter=fitness"><img src="Images/Desktop/Gym%20Portraits/Daveson/2M2A6948-Edit-Edit.jpg" alt="Fitness portrait preview" loading="lazy" width="1760" height="2200"></a>
+        <a href="portfolio.html?filter=weddings"><img src="Images/Desktop/Weddings/Max%20and%20Taylor/41-2M2A6232-Enhanced-NR-2-Edit.jpg" alt="Wedding celebration preview" loading="lazy" width="2200" height="1394"></a>
+        <a href="portfolio.html?filter=events"><img src="Images/Desktop/Concerts/Sepultra/3-2M2A4675-Edit-Edit.jpg" alt="Live music photography preview" loading="lazy" width="2200" height="1466"></a>
+      </div>
+
+      <div class="feature-wrap" aria-label="Featured work slideshow">
+        <div class="feature-trio">
+          <img data-feature-image src="Images/Desktop/Gym%20Portraits/Daveson/2M2A6948-Edit-Edit.jpg" alt="Dramatic fitness portrait photographed by Ben Fusco Media" loading="lazy" decoding="async">
+          <img data-feature-image src="Images/Desktop/Couples/Josh%20and%20Maggie/15-2M2A4076.jpg" alt="Couple photographed during a warm sunset session" loading="lazy" decoding="async">
+          <img data-feature-image src="Images/Desktop/Concerts/Sepultra/5-2M2A4463-Edit-Edit.jpg" alt="Live concert performance photographed by Ben Fusco Media" loading="lazy" decoding="async">
+          <div class="feature-controls">
+            <button class="circle-arrow" type="button" data-feature-prev aria-label="Previous featured images">‹</button>
+            <button class="circle-arrow" type="button" data-feature-next aria-label="Next featured images">›</button>
+          </div>
+        </div>
+        <div class="feature-dots" aria-label="Choose featured image set">
+          <span class="feature-counter" data-feature-counter hidden></span>
+          <button class="feature-toggle" type="button" data-feature-toggle aria-pressed="false" aria-label="Pause featured gallery">Pause</button>
+        </div>
+        <p class="sr-only" data-feature-status aria-live="polite"></p>
+        <div class="feature-cta"><a class="btn btn-dark" href="portfolio.html">View Full Portfolio</a></div>
       </div>
     </section>
 
-   <!-- Get in Touch CTA Section (moved near bottom) -->
-  <section class="section" aria-labelledby="cta-heading">
-    <div style="max-width:980px; margin:0 auto; padding:48px 16px; text-align:center; background:#f7f7f7; border-radius:8px;">
-      <p style="letter-spacing:3px; text-transform:uppercase; font-size:12px; opacity:.6; margin:0 0 12px;">Ready to connect?</p>
-      <h2 id="cta-heading" style="font-size:40px; letter-spacing:2px; font-weight:400; margin:0 0 18px; color:#50545a;">Get In Touch</h2>
-      <a href="contact.html" class="cta-button" style="display:inline-block; padding:12px 22px; border:1px solid #9aa0a6; border-radius:4px; text-decoration:none; color:#50545a; letter-spacing:2px; font-size:12px;">CONTACT ME</a>
-    </div>
-  </section>
-
-  <section id="instagram" class="section">
-   <h2 class="section-title section-heading">Latest on Instagram</h2>
-    <!-- Desktop: row layout -->
-    <div class="ig-row">
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ7lCY5hVHl/" data-instgrm-version="14"></blockquote>
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ2Epzlhbi7/" data-instgrm-version="14"></blockquote>
-    </div>
-    <!-- Mobile/tablet: slider layout -->
-    <div class="ig-slider">
-    <button class="nav prev" aria-label="Previous">&#10094;</button>
-    <div class="slider-track">
-      <div class="ig-slide">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CKXQ0RrBSfO/" data-instgrm-version="14"></blockquote>
+    <section class="about-exact" id="about" aria-labelledby="about-title">
+      <img src="Images/Desktop/Portraits/Me/IMG_3874-Edit-Edit.jpg" alt="Cinematic portrait of Ben Fusco" loading="lazy" decoding="async">
+      <div class="about-copy">
+        <div class="about-copy-inner">
+          <p class="eyebrow">About Me</p>
+          <h2 class="display-title" id="about-title">Hi, I’m Ben</h2>
+          <p>I’m a Gatineau-based photographer and videographer focused on real stories, honest emotion, and polished visuals. From weddings and portraits to events, brand content, and real-estate media, I bring a calm approach and a creative eye to every project.</p>
+          <a class="btn" href="team.html">Meet the Team</a>
+        </div>
       </div>
-      <div class="ig-slide">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ7lCY5hVHl/" data-instgrm-version="14"></blockquote>
+    </section>
+
+    <section class="stats-row" aria-label="Ben Fusco Media capabilities">
+      <div class="stat stat-area"><strong>Ottawa + Gatineau</strong><span>Local service area</span></div>
+      <div class="stat stat-photo"><strong><span class="stat-label-desktop">Photo</span><span class="stat-label-mobile">Photo + Video</span></strong><span>High-resolution creative media</span></div>
+      <div class="stat stat-video"><strong>Video</strong><span>Short and long-form media</span></div>
+      <div class="stat stat-drone"><strong>Drone</strong><span>Weather and airspace permitting</span></div>
+      <div class="stat stat-process"><strong>Clear process</strong><span>From request to delivery</span></div>
+    </section>
+
+    <section class="home-bottom">
+      <div class="contact-mini">
+        <p class="eyebrow">Ready to connect?</p>
+        <h2 class="display-title">Get In Touch</h2>
+        <p>Tell me what you’re planning and I’ll help you choose the right service.</p>
+        <p><a class="btn btn-dark" href="contact.html">Contact Me</a></p>
       </div>
-      <div class="ig-slide">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CQ2Epzlhbi7/" data-instgrm-version="14"></blockquote>
+      <div>
+        <p class="section-kicker">Latest Work</p>
+        <div class="insta-row">
+          <a href="https://www.instagram.com/fusco_media/" aria-label="See portrait work on Instagram"><img src="Images/Desktop/Portraits/Syd/2M2A6299-Edit-Edit.jpg" alt="Portrait from Ben Fusco's recent work" loading="lazy"></a>
+          <a href="https://www.instagram.com/fusco_media/" aria-label="See editorial work on Instagram"><img src="Images/Desktop/Portraits/Jordan/2M2A5383-Enhanced-NR.jpg" alt="Editorial portrait from Ben Fusco's recent work" loading="lazy"></a>
+          <a href="https://www.instagram.com/fusco_media/" aria-label="See fitness work on Instagram"><img src="Images/Desktop/Gym%20Portraits/Daveson/2M2A6948-Edit-Edit.jpg" alt="Fitness portrait from Ben Fusco's recent work" loading="lazy"></a>
+        </div>
+        <div class="map-panel">
+          <p class="section-kicker">My Location</p>
+          <div class="map-box">
+            <div class="service-area-map" data-service-map aria-label="Interactive map showing an approximate 10 kilometre service radius around Gatineau and Aylmer"></div>
+            <noscript><a class="map-fallback" href="https://www.openstreetmap.org/#map=10/45.3977/-75.8348">View the Ottawa and Gatineau service area map</a></noscript>
+            <span class="map-label">Approximate 10 km service radius</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <button class="nav next" aria-label="Next">&#10095;</button>
-    <div class="slider-controls">
-      <span class="ig-control-spacer" aria-hidden="true"></span>
-      <div class="dots">
-        <span class="ig-dot active" data-index="0"></span>
-        <span class="ig-dot" data-index="1"></span>
-        <span class="ig-dot" data-index="2"></span>
-      </div>
-  <button id="igPlayBtn" class="apple-style-button ig-play" aria-pressed="false" aria-label="Pause slideshow" title="Pause">
-        <svg class="pause-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="6" y="5" width="4" height="14" rx="1"/>
-          <rect x="14" y="5" width="4" height="14" rx="1"/>
-        </svg>
-        <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M6.5 4.5v15l12-7.5-12-7.5z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-  </section>
-  <!-- Instagram embed script loaded once at end of body; removed here to prevent duplicate load -->
+    </section>
+  </main>
 
-  <section id="map-section" class="section">
-   <h2 class="section-title section-heading">My Location</h2>
-    <p>Based in Gatineau, Quebec</p>
-    <div id="map">
-      <div id="spinner" class="spinner"></div>
-    </div>
-  </section>
-
-
-  <!-- Leaflet CSS/JS will be loaded lazily by script below -->
-  <!-- Removed duplicate main.js include (already deferred in head) -->
-  <style>
-    #map {
-      height: 400px;
-      max-width: 600px;
-      margin: 1rem auto;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    /* Ensure hero media covers the hero section without shifting layout */
-  .hero { position: relative; overflow: hidden; padding-top:70px; }
-    .hero .hero-media { position:absolute; inset:0; }
-    .hero .hero-title { position:relative; z-index:1; }
-  </style>
-
-  
-
-      <!-- Contact section removed per request -->
-
-    <footer>
-      <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
-    </footer>
-
-
-
-  <script>
-    // Lazy-load Instagram embed and Leaflet when their sections are near viewport
-    (function lazyThirdParties(){
-      if (!('IntersectionObserver' in window)) return;
-      const head = document.head || document.getElementsByTagName('head')[0];
-      function loadScript(src){ return new Promise((res, rej) => { const s=document.createElement('script'); s.src=src; s.async=true; s.onload=res; s.onerror=rej; head.appendChild(s); }); }
-      function loadCSS(href){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; head.appendChild(l); }
-
-      // Instagram
-      const ig = document.getElementById('instagram');
-      if (ig){
-        const ioIg = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting){
-              ioIg.disconnect();
-              loadScript('https://www.instagram.com/embed.js');
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        ioIg.observe(ig);
-      }
-
-      // Map
-      const mapSec = document.getElementById('map-section');
-      if (mapSec){
-        const ioMap = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting){
-              ioMap.disconnect();
-              loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
-              loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js').then(() => {
-                if (window.initLeafletMap) window.initLeafletMap();
-              });
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        ioMap.observe(mapSec);
-      }
-    })();
-  </script>
-
-  <!-- (Removed inline IG slider script – logic consolidated in main.js) -->
+  <footer class="exact-footer">
+    <span>© <span data-current-year></span> Ben Fusco Media. All rights reserved.</span>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="mailto:contact@benfusco.com">Email</a>
+      <a href="https://www.instagram.com/fusco_media/">Instagram</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </footer>
 </body>
 </html>

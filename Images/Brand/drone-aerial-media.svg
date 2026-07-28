@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Drone and Aerial Media</title>
+  <desc id="desc">An abstract aerial landscape and flight-path illustration representing drone photography and video.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8d9a98"/>
+      <stop offset=".55" stop-color="#c8c3b8"/>
+      <stop offset="1" stop-color="#554f49"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <path d="M0 720c250-190 395-66 600-190 165-100 310-110 490 0 195 118 312 82 510-42v512H0Z" fill="#252724" opacity=".77"/>
+  <path d="M0 820c270-104 420 55 681-36 247-86 386-46 919 110v106H0Z" fill="#151515" opacity=".76"/>
+  <g fill="none" stroke="#f7f4ef" stroke-width="6" opacity=".9">
+    <path d="M720 320h160M760 287l-55 33 55 33M840 287l55 33-55 33"/>
+    <rect x="757" y="278" width="86" height="84" rx="18"/>
+    <circle cx="700" cy="320" r="55"/><circle cx="900" cy="320" r="55"/>
+    <path d="M800 362v78m-28 0h56"/>
+  </g>
+  <path d="M800 449c0 0-215 102-325 305M800 449c0 0 217 98 325 305" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="12 18" opacity=".55"/>
+  <text x="800" y="862" fill="#fff" font-family="Georgia, serif" font-size="66" text-anchor="middle">Drone &amp; Aerial Media</text>
+  <text x="800" y="914" fill="#f3eee7" font-family="Arial, sans-serif" font-size="20" letter-spacing="7" text-anchor="middle">WEATHER · AIRSPACE · SAFETY PERMITTING</text>
+</svg>

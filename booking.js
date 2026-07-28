@@ -1,418 +1,261 @@
-(function(){
-  // Booking page logic: render cards, open modal, calendar and form
-  const container = document.getElementById('bkGrid');
-  const modal = document.getElementById('bkModal');
-  const bkDates = document.getElementById('bkDates');
-  const calMonth = document.getElementById('calMonth');
-  const calPrev = document.getElementById('calPrev');
-  const calNext = document.getElementById('calNext');
-  const bkSelectedDate = document.getElementById('bkSelectedDate');
-  const bkForm = document.getElementById('bkForm');
-  const bkClose = document.getElementById('bkClose');
-  const fullCalPrev = document.getElementById('fullCalPrev');
-  const fullCalNext = document.getElementById('fullCalNext');
-  const fullCalMonth = document.getElementById('fullCalMonth');
-  const bkDatesFull = document.getElementById('bkDatesFull');
-  const selectedFullLabel = document.getElementById('bkSelectedFull');
-  const timesFull = document.getElementById('bkTimesFull');
-  const continueFull = document.getElementById('bkContinueFull');
-  const altRequestLink = document.getElementById('bkAltRequest');
-  const fullMore = document.getElementById('fullMore');
-  const infoOverlay = document.getElementById('bkInfoOverlay');
-  const infoClose = document.getElementById('bkInfoClose');
-  const infoImg = document.getElementById('bkInfoImg');
-  const infoTitle = document.getElementById('bkInfoTitle');
-  const infoDesc = document.getElementById('bkInfoDescription');
-  const infoIncludes = document.getElementById('bkInfoIncludes');
-  const infoDeposit = document.getElementById('bkInfoDeposit');
-  const infoCode = document.getElementById('bkInfoCode');
+(function () {
+  'use strict';
 
   const packages = window.BK_PACKAGES || {};
-  const formatCurrency = (value, currency='')=>{
-    if (value === undefined || value === null) return '';
-    if (typeof value === 'number'){
-      const opts = Number.isInteger(value) ? { minimumFractionDigits:0, maximumFractionDigits:0 } : { minimumFractionDigits:2, maximumFractionDigits:2 };
-      return `${currency}${value.toLocaleString(undefined, opts)}`;
-    }
-    return `${currency}${value}`;
-  };
-  const formatPrice = (pkg)=>{
-    if (!pkg) return '';
-    return formatCurrency(pkg.price, pkg.currency || '$');
+  const settings = window.BK_SETTINGS || {};
+  const grid = document.getElementById('bookingGrid');
+  const catalog = document.getElementById('bookingCatalog');
+  const intro = document.getElementById('bookingIntro');
+  const scheduler = document.getElementById('bookingScheduler');
+  if (!grid || !scheduler) return;
+
+  const els = {
+    hero: document.getElementById('schedulerHero'),
+    code: document.getElementById('selectedPackageCode'),
+    title: document.getElementById('selectedPackageTitle'),
+    description: document.getElementById('selectedPackageDescription'),
+    back: document.getElementById('schedulerBack'),
+    month: document.getElementById('calendarMonth'),
+    prev: document.getElementById('calendarPrev'),
+    next: document.getElementById('calendarNext'),
+    dates: document.getElementById('calendarDates'),
+    dateLabel: document.getElementById('selectedDateLabel'),
+    times: document.getElementById('timeOptions'),
+    summaryCode: document.getElementById('summaryCode'),
+    summaryTitle: document.getElementById('summaryTitle'),
+    duration: document.getElementById('summaryDuration'),
+    price: document.getElementById('summaryPrice'),
+    location: document.getElementById('summaryLocation'),
+    includes: document.getElementById('summaryIncludes'),
+    retainer: document.getElementById('summaryRetainer'),
+    selection: document.getElementById('summarySelection'),
+    continue: document.getElementById('schedulerContinue')
   };
 
-  if (fullCalPrev){
-    fullCalPrev.addEventListener('click', ()=>{
-      renderFullCalendar(new Date(fullCurrent.getFullYear(), fullCurrent.getMonth()-1, 1));
-    });
-  }
-  if (fullCalNext){
-    fullCalNext.addEventListener('click', ()=>{
-      renderFullCalendar(new Date(fullCurrent.getFullYear(), fullCurrent.getMonth()+1, 1));
-    });
-  }
   let activePackage = null;
-  let fullCurrent = new Date();
-  let selectedFullDate = null;
-  let selectedFullTime = null;
-  let lastFocusedTrigger = null;
+  let selectedDate = '';
+  let selectedTime = '';
+  let currentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-  function makeCard(p){
-    const a = document.createElement('article'); a.className='bk-card';
-    const price = formatPrice(p);
-    a.innerHTML = `<div class="bk-code">${p.code}</div><h3 class="bk-name">${p.title}</h3><p class="bk-desc">${p.description}</p><div class="bk-meta"><div>${p.duration}</div><div class="bk-price">${price}</div></div><div class="bk-meta-small">${p.location}</div><div><button class="bk-cta" data-id="${p.id}">Book Now</button></div>`;
-    return a;
+  function money(value, currency) {
+    if (value === null || value === undefined) return '';
+    return `${currency || 'CA$'}${Number(value).toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
   }
 
-  // populate grid
-  Object.values(packages).forEach(p => container.appendChild(makeCard(p)));
-
-  // modal helpers
-  function openModal(pkg){
-    document.getElementById('bkCode').textContent = pkg.code;
-    document.getElementById('bkName').textContent = pkg.title;
-    document.getElementById('bkShort').textContent = pkg.description;
-    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-    renderCalendar(new Date());
-  }
-  function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
-
-  function populateInfoOverlay(pkg){
-    if (!infoOverlay || !pkg) return;
-    if (infoCode) infoCode.textContent = pkg.code || '';
-    if (infoTitle) infoTitle.textContent = pkg.title || 'Session';
-    if (infoDesc) infoDesc.textContent = pkg.description || '';
-    if (infoImg){
-      if (pkg.image){
-        infoImg.src = pkg.image;
-        infoImg.alt = `${pkg.title || 'Session'} preview`;
-        infoImg.removeAttribute('hidden');
-      } else {
-        infoImg.src = '';
-        infoImg.alt = '';
-        infoImg.setAttribute('hidden','');
-      }
-    }
-    if (infoIncludes){
-      infoIncludes.innerHTML = '';
-      if (Array.isArray(pkg.includes)){
-        pkg.includes.forEach(item => {
-          const li = document.createElement('li');
-          li.textContent = item;
-          infoIncludes.appendChild(li);
-        });
-      }
-    }
-    if (infoDeposit){
-      const amount = formatCurrency(pkg.deposit, pkg.currency || 'CA$');
-      infoDeposit.textContent = amount ? `${amount} non-refundable deposit required upon booking to reserve your spot.` : 'Non-refundable deposit required upon booking to reserve your spot.';
-    }
+  function packagePrice(pkg) {
+    return pkg.priceLabel || money(pkg.price, pkg.currency);
   }
 
-  function openInfoOverlay(pkg, trigger){
-    populateInfoOverlay(pkg);
-    if (!infoOverlay) return;
-    lastFocusedTrigger = trigger || null;
-    infoOverlay.classList.add('open');
-    infoOverlay.setAttribute('aria-hidden','false');
-    document.body.classList.add('bk-info-open');
-    if (infoClose) infoClose.focus();
+  function localISO(date) {
+    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
   }
 
-  function closeInfoOverlay(){
-    if (!infoOverlay) return;
-    infoOverlay.classList.remove('open');
-    infoOverlay.setAttribute('aria-hidden','true');
-    document.body.classList.remove('bk-info-open');
-    if (lastFocusedTrigger){
-      lastFocusedTrigger.focus();
-      lastFocusedTrigger = null;
-    }
+  function parseLocalISO(iso) {
+    const [year, month, day] = iso.split('-').map(Number);
+    return new Date(year, month - 1, day);
   }
 
-  // attach book now handlers
-  container.addEventListener('click', function(e){
-    const btn = e.target.closest('.bk-cta'); if(!btn) return;
-    const id = btn.dataset.id; if(!id) return; openModal(packages[id]);
-  });
-  bkClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-
-  if (infoClose){ infoClose.addEventListener('click', closeInfoOverlay); }
-  if (infoOverlay){ infoOverlay.addEventListener('click', (e)=>{ if(e.target === infoOverlay) closeInfoOverlay(); }); }
-  if (fullMore){
-    fullMore.addEventListener('click', (e)=>{
-      e.preventDefault();
-      if (activePackage){
-        openInfoOverlay(activePackage, fullMore);
-      }
-    });
+  function cardTemplate(pkg) {
+    const article = document.createElement('article');
+    article.className = 'booking-card';
+    article.dataset.category = pkg.group || pkg.category;
+    const vectorClass = pkg.image.endsWith('.svg') ? ' booking-card-image-vector' : '';
+    article.innerHTML = `
+      <img class="booking-card-image${vectorClass}" src="${pkg.image}" alt="${pkg.service} by Ben Fusco Media" loading="lazy" decoding="async" width="900" height="650">
+      <div class="booking-card-body">
+        <p class="summary-code">${pkg.code}</p>
+        <h3>${pkg.title}</h3>
+        <p>${pkg.description}</p>
+        <div class="booking-card-meta"><span>${pkg.duration}</span><strong>${packagePrice(pkg)}</strong></div>
+        <button type="button" class="btn btn-dark" data-package-id="${pkg.id}">${pkg.price === null ? 'Request this service' : 'Select package'}</button>
+      </div>`;
+    return article;
   }
 
-  // calendar
-  let current = new Date();
-  const unavailable = {}; // example: {'2025-10-28': true}
-  function firstDayOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
-  function renderCalendar(d){
-    current = new Date(d.getFullYear(), d.getMonth(), 1);
-    calMonth.textContent = current.toLocaleString(undefined,{month:'long', year:'numeric'});
-    bkDates.innerHTML = '';
-    const startDay = firstDayOfMonth(current).getDay();
-    const daysInMonth = new Date(current.getFullYear(), current.getMonth()+1, 0).getDate();
-    // fill blanks
-    for(let i=0;i<startDay;i++){ const blank = document.createElement('div'); bkDates.appendChild(blank); }
-    const todayIso = new Date().toISOString().slice(0,10);
-    for(let day=1; day<=daysInMonth; day++){
-      const el = document.createElement('button'); el.className='bk-date';
-      const iso = new Date(current.getFullYear(), current.getMonth(), day).toISOString().slice(0,10);
-      el.textContent = String(day);
-      if(iso < todayIso){ el.classList.add('disabled'); }
-      if(unavailable[iso]) el.classList.add('disabled');
-      el.addEventListener('click', ()=>{
-        if(el.classList.contains('disabled')) return;
-        document.querySelectorAll('.bk-date').forEach(x=>x.classList.remove('selected'));
-        el.classList.add('selected');
-        bkSelectedDate.textContent = iso;
-        bkSelectedDate.dataset.iso = iso;
+  Object.values(packages).forEach((pkg) => grid.appendChild(cardTemplate(pkg)));
+
+  document.querySelectorAll('[data-booking-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.bookingFilter;
+      document.querySelectorAll('[data-booking-filter]').forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
       });
-      bkDates.appendChild(el);
-    }
-  }
-  calPrev.addEventListener('click', ()=>{ renderCalendar(new Date(current.getFullYear(), current.getMonth()-1, 1)); });
-  calNext.addEventListener('click', ()=>{ renderCalendar(new Date(current.getFullYear(), current.getMonth()+1, 1)); });
-
-  // submit
-  bkForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    const name = document.getElementById('bkFullName').value;
-    const email = document.getElementById('bkEmail').value;
-    const phone = document.getElementById('bkPhone').value;
-    const date = bkSelectedDate.dataset.iso || null;
-    const notes = document.getElementById('bkNotes').value;
-    if(!date){ alert('Please select a date from the calendar'); return; }
-    console.log('Booking request', { name, email, phone, date, notes });
-    document.getElementById('bkThanks').style.display = 'block';
-    bkForm.querySelectorAll('input, textarea, button').forEach(i=>i.disabled=true);
-    setTimeout(()=>{ closeModal(); bkForm.querySelectorAll('input, textarea, button').forEach(i=>i.disabled=false); document.getElementById('bkThanks').style.display='none'; bkForm.reset(); }, 1400);
-  });
-
-  // init small accessibility niceties
-  document.addEventListener('keydown', function(e){
-    if (e.key==='Escape'){
-      if (infoOverlay && infoOverlay.classList.contains('open')){ closeInfoOverlay(); return; }
-      closeModal();
-    }
-  });
-  // If URL includes ?pkg=..., auto-open that package's modal and optionally preselect date
-  (function checkQuery(){
-    try{
-      const params = new URLSearchParams(window.location.search);
-      const pkgId = params.get('pkg');
-      const dateParam = params.get('date');
-      if (pkgId && packages[pkgId]){
-        // Full-page flow: show full view and populate
-        const full = document.getElementById('bkFullView');
-        const fullCode = document.getElementById('fullCode');
-        const fullName = document.getElementById('fullName');
-        const fullShort = document.getElementById('fullShort');
-        const fullDuration = document.getElementById('fullDuration');
-        const fullPrice = document.getElementById('fullPrice');
-        const fullLocation = document.getElementById('fullLocation');
-        const fullIncludes = document.getElementById('fullIncludes');
-        const pkg = packages[pkgId];
-        activePackage = pkg;
-        selectedFullDate = null;
-        selectedFullTime = null;
-        if (altRequestLink){
-          altRequestLink.href = `contact.html?pkg=${pkg.id}&request=custom`;
-        }
-        if (selectedFullLabel){
-          selectedFullLabel.textContent = 'Select a date to see available times';
-        }
-        showTimesPlaceholder();
-        if (continueFull){
-          continueFull.dataset.date = '';
-          continueFull.dataset.time = '';
-        }
-        fullCode.textContent = pkg.code;
-        fullName.textContent = pkg.title;
-        fullShort.textContent = pkg.description;
-        fullDuration.textContent = pkg.duration;
-  fullPrice.textContent = formatPrice(pkg);
-        fullLocation.textContent = pkg.location || '';
-        fullIncludes.innerHTML = '';
-        if (Array.isArray(pkg.includes)){
-          pkg.includes.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            fullIncludes.appendChild(li);
-          });
-        }
-        if (fullMore){
-          if (pkg){
-            fullMore.href = '#';
-            fullMore.removeAttribute('hidden');
-          } else {
-            fullMore.setAttribute('hidden','');
-          }
-        }
-        full.hidden = false;
-        document.querySelector('.bk-page').style.display = 'none';
-        document.body.classList.add('bk-fullview-active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        let initialDate = new Date();
-        let preselectIso = null;
-        const timeParam = params.get('time');
-        if (dateParam){
-          const parts = dateParam.split('-');
-          if (parts.length===3){
-            const y = Number(parts[0]);
-            const m = Number(parts[1])-1;
-            const d = Number(parts[2]);
-            if (!Number.isNaN(y) && !Number.isNaN(m) && !Number.isNaN(d)){
-              initialDate = new Date(y, m, 1);
-              preselectIso = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-              selectedFullDate = preselectIso;
-              selectedFullTime = timeParam || null;
-            }
-          }
-        }
-        renderFullCalendar(initialDate);
-        if (preselectIso){
-          renderTimesForFull(preselectIso);
-          requestAnimationFrame(()=>{
-            const day = Number(preselectIso.slice(-2));
-            const btn = Array.from(document.querySelectorAll('#bkDatesFull .bk-date')).find(b=>Number(b.textContent.trim())===day && !b.classList.contains('disabled'));
-            if (btn){
-              btn.classList.add('selected');
-            }
-          });
-        }
-      }
-    }catch(e){/* ignore */}
-  })();
-
-  const backButton = document.getElementById('bkBack');
-  if (backButton){
-    backButton.addEventListener('click', ()=>{
-      window.location.href = 'pricing.html';
-    });
-  }
-  
-  // Full calendar renderer (renders into #bkDatesFull and small month header)
-  function renderFullCalendar(d){
-    if (!bkDatesFull || !fullCalMonth) return;
-    fullCurrent = new Date(d.getFullYear(), d.getMonth(), 1);
-    fullCalMonth.textContent = fullCurrent.toLocaleString(undefined,{month:'long', year:'numeric'});
-    bkDatesFull.innerHTML = '';
-    const startDay = fullCurrent.getDay();
-    const daysInMonth = new Date(fullCurrent.getFullYear(), fullCurrent.getMonth()+1, 0).getDate();
-    for(let i=0;i<startDay;i++){ bkDatesFull.appendChild(document.createElement('div')); }
-    const todayIso = new Date().toISOString().slice(0,10);
-    for(let day=1; day<=daysInMonth; day++){
-      const iso = new Date(fullCurrent.getFullYear(), fullCurrent.getMonth(), day).toISOString().slice(0,10);
-      const b = document.createElement('button');
-      b.className='bk-date';
-      b.textContent=String(day);
-      if (iso < todayIso) b.classList.add('disabled');
-      if (unavailable[iso]) b.classList.add('disabled');
-      if (iso === selectedFullDate) b.classList.add('selected');
-      b.addEventListener('click', ()=>{
-        if (b.classList.contains('disabled')) return;
-        document.querySelectorAll('#bkDatesFull .bk-date').forEach(x=>x.classList.remove('selected'));
-        b.classList.add('selected');
-        selectedFullDate = iso;
-        selectedFullTime = null;
-        if (continueFull){
-          continueFull.dataset.date = iso;
-          continueFull.dataset.time = '';
-        }
-        renderTimesForFull(iso);
+      grid.querySelectorAll('.booking-card').forEach((card) => {
+        card.hidden = filter !== 'all' && card.dataset.category !== filter;
       });
-      bkDatesFull.appendChild(b);
+    });
+  });
+
+  grid.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-package-id]');
+    if (!trigger) return;
+    openScheduler(trigger.dataset.packageId, true);
+  });
+
+  function openScheduler(packageId, updateHistory) {
+    const pkg = packages[packageId];
+    if (!pkg) return;
+    activePackage = pkg;
+    selectedDate = '';
+    selectedTime = '';
+    currentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+    els.hero.style.backgroundImage = `url("${pkg.image}")`;
+    els.hero.classList.toggle('scheduler-hero-vector', pkg.image.endsWith('.svg'));
+    els.code.textContent = pkg.code;
+    els.title.textContent = pkg.title;
+    els.description.textContent = pkg.description;
+    els.summaryCode.textContent = pkg.code;
+    els.summaryTitle.textContent = pkg.title;
+    els.duration.textContent = pkg.duration;
+    els.price.textContent = packagePrice(pkg);
+    els.location.textContent = pkg.location;
+    els.includes.innerHTML = '';
+    pkg.includes.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      els.includes.appendChild(li);
+    });
+    els.retainer.textContent = pkg.category === 'real-estate'
+      ? `No standard retainer. Payment is due before unwatermarked, full-resolution delivery; approved brokerage accounts may receive Net 7 terms.`
+      : pkg.deposit
+        ? `No payment is due now. Any retainer and permitted payment method will be confirmed in the client-specific final agreement.`
+        : `No payment is required to submit this inquiry.`;
+    els.dateLabel.textContent = 'Select a date';
+    els.times.innerHTML = '<p class="time-placeholder">Available preferences will appear here.</p>';
+    updateSelection();
+    renderCalendar();
+
+    intro.hidden = true;
+    catalog.hidden = true;
+    scheduler.hidden = false;
+    document.body.classList.add('scheduler-open');
+    if (updateHistory) history.pushState({ packageId }, '', `booking.html?pkg=${encodeURIComponent(packageId)}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeScheduler(updateHistory) {
+    scheduler.hidden = true;
+    catalog.hidden = false;
+    intro.hidden = false;
+    document.body.classList.remove('scheduler-open');
+    activePackage = null;
+    if (updateHistory) history.pushState({}, '', 'booking.html');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  els.back.addEventListener('click', () => closeScheduler(true));
+  window.addEventListener('popstate', () => {
+    const packageId = new URLSearchParams(location.search).get('pkg');
+    if (packageId && packages[packageId]) openScheduler(packageId, false);
+    else closeScheduler(false);
+  });
+
+  function renderCalendar() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const maxDate = new Date(today);
+    maxDate.setFullYear(maxDate.getFullYear() + 1);
+    const earliestMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    els.prev.disabled = currentMonth <= earliestMonth;
+    els.next.disabled = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1) > maxDate;
+    els.month.textContent = currentMonth.toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
+    els.dates.innerHTML = '';
+
+    const firstDay = currentMonth.getDay();
+    const dayCount = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+    for (let index = 0; index < firstDay; index += 1) {
+      const blank = document.createElement('span');
+      blank.className = 'calendar-blank';
+      els.dates.appendChild(blank);
+    }
+    for (let day = 1; day <= dayCount; day += 1) {
+      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+      const iso = localISO(date);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = day;
+      button.className = 'calendar-date';
+      button.setAttribute('aria-label', date.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }));
+      if (date < today || date > maxDate) button.disabled = true;
+      if (iso === selectedDate) button.classList.add('selected');
+      button.addEventListener('click', () => chooseDate(iso));
+      els.dates.appendChild(button);
     }
   }
 
-  function showTimesPlaceholder(){
-    if (!timesFull) return;
-    timesFull.innerHTML = '';
-    const p = document.createElement('p');
-    p.className = 'bk-no-times';
-    p.textContent = 'Select a date to see available times';
-    timesFull.appendChild(p);
+  function chooseDate(iso) {
+    selectedDate = iso;
+    selectedTime = '';
+    renderCalendar();
+    const date = parseLocalISO(iso);
+    els.dateLabel.textContent = date.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    renderTimes();
+    updateSelection();
   }
 
-  function renderTimesForFull(iso){
-    if (!timesFull) return;
-    timesFull.innerHTML='';
-    const pkg = activePackage || {};
-    const slots = (pkg && pkg.slots) || {
-      am:['09:00 AM','10:00 AM','11:00 AM'],
-      pm:['01:00 PM','02:00 PM','03:00 PM']
-    };
-    if (selectedFullLabel){
-      selectedFullLabel.textContent = formatFullDateLabel(iso);
-    }
-    if (continueFull){
-      continueFull.dataset.date = iso;
-      continueFull.dataset.time = selectedFullTime || '';
-    }
-    let hasTimes = false;
-    Object.entries(slots).forEach(([period, arr])=>{
-      if (!Array.isArray(arr) || !arr.length) return;
-      hasTimes = true;
+  function renderTimes() {
+    els.times.innerHTML = '';
+    Object.entries(activePackage.slots).forEach(([period, times]) => {
       const group = document.createElement('div');
-      group.className = 'bk-time-group';
-      const title = document.createElement('div');
-      title.className = 'bk-time-group-title';
-      title.textContent = period.toUpperCase();
-      const list = document.createElement('div');
-      list.className = 'bk-times-grid';
-      arr.forEach(t=>{
-        const btn = document.createElement('button');
-        btn.textContent = t;
-        if (t === selectedFullTime) btn.classList.add('selected');
-        btn.addEventListener('click', ()=>{
-          selectedFullTime = t;
-          document.querySelectorAll('#bkTimesFull button').forEach(x=>x.classList.remove('selected'));
-          btn.classList.add('selected');
-          if (continueFull){
-            continueFull.dataset.date = iso;
-            continueFull.dataset.time = t;
-          }
+      group.className = 'time-group';
+      const label = document.createElement('span');
+      label.className = 'time-group-label';
+      label.textContent = period;
+      const options = document.createElement('div');
+      options.className = 'time-group-options';
+      times.forEach((time) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = time;
+        button.className = 'time-option';
+        button.setAttribute('aria-pressed', String(selectedTime === time));
+        button.addEventListener('click', () => {
+          selectedTime = time;
+          els.times.querySelectorAll('.time-option').forEach((item) => {
+            const active = item === button;
+            item.classList.toggle('selected', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+          updateSelection();
         });
-        list.appendChild(btn);
+        options.appendChild(button);
       });
-      group.appendChild(title);
-      group.appendChild(list);
-      timesFull.appendChild(group);
+      group.append(label, options);
+      els.times.appendChild(group);
     });
-    if (!hasTimes){
-      const empty = document.createElement('p');
-      empty.className = 'bk-no-times';
-      empty.textContent = 'No times are available for this date. Please choose another day or submit a request.';
-      timesFull.appendChild(empty);
+  }
+
+  function updateSelection() {
+    const ready = Boolean(activePackage && selectedDate && selectedTime);
+    els.continue.disabled = !ready;
+    if (!ready) {
+      els.selection.textContent = selectedDate ? 'Choose a preferred time to continue.' : 'Choose a preferred date and time to continue.';
+      return;
     }
+    const dateText = parseLocalISO(selectedDate).toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' });
+    els.selection.innerHTML = `<strong>Requested:</strong> ${dateText}<br>${selectedTime} · ${settings.timezoneLabel || 'Eastern Time'}`;
   }
 
-  function formatFullDateLabel(iso){
-    const date = new Date(`${iso}T00:00:00`);
-    const formatted = date.toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric', year:'numeric' });
-    return `${formatted} · Gatineau (Eastern Time)`;
-  }
+  els.prev.addEventListener('click', () => {
+    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  els.next.addEventListener('click', () => {
+    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+    renderCalendar();
+  });
 
-  // wire continue
-  if (continueFull){
-    continueFull.addEventListener('click', function(){
-      const date = this.dataset.date;
-      const time = this.dataset.time;
-      if(!date || !time){ alert('Please select a date and time.'); return; }
-      const searchPkg = new URLSearchParams(location.search).get('pkg') || (activePackage ? activePackage.id : '');
-      const params = new URLSearchParams();
-      if (searchPkg) params.set('pkg', searchPkg);
-      params.set('date', date);
-      params.set('time', time);
-      location.href = 'booking-confirm.html?' + params.toString();
-    });
-  }
-})();
+  els.continue.addEventListener('click', () => {
+    if (!activePackage || !selectedDate || !selectedTime) return;
+    const request = { packageId: activePackage.id, date: selectedDate, time: selectedTime, savedAt: new Date().toISOString() };
+    sessionStorage.setItem('bfmBookingSelection', JSON.stringify(request));
+    const params = new URLSearchParams({ pkg: activePackage.id, date: selectedDate, time: selectedTime });
+    location.href = `booking-confirm.html?${params.toString()}`;
+  });
+
+  const initialId = new URLSearchParams(location.search).get('pkg');
+  if (initialId && packages[initialId]) openScheduler(initialId, false);
+}());

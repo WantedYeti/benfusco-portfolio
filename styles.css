@@ -1588,6 +1588,36 @@ body.menu-open { overflow: hidden; }
   border-color: rgba(255, 255, 255, 0.9);
 }
 
+.hero-cta-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.hero .hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.hero .hero-cta-secondary:hover,
+.hero .hero-cta-secondary:focus-visible {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
 #photo-gallery-heading {
   margin: 0 0 clamp(20px, 5vw, 40px);
 }
@@ -1599,7 +1629,7 @@ body.menu-open { overflow: hidden; }
   position: relative;
   /* Use CSS var override if provided; default to Ben's portrait */
   background-image:
-    var(--about-image, url('Images/Desktop/Portraits/Me/IMG_3874-Edit-Edit.webp')),
+    var(--about-image, url('Images/Desktop/Portraits/Me/IMG_3874-Edit-Edit.jpg')),
     url('Images/Me/IMG_3874-Edit-Edit.jpg');
   background-size: cover;
   background-position: center 40%;
@@ -1614,7 +1644,7 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 900px) {
   .about-section {
     background-image:
-      var(--about-image-mobile, url('Images/Mobile/Portraits/Me/IMG_3874-Edit-Edit.webp')),
+      var(--about-image-mobile, url('Images/Mobile/Portraits/Me/IMG_3874-Edit-Edit.jpg')),
       url('Images/Me/IMG_3874-Edit-Edit.jpg');
   }
 }
@@ -2123,6 +2153,35 @@ body.fx-lightbox-open .navbar {
   justify-content: flex-end;
 }
 
+/* Book Now nav button - stays visually distinct from plain text links */
+.nav-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #fff !important;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+.nav-book-btn:hover,
+.nav-book-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111 !important;
+  border-color: rgba(255, 255, 255, 0.95);
+}
+.mobile-nav .nav-book-btn {
+  display: inline-flex;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 1024px) {
   .navbar-content {
     padding: 0 0.5rem;
@@ -2219,4 +2278,158 @@ body.fx-lightbox-open .navbar {
 
 .apple-style-button:not(.paused) .play-icon {
   display: none;
+}
+
+/* ===== Portfolio filter page ===== */
+.portfolio-hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(340px, 46vw, 440px);
+  background: #fff;
+  overflow: hidden;
+}
+.portfolio-hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+  filter: saturate(0.94) brightness(0.98);
+}
+.portfolio-hero__panel {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  padding: clamp(26px, 6vw, 40px) clamp(30px, 7vw, 46px);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 4px;
+}
+.portfolio-hero__title {
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: clamp(2.05rem, 4.4vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  color: #1b1b1f;
+}
+.portfolio-hero__copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(30,30,34,0.7);
+  margin: 0;
+}
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto 36px;
+  padding: 0 20px;
+}
+.portfolio-filter-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(120,124,134,0.32);
+  background: transparent;
+  color: rgba(48,52,60,0.75);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.portfolio-filter-btn:hover {
+  border-color: rgba(48,52,60,0.55);
+}
+.portfolio-filter-btn.is-active {
+  background: #17171a;
+  border-color: #17171a;
+  color: #fff;
+}
+
+.portfolio-grid {
+  --thumb-ratio: 4 / 5;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.portfolio-grid figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #eee;
+  position: relative;
+}
+.portfolio-grid img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--thumb-ratio);
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.portfolio-grid img.is-loaded {
+  opacity: 1;
+}
+.portfolio-grid figure:hover img {
+  transform: scale(1.035);
+}
+.portfolio-grid figure[hidden] {
+  display: none;
+}
+.portfolio-grid figure.is-extra {
+  display: none;
+}
+.portfolio-grid.show-extra figure.is-extra {
+  display: block;
+}
+.portfolio-empty {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: rgba(30,30,34,0.55);
+  padding: 40px 20px;
+}
+.portfolio-load-more {
+  display: block;
+  margin: 32px auto 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 12px 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(120,124,134,0.32);
+  background: transparent;
+  color: rgba(48,52,60,0.8);
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.portfolio-load-more:hover {
+  border-color: rgba(48,52,60,0.6);
+}
+.portfolio-load-more[hidden] {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .portfolio-filters { gap: 8px; }
+  .portfolio-filter-btn { padding: 8px 14px; font-size: 0.68rem; }
 }

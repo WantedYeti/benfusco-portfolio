@@ -1,150 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pricing | Ben Fusco Photography</title>
-  <meta name="description" content="Photography pricing and packages from Ben Fusco. Explore mini, midi, and maxi portrait sessions, plus wedding packages.">
-  <meta name="robots" content="index, follow">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="main.js" defer></script>
-  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-  <link rel="shortcut icon" href="favicon/favicon.ico" />
-  <style>
-    .pricing-hero { min-height: clamp(460px, 68vw, 620px); }
-    .pricing-hero__panel {
-      background: linear-gradient(132deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 46%, rgba(255,255,255,0.5) 100%);
-      border-radius: clamp(6px, 1.5vw, 13px);
-      border: 1px solid rgba(255,255,255,0.28);
-      box-shadow: 0 14px 40px -28px rgba(18, 21, 27, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.48);
-      backdrop-filter: blur(5px) saturate(118%);
-      -webkit-backdrop-filter: blur(5px) saturate(118%);
-      color: rgba(46, 49, 56, 0.88);
-      padding: clamp(32px, 6vw, 58px) clamp(40px, 8vw, 72px);
-      max-width: min(520px, 78vw);
-      position: relative;
-      overflow: hidden;
-    }
-  .pricing-hero__title { letter-spacing: 0.22rem; color: rgba(38, 40, 46, 0.82); margin-bottom: clamp(18px, 3vw, 24px); }
-  .pricing-hero__copy { color: rgba(58, 62, 70, 0.74); max-width: 30ch; margin-left: auto; margin-right: auto; line-height: 1.75; }
-    @media (max-width: 520px) {
-  .pricing-hero { min-height: clamp(420px, 96vw, 520px); }
-  .pricing-hero__panel { border-radius: clamp(6px, 3.8vw, 13px); }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Services | Ben Fusco Media</title>
+  <script src="site-gate.js?v=20260728.1"></script>
+  <link rel="icon" type="image/png" href="Images/Logo/logobutton.png">
+  <meta name="description" content="Portrait, wedding, real-estate, business, event, drone and video services from Ben Fusco Media in Ottawa and Gatineau.">
+  <link rel="canonical" href="https://benfusco.com/pricing.html">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Ben Fusco Media"><meta property="og:title" content="Services | Ben Fusco Media"><meta property="og:description" content="Portrait, wedding, real-estate, business, event, drone and video services in Ottawa and Gatineau."><meta property="og:url" content="https://benfusco.com/pricing.html"><meta property="og:image" content="https://benfusco.com/Images/social-preview.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Services | Ben Fusco Media"><meta name="twitter:description" content="Photography, video, real-estate and creative-media services."><meta name="twitter:image" content="https://benfusco.com/Images/social-preview.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;1,500&amp;family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="exact.css?v=20260728.2">
+  <script src="exact.js?v=20260726.5" defer></script>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="navbar-content">
-      <div class="navbar-left">
-        <a href="index.html" class="logo-link" aria-label="Home">
-          <img src="Images/Logo/logobutton.png" alt="Ben Fusco Logo" class="logo-img">
-          <span class="site-title">Ben Fusco</span>
-        </a>
-      </div>
-      <div class="navbar-divider">
-        <svg height="1" width="100%" style="display:block;"><line x1="0" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:1;opacity:0.25;"></line></svg>
-      </div>
-      <ul class="nav-root">
-        <li class="folder-parent">
-          <a href="#" class="nav-link">Portfolio <span class="dropdown-arrow">▼</span></a>
-          <ul class="folder-child">
-            <li><a href="Portfolio/portraits.html">Portraits</a></li>
-            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
-            <li><a href="Portfolio/other.html">Other</a></li>
-          </ul>
-        </li>
-  <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-  <li><a href="index.html#about" class="nav-link">About</a></li>
-    <li><a href="index.html#instagram" class="nav-link">Instagram</a></li>
-    <li><a href="index.html#map-section" class="nav-link">Location</a></li>
-        <li><a href="contact.html" class="nav-link">Contact</a></li>
-      </ul>
-  <button class="menu-toggle" aria-label="Toggle menu"></button>
-    </div>
-    <div id="menu" class="mobile-nav">
-      <ul class="nav-root">
-        <li class="folder-parent">
-          <span>Portfolio <span class="dropdown-arrow">▼</span></span>
-          <ul class="folder-child">
-            <li><a href="Portfolio/portraits.html">Portraits</a></li>
-            <li><a href="Portfolio/gym-portraits.html">Gym Portraits</a></li>
-            <li><a href="Portfolio/concerts.html">Concerts</a></li>
-            <li><a href="Portfolio/weddings.html">Weddings</a></li>
-            <li><a href="Portfolio/couples.html">Couples</a></li>
-            <li><a href="Portfolio/other.html">Other</a></li>
-          </ul>
-        </li>
-  <li><a href="pricing.html">Pricing</a></li>
-  <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#instagram">Instagram</a></li>
-    <li><a href="index.html#map-section">Location</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav-overlay"></div>
-  </nav>
+<body class="exact-site">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="exact-header">
+    <nav class="exact-nav" aria-label="Main navigation">
+      <a class="brand-script" href="index.html">Ben Fusco<small>MEDIA</small></a>
+      <ul class="exact-links"><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html" aria-current="page">Services</a></li><li><a href="team.html">The Team</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a class="exact-book" href="booking.html">Book Now</a></li></ul>
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+      <div class="mobile-drawer" id="mobile-menu"><a href="portfolio.html">Portfolio</a><a href="pricing.html">Services</a><a href="team.html">The Team</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="booking.html">Book Now</a></div>
+    </nav>
+  </header>
 
-  <section class="pricing-hero" aria-labelledby="pricing-hero-title">
-    <img
-      class="pricing-hero__image"
-      src="Images/Desktop/Couples/Tristan%20and%20Sam/4-2M2A6411-Edit.jpg"
-      alt="Couple sharing a laugh at sunset"
-      loading="eager" decoding="async"
-    />
-    <div class="pricing-hero__panel">
-  <h1 id="pricing-hero-title" class="pricing-hero__title">My Services</h1>
-      <p class="pricing-hero__copy">Pricing crafted to fit your story. Choose from flexible portrait sessions or comprehensive wedding coverage, all delivered with care and attention to detail.</p>
-    </div>
-  </section>
+  <main id="main">
+    <section class="page-hero">
+      <img src="Images/Desktop/Couples/Josh%20and%20Maggie/15-2M2A4076.jpg" alt="Couple photographed at sunset">
+      <div class="hero-card"><p class="eyebrow">Photography · Video · Creative Media</p><h1>My Services</h1><p>Thoughtful visual coverage for people, properties, events, and brands.</p></div>
+    </section>
 
-  <section id="packages" class="section packages-section">
-    <div class="packages-inner">
-      <p class="packages-heading">Packages &amp; Offerings</p>
-      <div class="packages-grid">
-        <article class="package-card">
-          <p class="package-index">NR 01</p>
-          <h2 class="package-title">Mini Session</h2>
-          <p class="package-copy">A short and sweet session designed to capture beautiful moments with ease. Includes <strong>15 minutes</strong> and <strong>10 edited images</strong>. Perfect for seasonal minis and quick updates.</p>
-          <p class="package-price">Starting from <strong>$125</strong></p>
-          <a class="package-cta" href="booking.html?pkg=mini">BOOK NOW</a>
-        </article>
-        <article class="package-card">
-          <p class="package-index">NR 02</p>
-          <h2 class="package-title">Midi Session</h2>
-          <p class="package-copy">A balanced session offering time for creativity and variety. Includes <strong>30 minutes</strong> and <strong>up to 25 edited images</strong>. Great for families or couples.</p>
-          <p class="package-price">Starting from <strong>$175</strong></p>
-          <a class="package-cta" href="booking.html?pkg=midi">BOOK NOW</a>
-        </article>
-        <article class="package-card">
-          <p class="package-index">NR 03</p>
-          <h2 class="package-title">Maxi Session</h2>
-          <p class="package-copy">The complete experience with ample room for variety. Includes <strong>60 minutes</strong> and <strong>up to 50 edited images</strong>. Ideal for families or engagement sessions.</p>
-          <p class="package-price">Starting from <strong>$225</strong></p>
-          <a class="package-cta" href="booking.html?pkg=maxi">BOOK NOW</a>
-        </article>
-      </div>
+    <section class="service-grid" aria-label="Available services">
+      <article class="service-card" id="portraits">
+        <img src="Images/Desktop/Portraits/Syd/2M2A6299-Edit-Edit.jpg" alt="Creative portrait photography">
+        <div class="service-content"><h2>Portraits</h2><p>Lifestyle portraits, couples, personal branding, and creative sessions with relaxed direction.</p><p class="price">Sessions from CA$125</p><div class="service-actions"><a class="btn" href="booking.html?pkg=mini">View Packages</a><a class="btn btn-dark" href="booking.html?pkg=mini">Book</a></div></div>
+      </article>
+      <article class="service-card" id="weddings">
+        <img src="Images/Desktop/Weddings/Max%20and%20Taylor/25-2M2A4878.jpg" alt="Wedding photography coverage">
+        <div class="service-content"><h2>Weddings</h2><p>Comprehensive coverage of the quiet moments, major celebrations, and everything between, with video and second-photographer options available.</p><p class="price">Starting at CA$1,850 · 6–10 hours</p><div class="service-actions"><a class="btn" href="portfolio.html?filter=weddings">View Work</a><a class="btn btn-dark" href="booking.html?pkg=wedding-inquiry">Request Date</a></div></div>
+      </article>
+      <article class="service-card featured" id="real-estate">
+        <img src="Images/Brand/real-estate-media.svg" alt="Real estate media services including photography, video, drone, floor plans, and 360-degree tours">
+        <div class="service-content"><h2>Real Estate Media</h2><p>Every package includes 50 final listing images total: interior, exterior, drone photos, and one basic 2D floor plan. Base pricing applies to properties up to 2,500 sq. ft.</p><div class="package-peek"><strong>Listing Essentials · CA$350</strong><span>50 final listing images, including drone photos and one basic 2D floor plan.</span></div><div class="package-peek"><strong>Complete Listing · CA$550</strong><span>The same 50-image delivery, plus a vertical or horizontal walkthrough video and drone footage.</span></div><div class="package-peek"><strong>Premium 360 · CA$695 introductory price</strong><span>The same 50-image delivery and video coverage, plus an interactive 360° virtual tour and 90 days of hosting.</span></div><p>No standard retainer. The first 50 km of round-trip travel is included; additional travel is quoted at CA$0.70/km. Full payment is due before unwatermarked, full-resolution delivery, with Net 7 available to approved brokerage accounts.</p><div class="service-actions"><a class="btn" href="booking.html?pkg=real-estate-photos">Photos</a><a class="btn" href="booking.html?pkg=real-estate-standard">Photo + Video</a><a class="btn btn-dark" href="booking.html?pkg=real-estate-premium">Premium 360</a></div></div>
+      </article>
+      <article class="service-card" id="business">
+        <img src="Images/Brand/business-content.svg" alt="Business photography, video, and social content services">
+        <div class="service-content"><h2>Business &amp; Social</h2><p>On-brand photography and video for websites, campaigns, social feeds, and ongoing content needs.</p><p class="price">Custom quote</p><div class="service-actions"><a class="btn btn-dark" href="booking.html?pkg=business-social">Request Project</a></div></div>
+      </article>
+      <article class="service-card" id="events">
+        <img src="Images/Desktop/Concerts/Sepultra/13-2M2A2071-Edit.jpg" alt="Live event and concert photography">
+        <div class="service-content"><h2>Events &amp; Concerts</h2><p>Fast, professional coverage of performances, celebrations, launches, and live experiences.</p><p class="price">Custom quote</p><div class="service-actions"><a class="btn" href="portfolio.html?filter=events">View Work</a><a class="btn btn-dark" href="booking.html?pkg=events-concerts">Request Coverage</a></div></div>
+      </article>
+      <article class="service-card" id="drone">
+        <img src="Images/Brand/drone-aerial-media.svg" alt="Drone and aerial photography and video services">
+        <div class="service-content"><h2>Drone &amp; Aerial</h2><p>Aerial photo and video for properties, venues, businesses, and creative projects, subject to flight conditions.</p><p class="price">Custom quote</p><div class="service-actions"><a class="btn btn-dark" href="booking.html?pkg=drone-aerial">Request Project</a></div></div>
+      </article>
+    </section>
 
-      <div class="packages-feature">
-        <div class="packages-feature__copy">
-          <h2 class="packages-feature__title">Wedding Packages</h2>
-          <p class="packages-feature__body">Comprehensive coverage from quiet, intimate moments to joyful celebrations. <strong>6–10 hours</strong> with options for a secondary photographer. Delivered as high-resolution, fully edited images through an online gallery.</p>
-          <p class="packages-feature__price">Starting from <strong>$1850</strong></p>
-          <a class="package-cta" href="contact.html">CONTACT ME</a>
-        </div>
-        <figure class="packages-feature__media">
-          <img class="packages-feature__image" src="Images/Desktop/Weddings/Max%20and%20Taylor/11-2M2A4149.jpg" alt="Wedding highlight" loading="lazy" decoding="async">
-        </figure>
-      </div>
-    </div>
-  </section>
+    <section class="service-cta">
+      <img src="Images/Desktop/Concerts/Sepultra/3-2M2A4675-Edit-Edit.jpg" alt="A live performance photographed by Ben Fusco Media" loading="lazy">
+      <div><p class="eyebrow">Not sure which service is right?</p><h2>Let’s talk about your project.</h2><a class="btn btn-ghost" href="contact.html">Contact Me</a></div>
+    </section>
+  </main>
 
-  <footer>
-    <p>&copy; 2025 Benjamin Fusco | All rights reserved</p>
-  </footer>
+  <footer class="exact-footer"><span>© <span data-current-year></span> Ben Fusco Media. All rights reserved.</span><nav class="footer-links" aria-label="Footer links"><a href="mailto:contact@benfusco.com">Email</a><a href="https://www.instagram.com/fusco_media/">Instagram</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></nav></footer>
 </body>
 </html>
