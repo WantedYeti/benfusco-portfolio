@@ -156,7 +156,7 @@
     gate.setAttribute('aria-labelledby', 'site-gate-title');
     gate.innerHTML = `
       <section class="site-gate-panel">
-        <p class="site-gate-brand">Ben Fusco<span>Media</span></p>
+        <p class="site-gate-brand">Fusco<span>Media</span></p>
         <div class="site-gate-rule" aria-hidden="true"></div>
         <p class="site-gate-kicker">Private preview</p>
         <h1 class="site-gate-title" id="site-gate-title">Coming soon.</h1>
@@ -167,7 +167,7 @@
           <button class="site-gate-submit" type="submit">Enter preview</button>
           <p class="site-gate-error" role="status" aria-live="polite"></p>
         </form>
-        <p class="site-gate-note">Ben Fusco Media &middot; Ottawa &amp; Gatineau</p>
+        <p class="site-gate-note">Founded by Ben Fusco &middot; Ottawa &amp; Gatineau</p>
       </section>
     `;
 

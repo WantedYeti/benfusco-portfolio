@@ -126,7 +126,7 @@ window.initLeafletMap = function initLeafletMap(){
     tileLayer.on('tileerror', () => { hideSpinner(); });
 
     L.marker(centerCoords).addTo(map)
-      .bindPopup('Ben Fusco Photography – Gatineau, QC')
+      .bindPopup('Fusco Media – Gatineau, QC')
       .openPopup();
 
     L.circle(centerCoords, {
