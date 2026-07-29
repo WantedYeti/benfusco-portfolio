@@ -31,8 +31,8 @@ window.BEN_FUSCO_FAVORITES = {
       category: 'weddings'
     },
     {
-      src: 'Images/Desktop/Portraits/Syd/2M2A6299-Edit-Edit.jpg',
-      alt: 'Moody creative portrait of Syd',
+      src: 'Images/Desktop/Portfolio%20Replacement/Portraits/portraits-01.jpg',
+      alt: 'Editorial portrait in a flowing green dress',
       category: 'portraits'
     },
     {

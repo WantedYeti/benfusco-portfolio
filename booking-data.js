@@ -133,7 +133,7 @@ window.BK_PACKAGES = {
     title: 'Custom Project', description: 'For creative work that does not fit a standard package. Tell me what you have in mind.',
     duration: 'Custom scope', price: null, priceLabel: 'Custom Quote', deposit: 0, currency: 'CA$', contractType: 'inquiry',
     location: 'Ottawa, Gatineau & available for travel',
-    image: 'Images/Desktop/Concerts/Sepultra/13-2M2A2071-Edit.jpg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Portraits/portraits-03.jpg',
     includes: ['Project discovery', 'Custom scope and quote', 'Photo, video, editing, or mixed-media options', 'Clear deliverables and schedule'],
     slots: { Preferred: ['Morning', 'Afternoon', 'Evening'] }
   }

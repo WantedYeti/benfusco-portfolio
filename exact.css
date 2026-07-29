@@ -20,6 +20,7 @@
 html { scroll-behavior: smooth; }
 body.exact-site {
   margin: 0;
+  overflow-x: hidden;
   color: var(--ink);
   background: var(--paper);
   font-family: var(--sans);
@@ -502,7 +503,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .team-grid { width: min(1180px, 92vw); margin: 40px auto; display: grid; grid-template-columns: 1.2fr .9fr .9fr; gap: 24px; }
 .team-card { overflow: hidden; border: 1px solid var(--line); background: #fff; }
 .team-card img { width: 100%; height: 410px; object-fit: cover; }
-.team-card-primary img { height: 480px; }
+.team-card-primary img { height: 480px; object-position: center 53%; }
+.team-placeholder { height: 410px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #eee9e2; background: radial-gradient(circle at 50% 40%, #34312e 0, #1b1a19 45%, #101010 100%); }
+.team-placeholder-mark { display: grid; width: 112px; height: 112px; place-items: center; border: 1px solid rgba(255,255,255,.34); border-radius: 50%; font-family: var(--serif); font-size: 42px; letter-spacing: 2px; }
+.team-placeholder-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 .team-card-body { padding: 25px; }
 .team-card h2 { margin: 0 0 3px; font-family: var(--serif); font-size: 28px; font-weight: 500; }
 .role { margin: 0 0 13px; color: var(--accent); font-size: 8px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
@@ -645,7 +649,7 @@ body.exact-site.booking-shell { background: var(--soft); }
   .team-grid,
   .team-card-primary { grid-template-columns: 1fr; }
   .team-card-primary { display: block; }
-  .team-card img, .team-card-primary img { height: 480px; }
+  .team-card img, .team-card-primary img, .team-placeholder { height: 480px; }
   .about-story { grid-template-columns: 1fr; }
   .about-values-grid { grid-template-columns: 1fr; }
   .contact-wrap { grid-template-columns: 1fr; }
@@ -677,8 +681,11 @@ body.exact-site.booking-shell { background: var(--soft); }
   .insta-row { grid-template-columns: 1fr; }
   .insta-row a:nth-child(n+2) { display: none; }
   .hero-card { width: 88%; padding: 32px 22px; }
+  .portfolio-grid-exact,
+  .about-values-grid,
+  .contact-wrap { width: 100%; max-width: 100%; }
   .portfolio-grid-exact { grid-template-columns: 1fr; }
-  .filter-bar { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .filter-bar { justify-content: flex-start; flex-wrap: nowrap; margin-inline: 0; padding-inline: 0; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
   .filter-bar::-webkit-scrollbar { display: none; }
   .filter-btn { flex: 0 0 auto; }
   .filter-scroll-note { display: block; margin: -24px 4vw 28px; color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: 1px; text-align: right; text-transform: uppercase; }
@@ -686,7 +693,7 @@ body.exact-site.booking-shell { background: var(--soft); }
   .service-card.featured > img { height: 230px; }
   .service-actions { flex-direction: column; width: 100%; }
   .service-actions .btn { width: 100%; }
-  .team-card img, .team-card-primary img { height: 410px; }
+  .team-card img, .team-card-primary img, .team-placeholder { height: 410px; }
   .contact-form { grid-template-columns: 1fr; }
   .form-field.full { grid-column: auto; }
   .exact-footer { flex-direction: column; text-align: center; }
