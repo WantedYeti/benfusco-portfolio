@@ -1,6 +1,10 @@
 (() => {
   'use strict';
 
+  // Keep the preview gate ready for future private updates without showing it publicly.
+  const SITE_GATE_ENABLED = false;
+  if (!SITE_GATE_ENABLED) return;
+
   const SESSION_KEY = 'bfm-preview-access-v1';
   const PASSWORD_HASH = '6cbefd8960d511540f34779628ef4e5a55b758d3be5749cd8878a09b348c052b';
   const root = document.documentElement;
