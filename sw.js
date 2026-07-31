@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v3.2.9-coming-soon-gate-20260728';
+const SW_VERSION = 'v3.3.0-fuscomedia-domain-20260731';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;
@@ -18,7 +18,7 @@ const CORE_ASSETS = [
   url('/about.html'),
   url('/contact.html'),
   url('/booking.html'),
-  url('/site-gate.js?v=20260728.1'),
+  url('/site-gate.js?v=20260728.3'),
   url('/exact.css?v=20260728.6'),
   url('/data/favorites.js?v=20260728.2'),
   url('/exact.js?v=20260728.11'),
