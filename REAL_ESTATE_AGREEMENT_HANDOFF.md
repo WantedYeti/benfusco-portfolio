@@ -33,11 +33,11 @@ The public website collects a booking request only. It must not collect payment 
 
 ## Default listing-media licence
 
-Copyright remains with Ben Fusco Media. After full payment, the named client, named listing brokerage, property seller, applicable MLS and ordinary listing-syndication services receive a non-exclusive licence to use the delivered media only to market the photographed property during the current listing.
+Copyright remains with Fusco Media. After full payment, the named client, named listing brokerage, property seller, applicable MLS and ordinary listing-syndication services receive a non-exclusive licence to use the delivered media only to market the photographed property during the current listing.
 
 The standard licence ends when the property is sold, withdrawn, the listing expires, or the original agent or brokerage no longer holds the listing. Re-listing or use by another agent, brokerage, builder, stager, architect, publication, advertiser or unrelated third party requires written permission or a separate licence.
 
-Portfolio and social-media use by Ben Fusco Media is a separate optional client choice. It is not a condition of service and should not be buried inside the listing licence.
+Portfolio and social-media use by Fusco Media is a separate optional client choice. It is not a condition of service and should not be buried inside the listing licence.
 
 ## Drone instructions
 
@@ -83,7 +83,7 @@ The final quote and agreement should contain editable fields for:
 
 ## Items the lawyer must settle
 
-- Ben Fusco Media's legal contracting name, physical business address and signing capacity.
+- Fusco Media's legal contracting name, physical business address and signing capacity.
 - Separate Quebec consumer, Ontario consumer and business-to-business versions or schedules.
 - French-language contract and express English-language election process.
 - Consumer-compliant cancellation, rescheduling, actual-cost and refund rules.
