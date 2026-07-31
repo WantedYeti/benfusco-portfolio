@@ -15,7 +15,7 @@
 
 ## Intentionally not submitted during QA
 
-- The final Contact and Booking requests were not sent to Formspree, to avoid creating fake customer messages. Send one clearly labelled test submission from each form before launch and verify delivery to `contact@benfusco.com`.
+- The final Contact and Booking requests were not sent to Formspree, to avoid creating fake customer messages. Send one clearly labelled test submission from each form before launch and verify delivery to `contact@fuscomedia.com`.
 
 ## Before publishing
 
