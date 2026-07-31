@@ -10,7 +10,7 @@ window.BEN_FUSCO_FAVORITES = {
   openingTrio: [
     {
       src: 'Images/Desktop/Gym%20Portraits/Daveson/2M2A6948-Edit-Edit.jpg',
-      alt: 'Dramatic fitness portrait photographed by Ben Fusco Media',
+      alt: 'Dramatic fitness portrait photographed by Fusco Media',
       category: 'fitness'
     },
     {
@@ -20,7 +20,7 @@ window.BEN_FUSCO_FAVORITES = {
     },
     {
       src: 'Images/Desktop/Concerts/Sepultra/5-2M2A4463-Edit-Edit.jpg',
-      alt: 'Live concert performance photographed by Ben Fusco Media',
+      alt: 'Live concert performance photographed by Fusco Media',
       category: 'events'
     }
   ],
@@ -52,7 +52,7 @@ window.BEN_FUSCO_FAVORITES = {
     },
     {
       src: 'Images/Desktop/Weddings/Max%20and%20Taylor/41-2M2A6232-Enhanced-NR-2-Edit.jpg',
-      alt: 'Wedding celebration photographed by Ben Fusco Media',
+      alt: 'Wedding celebration photographed by Fusco Media',
       category: 'weddings'
     },
     {
