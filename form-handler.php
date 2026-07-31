@@ -34,15 +34,15 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Compose mail
-$to = 'contact@benfusco.com';
-$subject = 'New contact from benfusco.com';
+$to = 'contact@fuscomedia.com';
+$subject = 'New contact from fuscomedia.com';
 $body = "New contact submission:\n\n" .
         "Name: {$first} {$last}\n" .
         "Email: {$email}\n" .
         "How did you hear: {$how}\n\n" .
         "Message:\n{$message}\n";
 $headers = [
-  'From: no-reply@benfusco.com',
+  'From: no-reply@fuscomedia.com',
   'Reply-To: ' . $email,
   'Content-Type: text/plain; charset=UTF-8'
 ];
