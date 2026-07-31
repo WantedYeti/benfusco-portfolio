@@ -15,7 +15,7 @@
   <main class="manage-page">
     <section class="manage-intro"><p class="eyebrow">Existing request</p><h1>Request a change</h1><p>Use this form to request a new date, update project details, or cancel. Nothing changes until you receive written confirmation.</p></section>
     <form id="manageForm" class="manage-form" novalidate>
-      <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
+      <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="_subject" value="Booking change request from fuscomedia.com">
       <label><span>Booking reference *</span><input id="manageReference" name="bookingReference" required placeholder="BFM-…"></label>
       <label><span>Email used for the request *</span><input id="manageEmail" name="email" type="email" autocomplete="email" required></label>
