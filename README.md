@@ -1,10 +1,10 @@
-# Ben Fusco Media
+# Fusco Media
 
-Static photography, video, and creative-media website for `benfusco.com`, designed for GitHub Pages.
+Static photography, video, and creative-media website for `fuscomedia.com`, designed for GitHub Pages.
 
-## Temporary coming-soon gate
+## Optional coming-soon gate
 
-The public build currently loads `site-gate.js` on every root HTML page. It displays a "Coming soon" screen and uses a session-only client-side password check for casual preview access. Because GitHub Pages is static hosting, this is not secure access control: the source files and assets remain publicly downloadable. `robots.txt` temporarily blocks crawling while the gate is active. Remove the gate script references, restore `robots.txt`, and bump the service-worker version before the public launch.
+The public build loads `site-gate.js`, but the gate is disabled by default. If it is enabled for a future preview, remember that GitHub Pages is static hosting and the gate is only a visual deterrent, not secure access control. `robots.txt` currently permits crawling and points search engines to the production sitemap.
 
 ## Booking system
 
@@ -17,11 +17,11 @@ The website uses a request-first booking flow:
 5. The request is submitted through the configured Formspree endpoint. No signature or payment is collected at this stage.
 6. A reference number, next steps, tentative calendar hold, and change-request link are shown.
 
-A selected time is deliberately described as a request until Ben Fusco Media approves it. This keeps the GitHub Pages site honest because it does not have a private server or calendar database that can lock appointment slots.
+A selected time is deliberately described as a request until Fusco Media approves it. This keeps the GitHub Pages site honest because it does not have a private server or calendar database that can lock appointment slots.
 
 ## Before accepting public bookings
 
-- Sign in to the Formspree account that owns form `mqaylyqj` and confirm delivery to `contact@benfusco.com`.
+- Sign in to the Formspree account that owns form `mqaylyqj` and confirm delivery to `contact@fuscomedia.com`.
 - Submit one test request for every service category.
 - Have separate final consumer and business agreements reviewed by an Ontario or Quebec lawyer, including a French version where required.
 - Confirm applicable taxes and the final client-specific payment method before sending an agreement. Real-estate defaults are now: first 50 km round trip included, CA$0.70/km afterward, no standard retainer, payment before full-resolution release, optional Net 7 for approved brokerages, and the reviewed cancellation tiers documented in `REAL_ESTATE_AGREEMENT_HANDOFF.md`.
