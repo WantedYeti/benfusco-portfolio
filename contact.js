@@ -11,7 +11,9 @@
     if(submitting)return;
     if(!form.checkValidity()){form.reportValidity();return;}
     submitting=true;button.disabled=true;button.textContent='Sending…';status.textContent='Sending your message.';status.className='contact-status';
-    const data=new FormData(form);data.append('submittedAt',new Date().toISOString());
+    const data=new FormData(form);
+    data.append('submittedAt',new Date().toISOString());
+    data.append('page',location.href);
     try{
       const response=await fetch(endpoint,{method:'POST',body:data,headers:{Accept:'application/json'}});
       if(!response.ok)throw new Error('Submission was not accepted');
