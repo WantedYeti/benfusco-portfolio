@@ -61,7 +61,7 @@
     article.dataset.category = pkg.group || pkg.category;
     const vectorClass = pkg.image.endsWith('.svg') ? ' booking-card-image-vector' : '';
     article.innerHTML = `
-      <img class="booking-card-image${vectorClass}" src="${pkg.image}" alt="${pkg.service} by Ben Fusco Media" loading="lazy" decoding="async" width="900" height="650">
+      <img class="booking-card-image${vectorClass}" src="${pkg.image}" alt="${pkg.service} by Fusco Media" loading="lazy" decoding="async" width="900" height="650">
       <div class="booking-card-body">
         <p class="summary-code">${pkg.code}</p>
         <h3>${pkg.title}</h3>
