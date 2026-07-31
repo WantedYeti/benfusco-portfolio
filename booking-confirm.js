@@ -108,7 +108,7 @@
         <label class="field"><span>Preferred listing date</span><input name="listingDate" type="date"></label>
         <label class="field full"><span>Access arrangements *</span><input name="accessArrangement" placeholder="Owner present, agent present, lockbox shared later…" required><small>For security, do not enter a lockbox code here. Share it directly after the booking is approved.</small></label>
         <label class="field full"><span>Features to highlight</span><textarea name="propertyFeatures" rows="3" placeholder="Renovated kitchen, water view, large yard…"></textarea></label>
-        <label class="check-row full"><input type="checkbox" name="propertyAccessConfirmation" value="Confirmed" required><span>I confirm that I have, or will obtain before the appointment, the legal authority and permissions needed for Ben Fusco Media to enter and capture the property, exterior and requested aerial media. *</span></label>
+        <label class="check-row full"><input type="checkbox" name="propertyAccessConfirmation" value="Confirmed" required><span>I confirm that I have, or will obtain before the appointment, the legal authority and permissions needed for Fusco Media to enter and capture the property, exterior and requested aerial media. *</span></label>
         ${realEstateAddonsHTML()}`,
       'wedding-inquiry': `
         <label class="field full"><span>Partner or couple names *</span><input name="coupleNames" required></label>
@@ -261,7 +261,7 @@
     const fullName = `${form.firstName.value.trim()} ${form.lastName.value.trim()}`;
     const address = [form.clientAddress.value, form.clientCity.value, form.clientProvince.value, form.clientPostalCode.value].filter(Boolean).join(', ');
     const common = `<p class="request-only-note"><strong>Booking request only:</strong> This acknowledgement is not the final service agreement, does not reserve the requested date, and does not require payment.</p>
-      <p><strong>${escapeHTML(fullName)}</strong>, of <strong>${escapeHTML(address)}</strong>, is requesting <strong>${escapeHTML(pkg.title)}</strong> from <strong>Ben Fusco Media</strong> for <strong>${escapeHTML(formattedDate)}</strong> at <strong>${escapeHTML(requestedTime)}</strong> Eastern Time. Reference: <strong>${escapeHTML(reference)}</strong>.</p>`;
+      <p><strong>${escapeHTML(fullName)}</strong>, of <strong>${escapeHTML(address)}</strong>, is requesting <strong>${escapeHTML(pkg.title)}</strong> from <strong>Fusco Media</strong> for <strong>${escapeHTML(formattedDate)}</strong> at <strong>${escapeHTML(requestedTime)}</strong> Eastern Time. Reference: <strong>${escapeHTML(reference)}</strong>.</p>`;
 
     if (pkg.category === 'real-estate') {
       const standards = serviceStandards.realEstate || {};
@@ -283,7 +283,7 @@
 
     return `${common}
       <h3>1. Request only</h3><p>This submission records an availability and project request. The displayed package price, if any, is preliminary. It is not confirmation of services, a final price, a reserved date or a payment request.</p>
-      <h3>2. Review and proposal</h3><p>Ben Fusco Media will review the requested date, location, client type, creative scope, travel, safety, deliverables and applicable taxes, then reply within ${escapeHTML(settings.responseWindow || '24–48 hours')}. A client-specific final quote and service agreement will be provided before work is confirmed.</p>
+      <h3>2. Review and proposal</h3><p>Fusco Media will review the requested date, location, client type, creative scope, travel, safety, deliverables and applicable taxes, then reply within ${escapeHTML(settings.responseWindow || '24–48 hours')}. A client-specific final quote and service agreement will be provided before work is confirmed.</p>
       <h3>3. Client information and authority</h3><p>The requester confirms that the submitted information is accurate and that required permissions will be obtained before any service. Drone services remain subject to weather, airspace, privacy, access and safe operating conditions.</p>
       <h3>4. Privacy and optional marketing use</h3><p>Submitted information will be used to review and respond to the request under the Privacy Policy. Portfolio and social-media use remains a separate optional choice and does not affect service or pricing.</p>
       <h3>5. Language, final agreement and payment</h3><p>The requested final-agreement language is <strong>${escapeHTML(form.agreementLanguage.value)}</strong>. Any final agreement will state the exact scope, total, taxes, payment method, delivery, cancellation, licence and jurisdiction-specific rights. No payment is due through this request form.</p>`;
@@ -300,7 +300,7 @@
     const realEstatePayment = serviceStandards.realEstate?.payment;
     document.getElementById('paymentNotice').innerHTML = pkg.category === 'real-estate'
       ? `<strong>No payment or standard retainer is due now.</strong> ${escapeHTML(realEstatePayment || '')}`
-      : `<strong>No payment is due now.</strong> Ben Fusco Media will first confirm availability, client type, scope, travel, taxes, add-ons, the final total, the applicable agreement and a legally permitted payment method.`;
+      : `<strong>No payment is due now.</strong> Fusco Media will first confirm availability, client type, scope, travel, taxes, add-ons, the final total, the applicable agreement and a legally permitted payment method.`;
   }
 
   document.querySelector('[data-next="review"]').addEventListener('click', () => {
