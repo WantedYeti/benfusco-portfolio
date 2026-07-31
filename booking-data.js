@@ -1,6 +1,6 @@
 window.BK_SETTINGS = {
-  businessName: 'Ben Fusco Media',
-  businessEmail: 'contact@benfusco.com',
+  businessName: 'Fusco Media',
+  businessEmail: 'contact@fuscomedia.com',
   timezone: 'America/Toronto',
   timezoneLabel: 'Eastern Time',
   responseWindow: '24–48 hours',
@@ -29,10 +29,10 @@ window.BK_SERVICE_STANDARDS = {
     payment: 'Standard real-estate requests do not require a retainer. An invoice is issued when the media is ready. Payment is due before unwatermarked, full-resolution deliverables are released. Approved brokerage accounts may receive Net 7 terms. The listing-media licence begins after full payment.',
     cancellation: 'Cancellation requested at least 48 hours before the appointment has no cancellation fee. With 24–48 hours notice, one reschedule is available without an administrative fee, subject to availability.',
     lateCancellation: 'For a business client, a cancellation with less than 24 hours notice, a no-show, or unavailable property access may carry a CA$75 fee only when that term appears in the accepted final agreement. Consumer clients are charged only amounts permitted by the applicable agreement and mandatory law, such as reasonable documented work or non-recoverable expenses.',
-    weatherReschedule: 'Weather, unsafe or unlawful drone conditions, illness, emergency, or another condition outside reasonable control may be rescheduled without a cancellation fee. If Ben Fusco Media cannot provide the confirmed service, the client receives the remedy stated in the final agreement and any refund required by law.',
+    weatherReschedule: 'Weather, unsafe or unlawful drone conditions, illness, emergency, or another condition outside reasonable control may be rescheduled without a cancellation fee. If Fusco Media cannot provide the confirmed service, the client receives the remedy stated in the final agreement and any refund required by law.',
     licence: 'After full payment, the named client, the named listing brokerage, the property seller and the applicable MLS and listing-syndication services receive a non-exclusive licence to use the delivered media solely to market the specific property during the current listing.',
     licenceEnd: 'The standard listing licence ends when the property is sold, withdrawn, the listing expires, or the original agent or brokerage no longer holds the listing. Re-listing, transfer to another agent, builder, stager, architect, publication or unrelated advertising requires written permission or a separate licence.',
-    portfolio: 'Ben Fusco Media portfolio and social-media use is a separate choice and is not required to request or purchase services.',
+    portfolio: 'Fusco Media portfolio and social-media use is a separate choice and is not required to request or purchase services.',
     drone: 'Drone media is captured with a DJI Mini 4 Pro configured with the standard battery at an operating weight below 250 g. Coverage remains subject to weather, visibility, airspace, privacy, access, equipment configuration, safety and applicable Transport Canada requirements.'
   }
 };
