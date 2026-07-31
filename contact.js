@@ -16,6 +16,6 @@
       const response=await fetch(endpoint,{method:'POST',body:data,headers:{Accept:'application/json'}});
       if(!response.ok)throw new Error('Submission was not accepted');
       form.reset();status.textContent='Thank you—your message was sent. I’ll reply within 24–48 hours.';status.className='contact-status is-success';button.textContent='Message Sent';
-    }catch(_){submitting=false;button.disabled=false;button.textContent='Try Again';status.innerHTML='The message could not be sent. Please try again or email <a href="mailto:contact@benfusco.com">contact@benfusco.com</a>.';status.className='contact-status is-error';}
+    }catch(_){submitting=false;button.disabled=false;button.textContent='Try Again';status.innerHTML='The message could not be sent. Please try again or email <a href="mailto:contact@fuscomedia.com">contact@fuscomedia.com</a>.';status.className='contact-status is-error';}
   });
 }());
