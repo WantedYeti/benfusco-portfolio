@@ -36,8 +36,8 @@ window.BEN_FUSCO_FAVORITES = {
       category: 'portraits'
     },
     {
-      src: 'Images/Desktop/Concerts/Piranha%20Bar/19-2M2A7574-Enhanced-NR.jpg',
-      alt: 'Musician performing at Piranha Bar',
+      src: 'Images/Desktop/Portfolio%20Replacement/Events/club-05.jpg',
+      alt: 'Bottle-service presentation moving through a busy club',
       category: 'events'
     },
     {
