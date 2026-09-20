@@ -1,5 +1,5 @@
 /* Service Worker: instant-feel repeat loads with smart caching */
-const SW_VERSION = 'v3.5.1-portfolio-priority-20260919';
+const SW_VERSION = 'v3.5.2-site-polish-20260919';
 const CORE_CACHE = `core-${SW_VERSION}`;
 const IMG_CACHE = `img-${SW_VERSION}`;
 const STATIC_CACHE = `static-${SW_VERSION}`;
@@ -19,9 +19,9 @@ const CORE_ASSETS = [
   url('/contact.html'),
   url('/booking.html'),
   url('/site-gate.js?v=20260728.3'),
-  url('/exact.css?v=20260919.6'),
+  url('/exact.css?v=20260919.7'),
   url('/data/favorites.js?v=20260908.1'),
-  url('/exact.js?v=20260919.2'),
+  url('/exact.js?v=20260919.3'),
   url('/Images/Logo/logobutton.png'),
 ];
 

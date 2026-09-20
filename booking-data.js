@@ -5,7 +5,7 @@ window.BK_SETTINGS = {
   timezoneLabel: 'Eastern Time',
   responseWindow: '24–48 hours',
   formEndpoint: 'https://formspree.io/f/mqaylyqj',
-  serviceArea: 'Ottawa, Gatineau, Aylmer & surrounding areas',
+  serviceArea: 'Ottawa, Gatineau & Montréal · Available across Canada',
   requestAcknowledgementVersion: 'BFM-REQUEST-2026-07-27-5'
 };
 
@@ -70,7 +70,7 @@ window.BK_PACKAGES = {
     title: 'Listing Essentials', description: 'Professional listing photography, aerial perspectives, and a floor plan for properties up to 2,500 sq. ft.',
     duration: '1–2 hours', price: 350, deposit: 0, currency: 'CA$', contractType: 'real-estate',
     location: 'Ottawa, Gatineau, Aylmer & surrounding areas',
-    image: 'Images/Brand/real-estate-media.svg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Real%20Estate/real-estate-07.jpg',
     includes: ['50 final listing images total, including interior, exterior, drone photos, and one basic 2D floor plan', 'Approximately 5–10 of the 50 images may be drone photos, weather and airspace permitting', 'High-resolution and web-ready delivery', 'Photo and floor-plan delivery targeted within 2 business days'],
     slots: { Morning: ['9:00 AM – 11:00 AM'], Afternoon: ['11:30 AM – 1:30 PM', '2:00 PM – 4:00 PM'] }
   },
@@ -79,7 +79,7 @@ window.BK_PACKAGES = {
     title: 'Complete Listing Package', description: 'Photography, drone coverage, video, and a floor plan for properties up to 2,500 sq. ft.',
     duration: '2–3 hours', price: 550, deposit: 0, currency: 'CA$', contractType: 'real-estate',
     location: 'Ottawa, Gatineau, Aylmer & surrounding areas',
-    image: 'Images/Brand/real-estate-media.svg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Real%20Estate/real-estate-07.jpg',
     includes: ['50 final listing images total, including interior, exterior, drone photos, and one basic 2D floor plan', 'Approximately 5–10 of the 50 images may be drone photos, weather and airspace permitting', 'One vertical or horizontal property walkthrough video', 'Drone video footage, weather and airspace permitting', 'Licensed music', 'High-resolution and web-ready delivery'],
     slots: { Morning: ['9:00 AM – 12:00 PM'], Afternoon: ['12:30 PM – 3:30 PM'], Evening: ['4:00 PM – 7:00 PM'] }
   },
@@ -88,7 +88,7 @@ window.BK_PACKAGES = {
     title: 'Premium 360 Package', description: 'Everything in Complete Listing plus an interactive 360° virtual property tour with 90 days of hosting.',
     duration: '2–3 hours', price: 695, deposit: 0, currency: 'CA$', contractType: 'real-estate',
     location: 'Ottawa, Gatineau, Aylmer & surrounding areas',
-    image: 'Images/Brand/real-estate-media.svg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Real%20Estate/real-estate-07.jpg',
     includes: ['50 final listing images total, including interior, exterior, drone photos, and one basic 2D floor plan', 'Approximately 5–10 of the 50 images may be drone photos, weather and airspace permitting', 'One vertical or horizontal property walkthrough video', 'Drone video footage, weather and airspace permitting', 'Interactive 360° virtual property tour', '90 days of virtual-tour hosting', 'High-resolution and web-ready delivery'],
     slots: { Morning: ['9:00 AM – 12:00 PM'], Afternoon: ['12:30 PM – 3:30 PM'], Evening: ['4:00 PM – 7:00 PM'] }
   },
@@ -106,7 +106,7 @@ window.BK_PACKAGES = {
     title: 'Business & Social Content', description: 'Photo and video content planned around your brand, campaign, and publishing needs.',
     duration: 'Custom session', price: null, priceLabel: 'Custom Quote', deposit: 0, currency: 'CA$', contractType: 'inquiry',
     location: 'Ottawa, Gatineau & surrounding areas',
-    image: 'Images/Brand/business-content.svg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Business/2M2A9907-2.jpg',
     includes: ['Photo, video, or combined production', 'Platform-ready deliverables', 'Commercial usage discussed in your quote', 'Clear scope and delivery schedule'],
     slots: { Preferred: ['Morning', 'Afternoon', 'Evening'] }
   },
@@ -124,7 +124,7 @@ window.BK_PACKAGES = {
     title: 'Drone & Aerial Media', description: 'Aerial photos and video for properties, businesses, events, and creative projects.',
     duration: 'Custom session', price: null, priceLabel: 'Custom Quote', deposit: 0, currency: 'CA$', contractType: 'inquiry',
     location: 'Ottawa, Gatineau & surrounding areas',
-    image: 'Images/Brand/drone-aerial-media.svg',
+    image: 'Images/Desktop/Portfolio%20Replacement/Real%20Estate/real-estate-11.jpg',
     includes: ['Aerial photos, video, or both', 'Flight-feasibility review', 'Edited high-resolution delivery', 'Weather-flexible scheduling'],
     slots: { Preferred: ['Morning', 'Afternoon', 'Evening'] }
   },

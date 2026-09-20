@@ -8,7 +8,7 @@ The public build loads `site-gate.js`, but the gate is disabled by default. If i
 
 ## Booking system
 
-The website uses a request-first booking flow:
+Fixed-price packages use a request-first booking flow:
 
 1. The client chooses a service or package.
 2. The client chooses a preferred date and time.
@@ -28,6 +28,12 @@ A selected time is deliberately described as a request until Fusco Media approve
 - Never request a property lockbox code through the public form.
 
 Package definitions and shared booking settings live in `booking-data.js`.
+
+Custom-quote services (events, fitness, business, drone, and custom projects) open the existing Contact form with the service preselected. The preferred date is optional. Legacy inquiry-package links route to that same form. Portrait and Couples comparison links use `booking.html?filter=portrait` and `booking.html?filter=couples`; prices and existing package inclusions are unchanged.
+
+## Portfolio ordering
+
+All opens with a fixed, curated selection spanning every category, then continues with a balanced mix. Each portfolio figure stores `data-all-order` and `data-category-order`, allowing category filters to retain their own original sequence. Update both values when adding new images. All 84 current images are retained, with no random shuffle in the portfolio.
 
 ## Final pre-test additions
 

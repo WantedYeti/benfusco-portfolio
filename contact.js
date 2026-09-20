@@ -5,6 +5,20 @@
   const button=document.getElementById('contactSubmit');
   const status=document.getElementById('contactStatus');
   const endpoint=window.BK_SETTINGS?.formEndpoint||form.action;
+  const serviceSelect=document.getElementById('service');
+  const requestedService=new URLSearchParams(location.search).get('service');
+  const serviceNames={events:'Events & Concerts',fitness:'Fitness', 'real-estate':'Real Estate',business:'Business & Social',portrait:'Portraits',wedding:'Weddings',couples:'Couples',drone:'Drone & Aerial',video:'Video',custom:'Other'};
+  const selectedService=serviceNames[requestedService];
+  const introduction=document.getElementById('contactIntro');
+  const defaultIntroduction=introduction?.textContent;
+  function updateIntroduction(){
+    if(!introduction || !serviceSelect)return;
+    const service=serviceSelect.value;
+    introduction.textContent=service ? `Tell me about your ${service === 'Other' ? 'creative' : service.toLowerCase()} project. Your preferred date is optional; I’ll reply with next steps and a tailored quote.` : defaultIntroduction;
+  }
+  if(selectedService && serviceSelect)serviceSelect.value=selectedService;
+  updateIntroduction();
+  serviceSelect?.addEventListener('change',updateIntroduction);
   let submitting=false;
   form.addEventListener('submit',async(event)=>{
     event.preventDefault();
@@ -17,7 +31,7 @@
     try{
       const response=await fetch(endpoint,{method:'POST',body:data,headers:{Accept:'application/json'}});
       if(!response.ok)throw new Error('Submission was not accepted');
-      form.reset();status.textContent='Thank you—your message was sent. I’ll reply within 24–48 hours.';status.className='contact-status is-success';button.textContent='Message Sent';
+      form.reset();updateIntroduction();status.textContent='Thank you—your message was sent. I’ll reply within 24–48 hours.';status.className='contact-status is-success';button.textContent='Message Sent';
     }catch(_){submitting=false;button.disabled=false;button.textContent='Try Again';status.innerHTML='The message could not be sent. Please try again or email <a href="mailto:contact@fuscomedia.com">contact@fuscomedia.com</a>.';status.className='contact-status is-error';}
   });
 }());

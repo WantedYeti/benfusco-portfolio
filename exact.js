@@ -224,6 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const setFilter = (filter, updateUrl = true) => {
     activeFilter = filter;
     visibleLimit = 9;
+    // All is a curated cross-section; individual categories keep their own edit.
+    const orderKey = filter === 'all' ? 'allOrder' : 'categoryOrder';
+    portfolioItems.sort((left, right) => Number(left.dataset[orderKey]) - Number(right.dataset[orderKey]));
+    const portfolioGrid = portfolioItems[0]?.parentElement;
+    if (portfolioGrid) portfolioItems.forEach((item) => portfolioGrid.appendChild(item));
     filterButtons.forEach((button) => {
       const active = button.dataset.filter === filter;
       button.classList.toggle('active', active);
@@ -350,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const serviceMaps = document.querySelectorAll('[data-service-map]');
   if (serviceMaps.length) {
     const center = [45.3977, -75.8348];
-    const radiusMetres = 10000;
 
     if (!window.L) {
       serviceMaps.forEach((mapElement) => {
@@ -369,24 +373,14 @@ document.addEventListener('DOMContentLoaded', () => {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        const radius = window.L.circle(center, {
-          radius: radiusMetres,
-          color: '#9b5f5d',
-          weight: 2,
-          opacity: 0.95,
-          fillColor: '#9b5f5d',
-          fillOpacity: 0.18
-        }).addTo(map);
-
         window.L.circleMarker(center, {
           radius: 5,
           color: '#ffffff',
           weight: 2,
           fillColor: '#151515',
           fillOpacity: 1
-        }).addTo(map).bindPopup('<strong>Approximate service area</strong><br>Serving Gatineau, Ottawa, Aylmer, and surrounding areas.');
+        }).addTo(map).bindPopup('<strong>Ottawa–Gatineau home base</strong><br>Serving Ottawa, Gatineau and Montréal. Available for projects across Canada; travel is quoted with your project.');
 
-        map.fitBounds(radius.getBounds(), { padding: [24, 24] });
         window.setTimeout(() => map.invalidateSize(), 0);
       });
     }

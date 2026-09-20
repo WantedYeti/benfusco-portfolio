@@ -67,7 +67,9 @@
         <h3>${pkg.title}</h3>
         <p>${pkg.description}</p>
         <div class="booking-card-meta"><span>${pkg.duration}</span><strong>${packagePrice(pkg)}</strong></div>
-        <button type="button" class="btn btn-dark" data-package-id="${pkg.id}">${pkg.price === null ? 'Request this service' : 'Select package'}</button>
+        ${pkg.price === null
+          ? `<a class="btn btn-dark" href="contact.html?service=${encodeURIComponent(pkg.group)}">Request this service</a>`
+          : `<button type="button" class="btn btn-dark" data-package-id="${pkg.id}">Select package</button>`}
       </div>`;
     return article;
   }
@@ -78,9 +80,11 @@
   if (packages['custom-project']) {
     catalogEntries.push({
       ...packages['custom-project'],
+      code: 'FIT 01',
       group: 'fitness',
       service: 'Fitness Photography & Video',
       title: 'Fitness Photography & Video',
+      description: 'Photo and video for athletes, trainers, gyms and fitness brands. Tell me your goals and I’ll tailor the coverage and quote.',
       image: 'Images/Desktop/Portfolio%20Replacement/Fitness/fitness-01.jpg'
     });
   }
@@ -98,11 +102,9 @@
     })
     .forEach((pkg) => grid.appendChild(cardTemplate(pkg)));
 
-  document.querySelectorAll('[data-booking-filter]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.bookingFilter;
+  function setBookingFilter(filter, updateUrl = true) {
       document.querySelectorAll('[data-booking-filter]').forEach((item) => {
-        const active = item === button;
+        const active = item.dataset.bookingFilter === filter;
         item.classList.toggle('active', active);
         item.setAttribute('aria-pressed', String(active));
       });
@@ -111,10 +113,26 @@
         // Shared portrait packages appear once in All and under Couples when selected.
         card.hidden = filter === 'all' ? categories.includes('couples') : !categories.includes(filter);
       });
+      if (updateUrl) {
+        const url = new URL(location.href);
+        if (filter === 'all') url.searchParams.delete('filter');
+        else url.searchParams.set('filter', filter);
+        history.replaceState({}, '', url);
+      }
+  }
+
+  document.querySelectorAll('[data-booking-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      setBookingFilter(button.dataset.bookingFilter);
     });
   });
 
-  grid.querySelectorAll('[data-category="couples"]').forEach((card) => { card.hidden = true; });
+  function restoreBookingFilter() {
+    const requested = new URLSearchParams(location.search).get('filter');
+    const valid = [...document.querySelectorAll('[data-booking-filter]')].some((button) => button.dataset.bookingFilter === requested);
+    setBookingFilter(valid ? requested : 'all', false);
+  }
+  restoreBookingFilter();
 
   grid.addEventListener('click', (event) => {
     const trigger = event.target.closest('[data-package-id]');
@@ -125,6 +143,11 @@
   function openScheduler(packageId, updateHistory) {
     const pkg = packages[packageId];
     if (!pkg) return;
+    // Legacy inquiry links now use the same project-first contact flow.
+    if (pkg.price === null) {
+      location.replace(`contact.html?service=${encodeURIComponent(pkg.group)}`);
+      return;
+    }
     activePackage = pkg;
     selectedDate = '';
     selectedTime = '';
@@ -171,6 +194,7 @@
     document.body.classList.remove('scheduler-open');
     activePackage = null;
     if (updateHistory) history.pushState({}, '', 'booking.html');
+    restoreBookingFilter();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
