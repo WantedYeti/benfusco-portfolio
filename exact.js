@@ -198,64 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   startFeatureTimer();
 
-  const shufflePortfolioEntries = (entries) => {
-    const shuffled = entries.slice();
-    for (let index = shuffled.length - 1; index > 0; index -= 1) {
-      const swapIndex = Math.floor(Math.random() * (index + 1));
-      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
-    }
-    return shuffled;
-  };
-
-  const mixPortfolioCategory = (category, getSeries) => {
-    const figures = [...document.querySelectorAll(`.portfolio-item[data-category~="${category}"]`)];
-    if (figures.length < 2) return;
-
-    const grouped = new Map();
-    figures.forEach((figure) => {
-      const image = figure.querySelector('img');
-      if (!image) return;
-      const entry = { src: image.getAttribute('src'), alt: image.alt };
-      const series = getSeries(entry.src || '');
-      if (!grouped.has(series)) grouped.set(series, []);
-      grouped.get(series).push(entry);
-    });
-
-    const queues = shufflePortfolioEntries(
-      [...grouped.entries()].map(([series, entries]) => ({
-        series,
-        entries: shufflePortfolioEntries(entries)
-      }))
-    );
-    const mixed = [];
-    let previousSeries = '';
-    while (queues.some((queue) => queue.entries.length)) {
-      const differentSeries = queues.filter((queue) => queue.entries.length && queue.series !== previousSeries);
-      const candidates = differentSeries.length ? differentSeries : queues.filter((queue) => queue.entries.length);
-      const mostRemaining = Math.max(...candidates.map((queue) => queue.entries.length));
-      const balancedCandidates = candidates.filter((queue) => queue.entries.length === mostRemaining);
-      const selected = balancedCandidates[Math.floor(Math.random() * balancedCandidates.length)];
-      mixed.push(selected.entries.shift());
-      previousSeries = selected.series;
-    }
-
-    figures.forEach((figure, index) => {
-      const image = figure.querySelector('img');
-      const entry = mixed[index];
-      if (!image || !entry) return;
-      image.setAttribute('src', entry.src);
-      image.alt = entry.alt;
-    });
-  };
-
-  mixPortfolioCategory('events', (src) => /events-0[1-5]\.jpg$/i.test(src) ? 'nightlife' : 'concert');
-  mixPortfolioCategory('portraits', (src) => {
-    const number = Number(src.match(/portraits-(\d+)\.jpg$/i)?.[1]);
-    if ([1, 2].includes(number)) return 'green-dress';
-    if ([4, 6, 7].includes(number)) return 'jordan';
-    if ([9, 10].includes(number)) return 'fishing';
-    return `single-${number}`;
-  });
 
   const filterButtons = [...document.querySelectorAll('.filter-btn')];
   const portfolioItems = [...document.querySelectorAll('.portfolio-item')];
@@ -336,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentItem = item;
       lightboxImage.src = source.currentSrc || source.src;
       lightboxImage.alt = source.alt;
-      lightboxCaption.textContent = source.alt;
+      lightboxCaption.textContent = item.querySelector('.portfolio-label')?.textContent || source.alt;
       const items = availableItems();
       const index = items.indexOf(item);
       lightboxCount.textContent = `${index + 1} / ${items.length}`;

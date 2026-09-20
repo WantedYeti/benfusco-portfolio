@@ -72,7 +72,31 @@
     return article;
   }
 
-  Object.values(packages).forEach((pkg) => grid.appendChild(cardTemplate(pkg)));
+  // Category-specific entry points reuse the established package and inquiry flows.
+  // Pricing, inclusions and the original packages stay in booking-data.js.
+  const catalogEntries = Object.values(packages);
+  if (packages['custom-project']) {
+    catalogEntries.push({
+      ...packages['custom-project'],
+      group: 'fitness',
+      service: 'Fitness Photography & Video',
+      title: 'Fitness Photography & Video',
+      image: 'Images/Desktop/Portfolio%20Replacement/Fitness/fitness-01.jpg'
+    });
+  }
+  ['mini', 'midi', 'maxi'].forEach((id) => {
+    if (packages[id]) catalogEntries.push({ ...packages[id], group: 'couples' });
+  });
+  const categoryOrder = ['events', 'fitness', 'real-estate', 'business', 'portrait', 'wedding', 'couples', 'drone', 'custom'];
+  catalogEntries
+    .sort((left, right) => {
+      const priority = (pkg) => {
+        const index = categoryOrder.indexOf(pkg.group);
+        return index < 0 ? categoryOrder.length : index;
+      };
+      return priority(left) - priority(right);
+    })
+    .forEach((pkg) => grid.appendChild(cardTemplate(pkg)));
 
   document.querySelectorAll('[data-booking-filter]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -83,10 +107,14 @@
         item.setAttribute('aria-pressed', String(active));
       });
       grid.querySelectorAll('.booking-card').forEach((card) => {
-        card.hidden = filter !== 'all' && card.dataset.category !== filter;
+        const categories = (card.dataset.category || '').split(' ');
+        // Shared portrait packages appear once in All and under Couples when selected.
+        card.hidden = filter === 'all' ? categories.includes('couples') : !categories.includes(filter);
       });
     });
   });
+
+  grid.querySelectorAll('[data-category="couples"]').forEach((card) => { card.hidden = true; });
 
   grid.addEventListener('click', (event) => {
     const trigger = event.target.closest('[data-package-id]');
